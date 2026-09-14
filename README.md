@@ -1,84 +1,187 @@
 # Embodied AI Development
 
-> **《具身智能：从物理世界到通用机器人》**  
-> *Embodied Intelligence: From the Physical World to General-Purpose Robots*
+# 《具身智能：从物理世界到通用机器人》
+### *Embodied Intelligence: From Physical Principles to General-Purpose Robots*
 
-本仓库用于长期编写一部系统、可验证、可运行、持续更新的具身智能教材。目标不是做“论文列表”或“VLA 模型百科”，而是从第一性原理出发，把数学、物理、机器人学、控制、感知、状态估计、规划、学习、基础模型、世界模型、人形机器人、仿真、数据、系统工程与研究方法统一到同一个闭环框架中。
+> **v1.0 Complete Manuscript**  
+> **Knowledge frontier frozen at 2026-09-14**
 
-## 1. 核心问题
+这是一个从第一性原理系统学习具身智能的开放教材工程。它不把具身智能等同于 `Transformer + Robot`，也不以热门模型排行榜组织知识，而是把**数学、物理、机器人学、控制、感知、状态估计、规划、模仿学习、强化学习、生成式策略、VLA、World Model、主动感知、触觉、双臂、人形、跨本体、持续学习、仿真、数据工程、系统部署、评测、安全与研究方法**放进同一个物理闭环。
 
-本书围绕一个问题展开：
+核心问题只有一个：
 
-> **一个智能体如何依靠身体，在真实或物理可信的世界中，通过感知、建模、决策、控制、学习与持续交互，形成可泛化、可迁移、可改进的智能？**
+> **一个智能体如何依靠身体，在真实或物理可信的世界中，通过感知、建模、预测、决策、控制、记忆、学习与持续交互，形成可泛化、可迁移、可恢复、可持续发展的智能？**
 
-全书统一采用如下信息闭环：
+---
+
+## Start Here
+
+- **[教材阅读入口](book/README.md)** — 11 卷正文、阅读路线与学习层级
+- **[完整总目录](book/TOC.md)** — Part 0–50 + Appendix A–Z
+- **[40 个 Labs + 3 个 Capstones](labs/LABS.md)** — 从 Jacobian 到 VLA / World Model / Humanoid
+- **[A–Z 附录](book/APPENDICES.md)** — 公式、系统、平台、论文/模型 Atlas、Checklists
+- **[中英术语表](book/GLOSSARY.md)**
+- **[统一参考文献与 Source Map](references/REFERENCES.md)** — 经典基础到 2026-09-14
+- **[写作与证据规范](AUTHORING_GUIDE.md)**
+- **[全书工程设计](BOOK_PLAN.md)**
+
+---
+
+# 全书正文
+
+| Volume | 主题 | 文件 |
+|---|---|---|
+| 0 | 导论：具身智能定义与技术史 | [Volume 0](book/volumes/00-introduction.md) |
+| I | 数学与计算语言 | [Volume I](book/volumes/01-mathematics.md) |
+| II | 身体、SE(3)、运动学、动力学、控制、规划 | [Volume II](book/volumes/02-robotics-foundations.md) |
+| III | 感知、3D/4D、状态估计、触觉、主动感知 | [Volume III](book/volumes/03-perception-state.md) |
+| IV | Imitation / RL / Generative Robot Policy | [Volume IV](book/volumes/04-robot-learning.md) |
+| V | VLM → VLA → Robot Foundation Models | [Volume V](book/volumes/05-foundation-models.md) |
+| VI | Reasoning、Memory、Experience、World Models | [Volume VI](book/volumes/06-reasoning-world-models.md) |
+| VII | Manipulation、Bimanual、Dexterity、Navigation、Humanoid、Multi-Robot | [Volume VII](book/volumes/07-capabilities-humanoids.md) |
+| VIII | Cross-Embodiment、Continual、Developmental、Self-Evolving Intelligence | [Volume VIII](book/volumes/08-cross-embodiment-developmental.md) |
+| IX | Simulation、Synthetic Data、Robot Data、真实系统部署 | [Volume IX](book/volumes/09-simulation-data-systems.md) |
+| X | Benchmark、Reliability、Physical/Agentic Safety | [Volume X](book/volumes/10-evaluation-safety.md) |
+| XI | Research Method、数学化具身智能、Post-Transformer、Open Problems | [Volume XI](book/volumes/11-research-frontiers.md) |
+
+---
+
+# 全书统一闭环
 
 ```text
-Physical World
-    ↓
-Sensors / Proprioception / Interaction
-    ↓
-Observation
-    ↓
-State / Representation / Belief
-    ↓
-Prediction / World Model
-    ↓
-Goal / Reasoning / Planning
-    ↓
-Policy / Controller
-    ↓
-Action / Torque / Command
-    ↓
-Robot Body
-    ↓
-Physical World
-    ↺
+                    ┌──────────── Memory / Experience ────────────┐
+                    │                                              │
+Physical World → Sensors → Observation → State / Belief / Representation
+      ↑                                      │
+      │                                      ↓
+      │                            Prediction / World Model
+      │                                      ↓
+      │                           Reasoning / Planning / Policy
+      │                                      ↓
+      │                              Action Representation
+      │                                      ↓
+      │                        IK / WBC / Controller / Safety
+      │                                      ↓
+      └────── Body / Actuator ← Physical Action ←─────────────────┘
+                                             │
+                                      Evaluation / Failure
+                                             │
+                                      Learning / Development
+                                             ↺
 ```
 
-因此，本书不会把“具身智能”简化为 `Transformer + Robot`，也不会从某个热门 VLA 模型直接开始。读者会先理解身体、坐标系、运动学、动力学、闭环控制和部分可观测性，再逐步进入 imitation learning、reinforcement learning、Diffusion Policy、VLA、world model、whole-body intelligence、cross-embodiment 与 continual learning。
+本书所有技术都必须能回答自己在这张图中的位置。模型名字会变化，但闭环中的信息、物理和时间关系不会因为热点改变。
 
-## 2. 教材目标
+---
 
-目标读者可以从“会线性代数、概率、Python，但不熟悉机器人学”出发，最终达到：
+# 为什么这本书从经典机器人学开始
 
-- 能从物理和数学层面理解机器人状态、动作、约束和反馈；
-- 能推导并实现 FK、IK、Jacobian、动力学与基础控制器；
-- 能理解相机、深度、点云、触觉、本体感觉等输入如何进入策略；
-- 能理解 BC、DAgger、RL、ACT、Diffusion Policy、Flow Matching、Autoregressive Action 等路线；
-- 能系统理解 VLM → VLA → generalist robot policy 的技术演化；
-- 能分析 world model、active perception、memory、reasoning 与 planning；
-- 能独立使用 MuJoCo、SAPIEN、Isaac Sim / Isaac Lab 等平台构建实验；
-- 能区分“模型性能提高”和“真正获得更强物理智能”；
-- 能阅读、复现、批判前沿论文，并提出可证伪的新研究问题。
+如果只学 VLA，读者可能知道 π、GR00T、Gemini Robotics，却不知道：
 
-## 3. 本书不是怎样的书
+\[
+q,\ \dot q,\ \tau,\ SE(3),\ J(q),\ M(q),\ \text{impedance},\ \text{contact},\ \text{latency}
+\]
 
-本书不是：
+究竟如何决定一条 action 能不能在现实中执行。
 
-- 热门模型排行榜；
-- 只有概念、没有公式和代码的综述；
-- 只有公式、没有真实系统数据流的经典机器人学教材替代品；
-- 只会复现 benchmark 的教程；
-- 把机器人当成 LLM 的输出设备；
-- 把仿真中的 reward hacking 当成真正的智能；
-- 把所有问题都归结为扩大 Transformer。
+因此教材坚持：
 
-## 4. 每章统一结构
+```text
+Mathematics
+→ Physical Body
+→ Geometry / Kinematics / Dynamics
+→ Feedback Control / Planning
+→ Perception / State Estimation
+→ Robot Learning
+→ Foundation Models
+→ World Models / Reasoning / Memory
+→ Whole-Body / Cross-Embodiment
+→ Continual Development
+→ Reliable Real Systems
+```
 
-原则上，每个核心章节均包含九层：
+而不是：
 
-1. **现实问题**：真实机器人到底遇到什么问题？
-2. **物理直觉**：在公式之前建立正确直觉。
-3. **系统与数据流**：明确模块、输入输出、shape、时间尺度和坐标系。
-4. **数学形式化**：给出假设、定义、推导和边界条件。
-5. **算法**：伪代码、复杂度、训练与推理过程。
-6. **代码**：从最小实现到真实框架。
-7. **实验**：可运行、可复现、可观察失败模式。
-8. **论文谱系**：解释问题如何一步步演化，而不是简单列 paper。
-9. **研究问题**：指出目前仍然不知道什么，以及怎样证伪新想法。
+```text
+LLM → VLM → VLA → “懂机器人”
+```
 
-## 5. 仓库结构
+---
+
+# v1.0 覆盖的 2026 前沿
+
+截至 **2026-09-14**，教材框架已经纳入并统一讨论：
+
+- action tokenization / Diffusion / Flow Matching / Real-Time Action Chunking；
+- RT-1 / RT-2 / Open X-Embodiment / Octo / OpenVLA；
+- π0 / FAST / π0.5 / π*0.6 / embodied memory / π0.7；
+- GR00T N1 / N1.5 / N1.6；
+- Gemini Robotics / 1.5 / Robotics 2 / On-Device 2；
+- Figure Helix 与 human-video scaling；
+- V-JEPA 2 / 2.1、action-conditioned predictive models；
+- World Action Models、robot-factored world models、world-model executability；
+- tactile foundation models 与 high-frequency tactile feedback；
+- whole-body humanoid、loco-manipulation、multi-robot collaboration；
+- cross-embodiment、continual / developmental learning；
+- agentic robotics safety / uncertainty-driven intervention。
+
+这些模型进入**知识框架**而不是反过来决定章节结构。
+
+---
+
+# 每个主题的学习标准
+
+不是“读过”，而是达到四级：
+
+1. **Concept** — 能解释问题为什么存在；
+2. **Mathematics** — 能写出对象、方程、假设、shape；
+3. **Implementation** — 能在最小环境从头实现；
+4. **Research** — 能设计 negative control、发现 failure、质疑 claim。
+
+全书最终目标是 L4。
+
+---
+
+# 实验体系
+
+[`labs/LABS.md`](labs/LABS.md) 给出 40 个渐进实验与 3 个 Capstone：
+
+```text
+Jacobian / SE(3)
+→ FK / IK / Dynamics / Control
+→ Camera / State Estimation / Active Perception
+→ BC / DAgger / PPO / ACT
+→ Diffusion / Flow Policy
+→ VLA
+→ Memory / World Model
+→ Cross-Embodiment / Continual Learning
+→ Humanoid / Multi-Robot
+→ Real-Time Deployment / Safety
+→ Falsifiable New Architecture
+```
+
+实验统一要求 raw logs、config、seed、failure cases、negative controls 和 reproducible figures。
+
+---
+
+# 科学立场
+
+本书反复坚持：
+
+- **能生成动作 ≠ 理解物理世界。**
+- **语言解释得通 ≠ reasoning 对行为有因果作用。**
+- **视频生成得真实 ≠ world model 可用于控制。**
+- **一个 checkpoint 控多个已见 robot ≠ 强 cross-embodiment。**
+- **更多数据带来提升 ≠ 新架构本身有效。**
+- **一次成功 demo ≠ reliable robot system。**
+- **类脑比喻 ≠ 计算机制。**
+- **Transformer 很强 ≠ 所有具身问题都应被 token 化。**
+
+任何重要 claim 最终都应该变成可证伪实验。
+
+---
+
+# 仓库结构
 
 ```text
 Embodied-AI-development/
@@ -86,112 +189,48 @@ Embodied-AI-development/
 ├── BOOK_PLAN.md
 ├── AUTHORING_GUIDE.md
 ├── book/
+│   ├── README.md
 │   ├── TOC.md
+│   ├── APPENDICES.md
+│   ├── GLOSSARY.md
+│   ├── volumes/
+│   │   ├── 00-introduction.md
+│   │   ├── 01-mathematics.md
+│   │   ├── 02-robotics-foundations.md
+│   │   ├── 03-perception-state.md
+│   │   ├── 04-robot-learning.md
+│   │   ├── 05-foundation-models.md
+│   │   ├── 06-reasoning-world-models.md
+│   │   ├── 07-capabilities-humanoids.md
+│   │   ├── 08-cross-embodiment-developmental.md
+│   │   ├── 09-simulation-data-systems.md
+│   │   ├── 10-evaluation-safety.md
+│   │   └── 11-research-frontiers.md
 │   └── 00-preface/
-│       └── 00-why-embodied-intelligence.md
-├── figures/          # 原创图、数据流图、坐标系图、算法图
-├── math/             # 长推导、符号表、数学补充
-├── papers/           # 论文谱系与阅读笔记
-├── labs/             # 教材实验
-├── code/             # 最小实现与配套代码
-├── simulations/      # MuJoCo / SAPIEN / Isaac Lab 等
-├── datasets/         # 数据格式、转换与说明，不直接存大数据
-├── benchmarks/       # benchmark 协议与统一评测
-└── references/       # 参考文献与来源管理
+├── labs/
+│   └── LABS.md
+└── references/
+    └── REFERENCES.md
 ```
 
-目录会随教材发展扩充，但不会为了“看起来完整”而提前制造大量空目录。
+后续 `figures/`、`code/`、`simulations/`、`datasets/`、`benchmarks/` 会承载 v1.x 的图、代码与实际可执行实验，而不是制造空目录。
 
-## 6. 表达原则
+---
 
-本书优先采用“机制与数据流”表达方式。例如，在讲控制时，优先画清：
+# 版本状态
 
-```text
-Desired End-Effector Pose
-    ↓
-Inverse Kinematics / Operational-Space Target
-    ↓
-Joint / Task-Space Controller
-    ↓
-Torque / Position / Velocity Command
-    ↓
-Robot Dynamics
-    ↓
-Sensor Feedback
-    ↺
-```
+**v1.0 已完成全书第一版完整 manuscript。**
 
-在讲学习策略时，必须明确：
+这里的“完成”表示：知识骨架已经冻结、11 卷正文连续可读、Part 0–50 均有对应内容、A–Z 附录存在、实验体系与参考来源已经建立。
 
-- observation 到底是什么；
-- action 到底控制什么；
-- observation/action frequency；
-- history/window 长度；
-- action horizon；
-- 坐标系；
-- tensor shape；
-- policy 是 open-loop 还是 closed-loop；
-- 真机中谁负责低层控制；
-- 失败究竟发生在 perception、prediction、planning、control 还是 system latency。
+它不表示教材停止发展。接下来的 v1.x 主要是**深化而不是补空白**：
 
-## 7. 数学原则
-
-数学不是附录装饰，而是全书核心语言。包括但不限于：
-
-- 线性代数与矩阵分析；
-- 概率论、贝叶斯推断与随机过程；
-- 优化；
-- 微分方程；
-- SO(3)、SE(3) 与 Lie 群 / Lie 代数；
-- 刚体运动学与动力学；
-- 最优控制；
-- 动态规划；
-- 信息论；
-- 图模型与图论；
-- 几何、拓扑及其在具身表示中的适用边界；
-- 表示学习与生成建模的数学基础。
-
-所有公式尽可能回答三个问题：**它从哪里来？它在物理系统里表示什么？它在代码里对应哪一个张量或变量？**
-
-## 8. 实验原则
-
-实验不是正文的附件。教材实验遵循：
-
-```text
-Toy system
-→ controlled simulation
-→ realistic simulation
-→ robot-learning benchmark
-→ real robot when feasible
-```
-
-每个实验必须记录：环境、随机种子、数据、依赖、硬件假设、评价指标、失败样例和可复现命令。
-
-## 9. 时效性与证据
-
-具身智能变化快，因此：
-
-- 基础数学、物理、机器人学章节追求稳定；
-- 前沿模型章节明确版本与日期；
-- 论文结论尽量回到原论文、项目页、官方代码或官方技术报告；
-- 不把宣传口径直接写成技术结论；
-- 对尚无一致证据的观点明确标注“假说 / 争议 / 尚未证实”；
-- 每个重要技术结论尽量给出可追溯来源。
-
-## 10. 当前版本
-
-当前处于 **v0.1 — Foundation / Architecture of the Book** 阶段。
-
-第一阶段任务：
-
-1. 锁定教材全局知识图谱与章节依赖；
-2. 建立数学符号、图示、引用、代码和实验规范；
-3. 完成 Part 0–III：具身智能观、数学基础、物理与机器人学、感知；
-4. 同时搭建最小实验链，确保教材不是“只写不跑”。
-
-完整目录见 [`book/TOC.md`](book/TOC.md)。  
-写作与证据规范见 [`AUTHORING_GUIDE.md`](AUTHORING_GUIDE.md)。  
-全书工程路线见 [`BOOK_PLAN.md`](BOOK_PLAN.md)。
+- 将重点 Part 扩成更长的独立 Chapter；
+- 增加原创系统图、矩阵图、坐标系图和训练/推理数据流图；
+- 为 40 Labs 补完整可执行代码；
+- 增加 BibTeX、逐段 citation 与论文精读页；
+- 用真实实验结果持续校正教材中的判断；
+- 随前沿进展更新 Atlas，而不让主目录随热点漂移。
 
 ---
 
