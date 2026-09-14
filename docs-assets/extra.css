@@ -1,0 +1,51 @@
+:root {
+  --md-text-font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+  --md-code-font: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+}
+
+.md-typeset {
+  font-size: 0.78rem;
+  line-height: 1.8;
+}
+
+.md-typeset h1 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.md-typeset h2 {
+  margin-top: 2.2em;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+  padding-bottom: 0.25em;
+}
+
+.md-typeset .arithmatex {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.1rem 0;
+}
+
+.md-typeset div.arithmatex {
+  margin: 1.1rem 0;
+  text-align: center;
+}
+
+.md-typeset table:not([class]) {
+  font-size: 0.72rem;
+}
+
+.md-typeset code {
+  word-break: normal;
+}
+
+.mermaid {
+  text-align: center;
+  margin: 1.25rem 0;
+  overflow-x: auto;
+}
+
+@media screen and (min-width: 76.25em) {
+  .md-grid {
+    max-width: 90rem;
+  }
+}
