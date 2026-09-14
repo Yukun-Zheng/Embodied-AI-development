@@ -66,8 +66,12 @@ Learning / Consolidation / Development
 - [Volume X：评测、可靠性与安全](./volumes/10-evaluation-safety.md)
 - [Volume XI：研究方法、理论前沿与下一代具身智能](./volumes/11-research-frontiers.md)
 
-## 3. 配套资料
+## 3. 配套学习层
 
+- [17 张全书核心机制图](./FIGURES.md)
+- [204 道 Part 0–50 章末题](./EXERCISES.md)
+- [204 题解题要点与验收标准](./SOLUTION_SKETCHES.md)
+- [Part 0–50 原始教材 / 论文 / 官方来源地图](../references/READING_MAP.md)
 - [A–Z 附录](./APPENDICES.md)
 - [中英术语表](./GLOSSARY.md)
 - [40 Labs + 3 Capstones](../labs/LABS.md)
@@ -171,25 +175,38 @@ L1 Concept
 
 博士级掌握的目标是 L4，而不是只会复述论文。
 
+推荐每个 Part 完成一套四步闭环：
+
+```text
+读 Chapter
+→ 追 READING_MAP 中 2–4 个原始来源
+→ 做 EXERCISES 中 C/M/I/R 四题
+→ 跑对应 Lab / negative control
+```
+
 ---
 
 # 当前完成度与版本语义
 
-当前 `v1.0` 表示：
+当前 `v1.0` 已包括：
 
-- 完整知识骨架已冻结；
-- Part 0–50 已全部形成独立主章；
-- 12 个 Volume 已形成连续通读稿；
-- A–Z 附录、术语表、Labs 与参考文献体系已经建立；
-- 2026-09-14 之前的重要前沿已被放进统一知识链，而不是单独堆模型名。
+- 完整知识骨架与冻结目录；
+- Part 0–50 全部 51 个独立主章；
+- 12 个 Volume 连续通读稿；
+- 17 张可直接渲染的核心机制图；
+- 204 道章末题 + 204 题解题要点；
+- Part 0–50 原始来源阅读地图；
+- A–Z 附录与术语表；
+- 40 Labs + 3 Capstones；
+- 2026-09-14 之前重要前沿的统一知识链。
 
 这是一版**完整第一版 manuscript**，不是“最终出版物已经永远完成”。后续工作属于出版级增厚与验证：
 
-1. **Figure pass**：原创系统图、坐标图、数据流图、论文谱系图；
-2. **Derivation pass**：重点公式扩成更完整的逐步推导与习题；
-3. **Code/Lab pass**：把实验从 protocol 扩成完整可执行实现；
-4. **Evidence pass**：逐章 BibTeX、原论文引用、复现实验结果；
-5. **Editorial pass**：统一术语、排版、交叉引用、索引与出版质量。
+1. **Derivation pass**：把高频公式扩成逐行、逐矩阵的长推导；
+2. **Code/Lab pass**：把实验 protocol 扩成完整可执行实现；
+3. **Evidence pass**：逐章 BibTeX、逐段 citation、复现实验结果；
+4. **Figure pass 2**：把 Mermaid 机制图进一步做成出版级原创图；
+5. **Editorial pass**：统一术语、交叉引用、索引与网站/出版排版。
 
 因此下一阶段不是“补缺失章节”，而是把已经完整的第一版继续打磨成真正的大体量、图文并茂、实验可运行的长期教材。
 
