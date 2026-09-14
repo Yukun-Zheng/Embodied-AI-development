@@ -1,0 +1,46 @@
+name: Sync chapter-driven TOC
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "book/chapters/**"
+      - "scripts/generate_toc.py"
+      - ".github/workflows/sync-toc.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-toc-main
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Generate TOC from Part 0-50
+        run: python scripts/generate_toc.py
+
+      - name: Verify and commit generated TOC
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- book/TOC.md; then
+            echo "TOC already synchronized."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add book/TOC.md
+          git commit -m "Regenerate TOC from chapter manuscripts"
+          git push origin HEAD:main
