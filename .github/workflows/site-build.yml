@@ -1,0 +1,63 @@
+name: Textbook Website Build
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "README.md"
+      - "BOOK_PLAN.md"
+      - "AUTHORING_GUIDE.md"
+      - "book/**"
+      - "figures/**"
+      - "labs/**"
+      - "references/**"
+      - "case-studies/**"
+      - "code/**"
+      - "docs-assets/**"
+      - "scripts/prepare_site.py"
+      - "mkdocs.yml"
+      - "requirements-docs.txt"
+      - ".github/workflows/site-build.yml"
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install documentation toolchain
+        run: pip install -r requirements-docs.txt
+
+      - name: Prepare publication source tree
+        run: python scripts/prepare_site.py
+
+      - name: Build MkDocs site
+        run: mkdocs build --clean
+
+      - name: Check key generated pages
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f .site-build/index.html
+          test -f .site-build/book/TOC/index.html
+          test -f .site-build/book/chapters/24-vla-second-stage-2024-2026/index.html
+          test -f .site-build/case-studies/GR00T_N17_SOURCE_WALKTHROUGH/index.html
+          test -f .site-build/references/SOURCE_CODE_ATLAS/index.html
+          echo "Website build smoke test passed."
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: embodied-ai-textbook-site
+          path: .site-build
+          if-no-files-found: error
+          retention-days: 7
