@@ -1,0 +1,6 @@
+.site-src/
+.site-build/
+__pycache__/
+*.pyc
+.venv/
+.DS_Store
