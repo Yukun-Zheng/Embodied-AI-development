@@ -6,6 +6,8 @@
 > **v1.0 Complete First-Edition Manuscript**  
 > **Part 0–50 · 51 independent chapters · 12 volumes · frontier snapshot: 2026-09-14**
 
+[![Minimal textbook code regression](https://github.com/Yukun-Zheng/Embodied-AI-development/actions/workflows/minimal-code-regression.yml/badge.svg)](https://github.com/Yukun-Zheng/Embodied-AI-development/actions/workflows/minimal-code-regression.yml)
+
 这是一个从第一性原理系统学习具身智能的开放教材工程。它不把具身智能等同于 `Transformer + Robot`，也不按热门模型排行榜组织知识，而是把**数学、物理、机器人学、控制、感知、状态估计、规划、模仿学习、强化学习、生成式策略、VLA、World Model、主动感知、触觉、双臂、人形、跨本体、持续学习、仿真、数据工程、系统部署、评测、安全与研究方法**放进同一个物理闭环。
 
 核心问题只有一个：
@@ -16,14 +18,41 @@
 
 ## Start Here
 
+### 正文与学习路线
+
 - **[51 章正式主稿索引](book/chapters/README.md)** — Part 0–50，推荐从这里进入完整教材
 - **[教材总入口](book/README.md)** — 阅读路线、12 卷结构与版本说明
 - **[冻结版完整目录](book/TOC.md)** — 细粒度知识树 + Appendix A–Z
+- **[36 周系统学习路线](book/SYLLABUS_36_WEEKS.md)** — 从基础到独立研究的一年课程
+- **[概念索引](book/CONCEPT_INDEX.md)** — 按术语查 Part
+- **[知识依赖图](book/DEPENDENCY_GRAPH.md)** — prerequisite graph 与不同背景的跳读路线
 - **[12 卷连续通读版](book/volumes/)** — 先看森林，再进入逐章主稿
-- **[40 Labs + 3 Capstones](labs/LABS.md)** — 从 Jacobian 到 VLA / World Model / Humanoid
-- **[A–Z 附录](book/APPENDICES.md)** — 公式、系统、平台、论文/模型 Atlas、Checklists
+
+### 推导、图、习题与代码
+
+- **[30 组核心长推导](book/DERIVATIONS.md)** — shape → 公式 → 物理意义 → 代码变量
+- **[204 道章末题](book/EXERCISES.md)** — 每个 Part: Concept / Math / Implementation / Research
+- **[解题要点与验收标准](book/SOLUTION_SKETCHES.md)**
+- **[全书核心机制图](figures/CORE_DIAGRAMS.md)** — Mermaid 可直接在 GitHub 渲染
+- **[最小可执行代码](code/minimal/README.md)** — SE(3)、IK、控制、Kalman、DAgger、Diffusion/Flow、World Model+MPC 等
+- **[40 Labs + 3 Capstones](labs/LABS.md)**
+- **[统一实验协议](labs/EXPERIMENT_PROTOCOL.md)** — hypotheses、controls、CI、failure taxonomy、real-robot protocol
+
+### 研究查阅层
+
+- **[A–Z 附录](book/APPENDICES.md)**
 - **[中英术语表](book/GLOSSARY.md)**
-- **[统一参考文献与 Source Map](references/REFERENCES.md)** — 经典基础到 2026-09-14
+- **[符号、坐标系与 Action Convention](book/NOTATION_AND_CONVENTIONS.md)**
+- **[源码级 Case Studies](case-studies/README.md)** — ACT / Diffusion Policy / Modern VLA / World Model+MPC
+- **[统一参考文献与 Source Map](references/REFERENCES.md)**
+- **[逐 Part 原始阅读地图](references/READING_MAP.md)**
+- **[BibTeX](references/BIBLIOGRAPHY.bib)**
+- **[1948–2026 技术时间线](references/TIMELINE.md)**
+- **[Model Atlas](references/MODEL_ATLAS.md)**
+- **[Dataset Atlas](references/DATASET_ATLAS.md)**
+- **[Robot / Hardware Atlas](references/HARDWARE_ATLAS.md)**
+- **[Benchmark / Platform Atlas](references/BENCHMARK_ATLAS.md)**
+- **[Failure Atlas](references/FAILURE_ATLAS.md)**
 - **[写作与证据规范](AUTHORING_GUIDE.md)**
 - **[全书工程设计](BOOK_PLAN.md)**
 
@@ -177,7 +206,7 @@ Jacobian / SE(3)
 → Falsifiable New Architecture
 ```
 
-统一要求 raw logs、config、seed、failure cases、negative controls 和 reproducible figures。
+统一要求 raw logs、config、seed、failure cases、negative controls 和 reproducible figures。最小代码层已由 GitHub Actions 自动回归；首轮 regression 已通过。
 
 ---
 
@@ -208,45 +237,66 @@ Embodied-AI-development/
 ├── book/
 │   ├── README.md
 │   ├── TOC.md
+│   ├── SYLLABUS_36_WEEKS.md
+│   ├── CONCEPT_INDEX.md
+│   ├── DEPENDENCY_GRAPH.md
+│   ├── NOTATION_AND_CONVENTIONS.md
+│   ├── DERIVATIONS.md
+│   ├── EXERCISES.md
+│   ├── SOLUTION_SKETCHES.md
 │   ├── APPENDICES.md
 │   ├── GLOSSARY.md
-│   ├── chapters/
-│   │   ├── README.md
-│   │   ├── 00-*.md
-│   │   ├── ...
-│   │   └── 50-*.md
-│   └── volumes/
-│       ├── 00-introduction.md
-│       ├── ...
-│       └── 11-research-frontiers.md
+│   ├── chapters/        # Part 0–50 独立主稿
+│   └── volumes/         # 12 卷连续通读版
+├── figures/
+│   └── CORE_DIAGRAMS.md
+├── code/
+│   └── minimal/         # 20–200 行公式镜像 + run_all.py
+├── case-studies/        # ACT / Diffusion / VLA / World Model
 ├── labs/
-│   └── LABS.md
+│   ├── LABS.md
+│   └── EXPERIMENT_PROTOCOL.md
 └── references/
-    └── REFERENCES.md
+    ├── REFERENCES.md
+    ├── READING_MAP.md
+    ├── BIBLIOGRAPHY.bib
+    ├── TIMELINE.md
+    ├── MODEL_ATLAS.md
+    ├── DATASET_ATLAS.md
+    ├── HARDWARE_ATLAS.md
+    ├── BENCHMARK_ATLAS.md
+    └── FAILURE_ATLAS.md
 ```
 
 ---
 
 # 版本状态
 
-**v1.0 已完成全书第一版完整 manuscript。**
+**v1.0 已完成全书第一版完整 manuscript，并开始进入出版级增厚与验证阶段。**
 
-这里的“完成”表示：
+当前已经具备：
 
-- 知识骨架与 Part 0–50 已冻结；
-- **51 个 Part 均已存在独立 Chapter 主稿**；
-- 12 个 Volume 均有连续通读版；
-- A–Z 附录、术语表、40 Labs + 3 Capstones、参考来源体系均已建立；
-- 前沿时间截面统一为 2026-09-14。
+- Part 0–50 共 **51 个独立 Chapter**；
+- 12 个 Volume 连续通读版；
+- 204 道章末题 + solution sketches；
+- 30 组核心长推导；
+- 17 张核心机制图；
+- 10 个最小可执行脚本 + 自动回归 CI；
+- 4 个源码级端到端 Case Study；
+- 40 Labs + 3 Capstones + 统一实验协议；
+- 36 周系统课程；
+- Notation / Concept Index / Dependency Graph；
+- Model / Dataset / Hardware / Benchmark / Failure Atlas；
+- References / Reading Map / BibTeX / 1948–2026 Timeline；
+- 统一前沿时间截面：**2026-09-14**。
 
-它不表示教材停止发展。接下来的 v1.x 是**出版级增厚与验证**，不是继续补空白章节：
+接下来的 v1.x 主要继续做：
 
-- 原创系统图、矩阵图、坐标系图、数据流图；
-- 重点公式的逐步长推导与习题；
-- Labs 的完整可执行代码与结果；
-- BibTeX、逐段 citation、paper genealogy；
-- 真机/仿真实验数据对教材判断的持续校正；
-- 编辑、交叉引用、索引和出版排版。
+- 更多逐章 citation 与原始来源；
+- simulator-level 可执行 Labs；
+- 真机/仿真实验结果回填；
+- 更多源码级模型解剖；
+- 出版排版、交叉引用、图表编号和最终编辑。
 
 ---
 
