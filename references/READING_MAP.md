@@ -1,8 +1,16 @@
-# Reading Map — Part 0–50 原始教材 / 论文 / 官方来源地图
+# Part-by-Part Reading Map
 
-> 本文件不是“推荐论文列表”，而是每一章的**证据入口**。优先顺序：经典教材 / 原始论文 / 官方项目页 / 官方代码库；综述只用于建立全景，不替代原始来源。
+> **Snapshot: 2026-09-14**
 >
-> 阅读标记：`[F]` Foundation textbook / monograph；`[P]` Primary paper；`[O]` Official project/code/docs；`[S]` Survey / synthesis。
+> 标记：
+>
+> - **[F]** Foundation / textbook：稳定基础教材或经典资料；
+> - **[P]** Paper：论文 / technical report；
+> - **[O]** Official：快速变化的官方研究发布、项目页；
+> - **[C]** Code：优先读源码；
+> - **[S]** Survey / course：综述或课程。
+>
+> 原则：基础知识优先书/论文；2025–2026 快速变化的工业研究节点在稳定论文出现前，用带日期的官方来源，并与 independent reproduction 分开。
 
 ---
 
@@ -10,19 +18,18 @@
 
 ## Part 0　具身智能究竟是什么
 
-- [F] Rolf Pfeifer & Josh Bongard, *How the Body Shapes the Way We Think*, 2006.
-- [P] Rodney Brooks, “Intelligence without Representation,” *Artificial Intelligence*, 1991.
-- [F] James J. Gibson, *The Ecological Approach to Visual Perception*, 1979 — affordance / ecological view.
-- [S] Pfeifer, Lungarella & Iida, “Self-Organization, Embodiment, and Biologically Inspired Robotics,” *Science*, 2007.
-
-## Part 1　从控制论到机器人基础模型
-
 - [F] Norbert Wiener, *Cybernetics*, 1948.
-- [P] Nilsson et al., Shakey / STRIPS lineage, 1960s–1970s.
+- [P] Rodney Brooks, “Intelligence without Representation,” 1991.
+- [P] Ruzena Bajcsy, “Active Perception,” 1988.
+- [S] Robotics / embodied intelligence historical surveys;重点比较 sense–plan–act、behavior-based、learning-based 闭环。
+
+## Part 1　思想史与技术史
+
 - [P] Brooks, “A Robust Layered Control System for a Mobile Robot,” 1986.
-- [P] Reed et al., “A Generalist Agent (Gato),” 2022.
-- [P] Brohan et al., “RT-1,” 2022; “RT-2,” 2023.
-- [P] Open X-Embodiment Collaboration, “Open X-Embodiment,” 2023/2024.
+- [F] Thrun, Burgard & Fox, *Probabilistic Robotics*.
+- [F] Lynch & Park, *Modern Robotics*.
+- [P] Reed et al., Gato; Ahn et al., SayCan; RT / Open X / Octo / OpenVLA / π lineage.
+- [O] `references/TIMELINE.md` 作为本书内部统一历史索引。
 
 ---
 
@@ -30,31 +37,28 @@
 
 ## Part 2　线性代数、微积分与数值计算
 
-- [F] Gilbert Strang, *Introduction to Linear Algebra*.
+- [F] Gilbert Strang, *Linear Algebra and Learning from Data* / MIT 18.06.
 - [F] Trefethen & Bau, *Numerical Linear Algebra*.
-- [F] Steven Strogatz, *Nonlinear Dynamics and Chaos* — ODE / dynamics intuition.
-- [O] MIT OpenCourseWare 18.06 Linear Algebra.
+- [F] Lynch & Park, *Modern Robotics*, Jacobian / pseudoinverse sections.
 
 ## Part 3　概率、信息与不确定性
 
-- [F] Kevin Murphy, *Probabilistic Machine Learning*.
+- [F] Murphy, *Probabilistic Machine Learning*.
 - [F] Cover & Thomas, *Elements of Information Theory*.
-- [F] Bishop, *Pattern Recognition and Machine Learning* — classical probabilistic view.
-- [P] Guo et al., “On Calibration of Modern Neural Networks,” ICML 2017.
+- [F] Thrun et al., *Probabilistic Robotics*.
 
 ## Part 4　优化、动态系统与最优决策
 
 - [F] Boyd & Vandenberghe, *Convex Optimization*.
-- [F] Bertsekas, *Dynamic Programming and Optimal Control*.
-- [F] Kirk, *Optimal Control Theory*.
-- [P] Lipman et al., “Flow Matching for Generative Modeling,” ICLR 2023.
+- [F] Bertsekas, dynamic programming / optimal control texts.
+- [F] Tedrake, *Underactuated Robotics* notes.
+- [P] Lipman et al. / flow-matching literature for continuous transport objectives.
 
 ## Part 5　几何、图与因果
 
-- [F] Barfoot, *State Estimation for Robotics* — Lie groups for robotics.
-- [P] Bronstein et al., “Geometric Deep Learning,” 2021.
-- [F] Judea Pearl, *Causality*.
-- [F] Peters, Janzing & Schölkopf, *Elements of Causal Inference*.
+- [F] Barfoot, *State Estimation for Robotics* — Lie-group/state-estimation view.
+- [F] Lynch & Park — SO(3), SE(3), twists.
+- [F] Pearl, *Causality*; Peters et al., *Elements of Causal Inference*.
 
 ---
 
@@ -62,43 +66,41 @@
 
 ## Part 6　机器人身体与机电系统
 
-- [F] Siciliano et al., *Robotics: Modelling, Planning and Control*.
-- [F] Lynch & Park, *Modern Robotics*, Ch. 1–2. https://modernrobotics.org/
-- [F] Spong, Hutchinson & Vidyasagar, *Robot Modeling and Control*.
-- [O] ROS / URDF, MuJoCo MJCF, OpenUSD specifications — robot description interfaces.
+- [F] Craig, *Introduction to Robotics*.
+- [F] Lynch & Park, mechanics/control chapters.
+- [O] 具体 robot SDK / hardware manuals；结合 `references/HARDWARE_ATLAS.md`。
 
 ## Part 7　空间、旋转与刚体几何
 
-- [F] Lynch & Park, *Modern Robotics*, Ch. 3.
-- [F] Barfoot, *State Estimation for Robotics*, Lie group chapters.
-- [F] Murray, Li & Sastry, *A Mathematical Introduction to Robotic Manipulation*.
+- [F] Lynch & Park, Chapters 3–4.
+- [F] Barfoot, Lie groups for robotics.
+- [O] `book/NOTATION_AND_CONVENTIONS.md` 作为全书工程 convention。
 
 ## Part 8　机器人运动学
 
-- [F] Lynch & Park, *Modern Robotics*, Ch. 4–6.
-- [F] Siciliano et al., kinematics / redundancy chapters.
-- [P] Whitney, “Resolved Motion Rate Control of Manipulators and Human Prostheses,” 1969 — differential IK lineage.
+- [F] Lynch & Park, kinematics/Jacobian/IK.
+- [F] Siciliano et al., *Robotics: Modelling, Planning and Control*.
+- [C] `code/minimal/planar_arm.py` 与 `se3.py`。
 
 ## Part 9　动力学、接触与抓取
 
 - [F] Featherstone, *Rigid Body Dynamics Algorithms*.
 - [F] Mason, *Mechanics of Robotic Manipulation*.
-- [F] Lynch & Park, *Modern Robotics*, dynamics chapters.
-- [P] Stewart & Trinkle, contact / complementarity dynamics lineage.
+- [F] Murray, Li & Sastry, *A Mathematical Introduction to Robotic Manipulation*.
 
 ## Part 10　反馈、最优与 Whole-Body Control
 
-- [F] Spong et al., *Robot Modeling and Control*.
-- [P] Khatib, “A Unified Approach for Motion and Force Control of Robot Manipulators: The Operational Space Formulation,” 1987.
-- [F] Rawlings, Mayne & Diehl, *Model Predictive Control*.
-- [P] Ames et al., Control Barrier Function literature for safety-critical control.
+- [P] Khatib, Operational Space Formulation, 1987.
+- [F] Tedrake, *Underactuated Robotics*.
+- [F] Slotine & Li, nonlinear/control foundations.
+- [P] Control Barrier Function literature for safety filters.
+- [C] `code/minimal/control.py`.
 
-## Part 11　运动规划、任务规划与不确定决策
+## Part 11　运动规划与任务规划
 
-- [F] Steven LaValle, *Planning Algorithms*. https://lavalle.pl/planning/
-- [P] Kavraki et al., PRM, 1996.
-- [P] LaValle, RRT, 1998; Karaman & Frazzoli, RRT*, 2011.
-- [S] Garrett et al., Task and Motion Planning survey / lineage.
+- [F] LaValle, *Planning Algorithms*.
+- [P] Kavraki et al., PRM; LaValle, RRT.
+- [S] TAMP surveys; Garrett et al. task-and-motion-planning lineage.
 
 ---
 
@@ -106,46 +108,42 @@
 
 ## Part 12　传感器、标定与时间
 
-- [F] Hartley & Zisserman, *Multiple View Geometry in Computer Vision*.
 - [F] Szeliski, *Computer Vision: Algorithms and Applications*.
-- [O] Kalibr — camera/IMU calibration tooling and associated papers.
-- [O] ROS 2 time / message-filter documentation for synchronization practice.
+- [F] Hartley & Zisserman, *Multiple View Geometry*.
+- [O] Camera / IMU / FT / tactile sensor calibration manuals.
 
-## Part 13　二维视觉与视觉表示
+## Part 13　二维视觉与表示
 
-- [P] Dosovitskiy et al., “An Image is Worth 16×16 Words,” ViT, 2020/2021.
-- [P] He et al., “Masked Autoencoders Are Scalable Vision Learners,” 2021/2022.
-- [P] Oquab et al., DINOv2, 2023.
-- [P] Radford et al., CLIP, 2021.
+- [P] ViT, CLIP, DINO / DINOv2, MAE and modern self-supervised visual representation literature.
+- [P] Ego-centric video representation literature.
+- [S] Evaluate representation by downstream physical tasks, not classification alone.
 
-## Part 14　三维 / 四维世界表示
+## Part 14　三维/四维世界表示
 
-- [P] Qi et al., PointNet / PointNet++, 2017.
-- [P] Curless & Levoy, TSDF volumetric integration, 1996.
-- [P] Mildenhall et al., NeRF, 2020.
-- [P] Kerbl et al., 3D Gaussian Splatting, 2023.
-- [S] Object-centric learning / scene graph literature for relational representations.
+- [F] Multiple-view geometry references.
+- [P] NeRF; 3D Gaussian Splatting.
+- [P] point-cloud / occupancy / object-centric representation literature.
+- [P] robotics 3D policy lineage including DP3-style work.
 
-## Part 15　状态估计、定位与 Belief
+## Part 15　状态估计与定位
 
-- [F] Thrun, Burgard & Fox, *Probabilistic Robotics*.
 - [F] Barfoot, *State Estimation for Robotics*.
-- [P] Durrant-Whyte & Bailey, SLAM tutorial series, 2006.
-- [P] Mur-Artal et al., ORB-SLAM lineage.
+- [F] Thrun et al., *Probabilistic Robotics*.
+- [P] ORB-SLAM / factor-graph / VIO literature.
+- [C] `code/minimal/kalman_filter.py`.
 
-## Part 16　触觉、力觉与 Contact Intelligence
+## Part 16　触觉与接触智能
 
-- [P] Yuan et al., GelSight tactile sensing lineage.
-- [P] Lambeta et al., DIGIT tactile sensor, 2020.
-- [S] Recent visuo-tactile manipulation surveys.
-- [P/O] 2025–2026 predictive/reactive tactile foundation-model work — see `REFERENCES.md` frontier section for versioned links.
+- [P] GelSight / DIGIT tactile sensing lineage.
+- [P] visuo-tactile representation and dexterous-control work.
+- [P/O] 2025–2026 predictive/reactive tactile foundation-policy work;按明确 release 日期追踪。
 
 ## Part 17　主动感知
 
-- [P] Ruzena Bajcsy, “Active Perception,” *Proceedings of the IEEE*, 1988.
-- [F] Aloimonos et al., active vision lineage.
-- [S] Next-Best-View / information-gathering robotics literature.
-- [F] Information-theoretic planning connections: Cover & Thomas + POMDP literature.
+- [P] Bajcsy, Active Perception, 1988.
+- [F] information theory / POMDP foundations.
+- [P] next-best-view / active SLAM / active touch literature.
+- [C] `code/minimal/active_perception.py`.
 
 ---
 
@@ -153,33 +151,34 @@
 
 ## Part 18　为机器人重新学习机器学习
 
-- [F] Goodfellow, Bengio & Courville, *Deep Learning*.
-- [P] Vaswani et al., “Attention Is All You Need,” 2017.
-- [P] Ho et al., DDPM, 2020.
-- [P] Lipman et al., Flow Matching, 2023.
+- [F] Goodfellow et al., *Deep Learning*.
+- [F] Sutton & Barto for sequential decision-making.
+- [P] Transformer, ViT, diffusion, flow-matching foundational papers.
+- [S] sequence/model-based robot-learning courses.
 
 ## Part 19　模仿学习
 
-- [S] Argall et al., “A Survey of Robot Learning from Demonstration,” 2009.
+- [S] Argall et al., Robot Learning from Demonstration survey.
 - [P] Ross, Gordon & Bagnell, DAgger, 2011.
-- [P] Chi et al., Diffusion Policy, 2023.
-- [P] Zhao et al., ACT / ALOHA, “Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware,” RSS 2023.
+- [P] Zhao et al., ACT/ALOHA, RSS 2023.
+- [C] https://github.com/tonyzhaozh/act
+- [C] `case-studies/ACT_SOURCE_WALKTHROUGH.md`.
 
 ## Part 20　强化学习、Offline RL 与交互学习
 
-- [F] Sutton & Barto, *Reinforcement Learning: An Introduction*.
-- [P] Schulman et al., PPO, 2017.
-- [P] Haarnoja et al., SAC, 2018.
-- [P] Kumar et al., CQL, 2020; Kostrikov et al., IQL, 2021/2022.
-- [S] Levine et al., offline RL / robotic RL lecture material and surveys.
+- [F] Sutton & Barto.
+- [P] PPO; SAC.
+- [P] CQL / IQL and offline-RL lineage.
+- [P] model-based RL / TD-MPC2 lineage.
 
 ## Part 21　生成式动作模型与实时策略
 
-- [P/O] Diffusion Policy: https://diffusion-policy.cs.columbia.edu/
-- [P] Ze et al., 3D Diffusion Policy / DP3.
-- [P] Flow-matching robot-policy lineage including π0.
-- [P/O] FAST action tokenizer, Physical Intelligence.
-- [O] Real-Time Action Chunking, Physical Intelligence: https://www.pi.website/research/real_time_chunking
+- [P/C] Diffusion Policy: https://github.com/real-stanford/diffusion_policy
+- [P] 3D Diffusion Policy / DP3 lineage.
+- [P/O] π0 / flow-matching robot-policy lineage.
+- [P/O] FAST action tokenizer.
+- [O] Physical Intelligence, Real-Time Action Chunking.
+- [C] LeRobot RTC / async inference implementation; see `references/SOURCE_CODE_ATLAS.md`.
 
 ---
 
@@ -187,42 +186,50 @@
 
 ## Part 22　语言、VLM 与 Physical Grounding
 
-- [P] Radford et al., CLIP, 2021.
-- [P] Li et al., BLIP / BLIP-2 lineage.
-- [P] Liu et al., LLaVA lineage.
-- [P] Driess et al., PaLM-E, 2023.
-- [P] Ahn et al., SayCan, 2022.
+- [P] CLIP.
+- [P] BLIP / BLIP-2 lineage.
+- [P] LLaVA lineage.
+- [P] PaLM-E.
+- [P] SayCan.
 
 ## Part 23　VLA 的形成：2022–2024
 
-- [P] Reed et al., Gato, 2022.
-- [P] Brohan et al., RT-1, 2022; RT-2, 2023.
-- [P] Open X-Embodiment Collaboration, RT-X / Open X-Embodiment, 2023/2024.
-- [P/O] Octo, 2024. https://octo-models.github.io/
-- [P/O] OpenVLA, 2024.
-- [P] RoboCat, 2023 — self-improving generalist agent lineage.
+- [P] Gato.
+- [P] RT-1 / RT-2.
+- [P] Open X-Embodiment / RT-X.
+- [P/O] Octo: https://octo-models.github.io/
+- [P/C] OpenVLA: https://github.com/openvla/openvla
+- [P] RoboCat.
 
 ## Part 24　VLA 第二阶段：2024–2026
 
 - [O] Physical Intelligence π0 / π0.5 / π*0.6 / π0.7: https://www.pi.website/
-- [O] NVIDIA GR00T N1.6: https://research.nvidia.com/labs/gear/gr00t-n1_6/
-- [O] Google DeepMind Gemini Robotics 2: https://deepmind.google/blog/gemini-robotics-2-brings-whole-body-intelligence-to-robots/
-- [O] Figure Helix / Helix 02: https://www.figure.ai/
-- [O] Hugging Face LeRobot / SmolVLA ecosystem.
+- [O] Physical Intelligence RTC: https://www.pi.website/research/real_time_chunking
+- [O] NVIDIA GR00T N1.6 research page: https://research.nvidia.com/labs/gear/gr00t-n1_6/
+- [O/C] **NVIDIA GR00T N1.7**: https://github.com/NVIDIA/Isaac-GR00T/releases/tag/n1.7-release
+- [C] NVIDIA Isaac-GR00T: https://github.com/NVIDIA/Isaac-GR00T
+- [O] Google DeepMind Gemini Robotics 2 official release.
+- [O] Figure Helix / Helix 02.
+- [C] Hugging Face LeRobot / SmolVLA: https://github.com/huggingface/lerobot
+- [C] `references/SOURCE_CODE_ATLAS.md` for verified train/model/deployment paths.
+
+> 日期勘误：官方 GitHub `n1.6-release` = 2026-04-15；`n1.7-release` = 2026-04-18。
 
 ## Part 25　VLA 内部机制
 
-- [P/O] OpenVLA paper/code for VLM→action architecture.
-- [P/O] π0 technical work for continuous action expert / flow matching.
-- [P/O] RT / Octo papers for dataset mixture and action-head comparisons.
-- [P/O] Helix for explicit slow/fast multi-rate architecture.
+- [C] OpenVLA `vla-scripts/` + `prismatic/`.
+- [C] LeRobot policy / processor / async stack.
+- [C] GR00T N1.7 model / processor / embodiment tags / tests.
+- [P/O] π0-family continuous-action-expert technical work.
+- [O] Helix multi-rate architecture releases.
 
-## Part 26　机器人数据、人类视频与 Cross-Embodiment Data
+## Part 26　机器人数据、人类视频与 Cross-Embodiment
 
-- [P] Open X-Embodiment, 2023/2024.
-- [P] DROID, large in-the-wild manipulation dataset, 2024.
-- [P/O] LeRobot datasets / RLDS ecosystem.
-- [P/O] Human-video-to-robot scaling work from 2025–2026; use official model/project pages to track exact version.
+- [P] Open X-Embodiment.
+- [P] DROID.
+- [C/O] LeRobotDataset / RLDS ecosystem.
+- [O/P] human-video-to-robot transfer work, 2025–2026.
+- [O] `references/DATASET_ATLAS.md` for dataset contract and leakage taxonomy.
 
 ---
 
@@ -230,38 +237,38 @@
 
 ## Part 27　Embodied Reasoning / Agentic Robotics
 
-- [P] SayCan, 2022 — language planning × affordance.
-- [P] Inner Monologue, 2022/2023 — environment feedback in language-model planning.
-- [P] VoxPoser, 2023 — language-to-3D value map / planning lineage.
-- [O] Gemini Robotics Embodied Reasoning model lineage, DeepMind.
+- [P] SayCan.
+- [P] Inner Monologue.
+- [P] VoxPoser.
+- [O] Gemini Robotics embodied-reasoning lineage.
 
 ## Part 28　Embodied Memory
 
-- [O] Physical Intelligence, “VLAs with Long and Short-Term Memory,” 2026-03-03: https://www.pi.website/research/memory
-- [F] POMDP / belief-state literature for short-term hidden state.
-- [S] Episodic / semantic memory literature for agents; distinguish external memory from parametric memory.
+- [O] Physical Intelligence, long/short-term VLA memory, 2026.
+- [F] POMDP / belief-state literature.
+- [S] episodic / semantic / spatial memory literature for agents.
 
 ## Part 29　Learning from Experience
 
-- [O] Physical Intelligence π*0.6: https://www.pi.website/blog/pistar06
-- [O] Physical Intelligence, efficient online RL / RL-token work, 2026-03-19: https://www.pi.website/research/rlt
-- [P] RoboCat, 2023 — self-improvement through new robot data.
-- [F] Sutton & Barto for policy improvement / off-policy foundations.
+- [O] π*0.6.
+- [O] Physical Intelligence efficient online RL / RL-token work, 2026.
+- [P] RoboCat self-improvement lineage.
+- [F] Sutton & Barto.
 
 ## Part 30　World Models 与 Predictive Intelligence
 
-- [P] Ha & Schmidhuber, “World Models,” 2018 — modern naming lineage.
-- [P] Hafner et al., PlaNet / Dreamer lineage.
-- [P] Hansen et al., TD-MPC / TD-MPC2 lineage.
-- [P/O] Meta V-JEPA 2 / V-JEPA 2.1: https://github.com/facebookresearch/vjepa2
-- [P] Action-conditioned latent/world-model robotics literature.
+- [P] Ha & Schmidhuber, “World Models”.
+- [P] PlaNet / Dreamer lineage.
+- [P] TD-MPC / TD-MPC2 lineage.
+- [P/C] Meta V-JEPA 2 / 2.1: https://github.com/facebookresearch/vjepa2
+- [C] Key code paths in `references/SOURCE_CODE_ATLAS.md`.
 
-## Part 31　生成式世界 / 视频 / Physical Simulation Foundation Models
+## Part 31　生成式世界 / World Foundation Models
 
-- [O] NVIDIA Cosmos: https://www.nvidia.com/en-us/ai/cosmos/
-- [O] NVIDIA Cosmos 3: https://research.nvidia.com/labs/cosmos-lab/cosmos3/
-- [O] Cosmos-Predict family and World Action Model resources.
-- [S] Generative video model → robot planning / synthetic data literature, evaluated by downstream control rather than visual realism alone.
+- [O] NVIDIA Cosmos.
+- [O] Cosmos 3 official research release.
+- [P/O] world-action / action-conditioned generative-model literature.
+- [S] Evaluate by downstream planning/control, not video realism alone.
 
 ---
 
@@ -270,178 +277,165 @@
 ## Part 32　Manipulation
 
 - [F] Mason, *Mechanics of Robotic Manipulation*.
-- [P] Dex-Net lineage for data-driven grasping.
-- [P] Transporter Networks, 2020 — spatial action representation.
-- [P] Diffusion Policy / ACT for modern visuomotor manipulation.
+- [P] Dex-Net lineage.
+- [P] Transporter Networks.
+- [P] ACT / Diffusion Policy for modern visuomotor manipulation.
 
 ## Part 33　Bimanual / Dexterity / Tactile
 
-- [P] ALOHA / ACT, RSS 2023.
-- [P] OpenAI dexterous-hand RL lineage; Dactyl.
-- [P] Shadow-hand / in-hand manipulation RL literature.
-- [P] GelSight / DIGIT and 2025–2026 predictive-reactive tactile policy work.
+- [P] ALOHA / ACT.
+- [P] Dactyl / dexterous-hand RL lineage.
+- [P] visuo-tactile / predictive-reactive tactile-control literature.
 
 ## Part 34　Navigation / Embodied Navigation
 
 - [O/P] Habitat / Habitat 2.0.
-- [P] Anderson et al., Vision-and-Language Navigation, 2018.
-- [S] ObjectNav / PointNav benchmark literature.
-- [O/P] BEHAVIOR / OmniGibson for interactive household environments.
+- [P] Vision-and-Language Navigation lineage.
+- [S] ObjectNav / PointNav literature.
+- [O/P] BEHAVIOR / OmniGibson.
 
 ## Part 35　Humanoid / Whole-Body
 
-- [P] Peng et al., DeepMimic, 2018.
-- [P] AMP / motion-prior locomotion lineage.
-- [P] Hwangbo et al., legged RL / sim-to-real lineage.
-- [O] NVIDIA SONIC: https://nvlabs.github.io/GEAR-SONIC/
-- [O] Gemini Robotics 2, Helix 02, GR00T N1.6 for 2026 whole-body foundation-policy frontier.
+- [P] DeepMimic.
+- [P] AMP / motion-prior lineage.
+- [P] legged-RL sim-to-real literature.
+- [O] NVIDIA SONIC.
+- [O/C] GR00T N1.7 for open modern humanoid-foundation stack.
+- [O] Gemini Robotics 2; Helix 02.
 
 ## Part 36　Human–Robot / Multi-Robot
 
-- [F] Multi-agent systems / Dec-POMDP foundations.
-- [P] Lowe et al., MADDPG, 2017 — CTDE lineage.
-- [S] Shared autonomy / human-in-the-loop robotics literature.
-- [O] 2026 multi-robot embodied-reasoning demonstrations from leading robotics foundation-model systems; distinguish orchestration from learned low-level coordination.
+- [F/S] shared autonomy / HRI references.
+- [F/S] multi-agent planning / CTDE literature.
+- [O] 2026 multi-robot foundation-policy demonstrations should be read with explicit communication/control assumptions.
 
 ---
 
-# Volume VIII　Cross-Embodiment 与 Developmental Intelligence
+# Volume VIII　Cross-Embodiment、Continual、Developmental
 
-## Part 37　Cross-Embodiment
+## Part 37　Cross-Embodiment Intelligence
 
-- [P] Open X-Embodiment.
-- [P/O] Octo.
-- [P/O] GR00T cross-embodiment work.
-- [O] Gemini Robotics embodiment adaptation lineage.
-- [S] Universal / morphology-conditioned policy literature.
+- [P] Open X-Embodiment / RT-X.
+- [P/O] Octo / GR00T / modern embodiment-conditioned policy work.
+- [C] `gr00t/data/embodiment_tags.py` as a concrete modern interface.
+- [O] `references/HARDWARE_ATLAS.md` for morphology/action-topology comparison.
 
 ## Part 38　Continual / Lifelong / Developmental Learning
 
-- [S] Parisi et al., “Continual Lifelong Learning with Neural Networks,” 2019.
-- [F/S] Developmental Robotics literature: Lungarella, Metta, Pfeifer, Sandini and successors.
-- [P] EWC / replay / progressive-network literature for continual learning.
-- [P] DIAYN and unsupervised skill-discovery lineage.
+- [S] continual-learning surveys.
+- [P] catastrophic-forgetting / replay / parameter-isolation lineage.
+- [S] developmental robotics and intrinsic-motivation literature.
+- [C] `code/minimal/continual_metrics.py`.
 
 ## Part 39　Self-Evolving Physical Intelligence
 
-- [P] POET, open-ended environment/agent co-evolution lineage.
-- [P] RoboCat self-improvement lineage.
-- [O] π*0.6 / autonomous experience-learning work.
-- [S] Open-ended learning / quality-diversity / developmental-robotics literature.
-- Scientific requirement of this book: growth claims must report retention, forward transfer, autonomy and resource growth.
+- [F] continual-learning foundations.
+- [S] open-ended learning / developmental robotics literature.
+- [O] current claims should be evaluated by retention, forward transfer, resource growth and safety—not metaphor.
 
 ---
 
-# Volume IX　Simulation、Data 与 Deployment
+# Volume IX　Simulation、Data、Deployment
 
-## Part 40　Physics Simulation / Platforms
+## Part 40　Physics Simulation 与 Platforms
 
-- [O/P] MuJoCo: Todorov, Erez & Tassa, 2012; https://mujoco.org/
-- [O/P] SAPIEN: https://sapien.ucsd.edu/
-- [O] Isaac Sim / Isaac Lab: https://isaac-sim.github.io/IsaacLab/
-- [O/P] ManiSkill.
-- [O/P] Habitat, BEHAVIOR, OmniGibson, RoboTwin.
+- [O] MuJoCo documentation.
+- [O] SAPIEN / ManiSkill.
+- [O] NVIDIA Isaac Sim / Isaac Lab.
+- [O] RLBench / RoboTwin / Habitat / OmniGibson.
+- [O] `references/BENCHMARK_ATLAS.md`.
 
-## Part 41　Synthetic Data / Sim-to-Real
+## Part 41　Synthetic Data 与 Sim-to-Real
 
-- [P] Tobin et al., Domain Randomization, 2017.
-- [P] Peng et al., dynamics randomization / sim-to-real locomotion lineage.
-- [P] Chebotar et al., SimOpt, 2019.
-- [S] System identification + domain randomization literature.
+- [P] domain randomization lineage.
+- [P] system identification / dynamics randomization literature.
+- [O] modern synthetic-data / world-foundation-model systems.
 
 ## Part 42　Robot Data Engineering
 
-- [O/P] RLDS.
-- [O/P] Open X-Embodiment dataset schema.
-- [O] Hugging Face LeRobot datasets.
-- [P] DROID.
-- Engineering sources: HDF5 / Parquet / object-storage / streaming documentation as appropriate.
+- [C/O] LeRobotDataset.
+- [P/O] RLDS / Open X data standardization.
+- [O] `references/DATASET_ATLAS.md`.
 
-## Part 43　Systems / Real Deployment
+## Part 43　机器人系统工程与部署
 
-- [O] ROS 2 documentation: https://docs.ros.org/
-- [O] TF2 documentation.
-- [O] EtherCAT/CAN/vendor real-time control documentation for actual hardware interfaces.
-- [O] Physical Intelligence RTC and Figure Helix for modern async/multi-rate learned-policy deployment examples.
+- [O] ROS 2 / TF / real-time documentation.
+- [C] LeRobot `robots/`, `motors/`, `cameras/`, `async_inference/`.
+- [C] GR00T `getting_started/real_world_deployment.md` and deployment scripts.
+- [O] TensorRT / model-compilation docs for on-device deployment.
 
 ---
 
-# Volume X　Evaluation / Reliability / Safety
+# Volume X　Evaluation、Reliability、Safety
 
-## Part 44　Benchmarks / Evaluation Science
+## Part 44　Benchmarks 与 Evaluation Science
 
-- [P/O] RLBench.
-- [P/O] CALVIN.
-- [P/O] LIBERO.
-- [P/O] ManiSkill.
-- [P/O] RoboTwin / RoboTwin 2.0.
-- [F] Basic statistical inference texts for confidence intervals / significance; success videos are not denominators.
+- [F] statistical inference / binomial confidence intervals.
+- [O] CALVIN / LIBERO / ManiSkill / RLBench / RoboTwin protocols.
+- [O] `references/BENCHMARK_ATLAS.md`.
+- [C] `code/minimal/evaluation_stats.py`.
 
-## Part 45　Reliability / Safety
+## Part 45　Reliability / Safety / Intervention
 
-- [P] Ames et al., Control Barrier Function literature.
-- [S] Safe Reinforcement Learning surveys.
-- [F/O] Functional-safety / industrial robot safety standards should be consulted for deployment-specific work; academic policy success is not a safety case.
-- [S] Runtime assurance / shield / human-override literature.
+- [P] Control Barrier Function literature.
+- [S] safe RL / runtime assurance literature.
+- [O] human-intervention and physical-safety practices from real robot systems.
+- [O] `references/FAILURE_ATLAS.md`.
 
 ---
 
-# Volume XI　Research Method / Next Architecture
+# Volume XI　Research Method、Theory、Next Architecture
 
-## Part 46　严谨研究方法
+## Part 46　严谨的具身智能研究
 
-- [F] Popper, *The Logic of Scientific Discovery* — falsifiability historical foundation.
-- [F] Montgomery, *Design and Analysis of Experiments* — factorial design / control variables.
-- [S] Reproducibility and empirical-ML methodology literature.
-- [O] Each robotics benchmark’s official evaluation protocol should be treated as part of the experiment specification.
+- [F] scientific experimental-design / statistics references.
+- [O] `labs/EXPERIMENT_PROTOCOL.md`.
+- [O] `references/FAILURE_ATLAS.md`.
+- [C] use source-level walkthroughs instead of architecture diagrams alone.
 
 ## Part 47　Transformer 的作用与边界
 
-- [P] Vaswani et al., Transformer, 2017.
-- [P] Gu et al., S4 / state-space sequence modeling lineage.
-- [P] Gu & Dao, Mamba lineage.
-- [P] Battaglia et al., graph-network relational inductive biases.
-- [P] Chen et al., Neural ODE, 2018.
+- [P] Transformer foundation paper.
+- [P/S] state-space / recurrent / graph / continuous-time alternatives.
+- [P] object-centric / equivariant / geometry-aware models.
 
 ## Part 48　数学化具身智能
 
-- [P] Cohen & Welling, group-equivariant CNN lineage.
-- [P] Thomas et al. / SE(3)-Transformer / equivariant 3D-learning lineage.
-- [F/P] Koopman operator literature for nonlinear dynamics.
-- [P] Raissi et al., Physics-Informed Neural Networks.
-- [P] Greydanus et al., Hamiltonian Neural Networks.
-- [F] Pearl / Peters et al. for causal intervention and counterfactual reasoning.
+- [P] Koopman/operator-learning lineage.
+- [P] differentiable physics / neural ODE / physics-informed learning.
+- [F] symmetry / equivariance / causal modeling foundations.
 
-## Part 49　截至 2026-09 的开放问题
+## Part 49　开放前沿
 
-前沿事实优先查官方源并记录日期：
-
-- Physical Intelligence: https://www.pi.website/
-- Google DeepMind robotics: https://deepmind.google/
-- NVIDIA Robotics / GEAR / Cosmos: https://research.nvidia.com/
-- Figure: https://www.figure.ai/
-- Meta V-JEPA: https://github.com/facebookresearch/vjepa2
-
-这一 Part 的使命不是预测赢家，而是持续维护**仍未被公开证据解决的问题集合**。
+- Read by **problem axis**, not by model leaderboard:
+  - open-world generalization;
+  - whole-body;
+  - memory;
+  - experience learning;
+  - world models;
+  - cross-embodiment;
+  - continual/developmental learning;
+  - safety.
+- [O] `references/MODEL_ATLAS.md`, `TIMELINE.md`, `SOURCE_CODE_ATLAS.md`.
 
 ## Part 50　从学习者到独立研究者
 
-- [F/O] Lynch & Park, *Modern Robotics* + course.
-- [F] Sutton & Barto, RL.
-- [O] Berkeley / Stanford / CMU / MIT robotics and robot-learning public courses as supplementary learning paths.
-- [O] Open-source implementations from primary papers; always read code together with paper and evaluation protocol.
+- [O] `book/SYLLABUS_36_WEEKS.md`.
+- [O] `labs/EXPERIMENT_PROTOCOL.md`.
+- [O] `book/EXERCISES.md` / `SOLUTION_SKETCHES.md`.
+- [O] `case-studies/` and `references/SOURCE_CODE_ATLAS.md`.
 
 ---
 
-# 使用方法
+# Reading rule
 
-每读一个 Part，至少完成四层：
+对每个现代模型至少同时读四层：
 
 ```text
-1. Chapter manuscript
-2. 经典/原始来源 2–4 篇
-3. 对应 Lab 或最小代码实验
-4. 一个能推翻当前理解的 negative control
+paper / official technical description
++ code
++ data / benchmark protocol
++ deployment / controller interface
 ```
 
-不要把阅读量当进度。真正的进度是：你能否把原论文 claim 重新写成一个**明确变量、明确干预、明确失败条件**的实验。
+如果只有 demo，没有可审计的 action/data/system contract，就把结论限制在 demo 能支持的范围内。
