@@ -1,300 +1,276 @@
 # BOOK PLAN — 《具身智能：从物理世界到通用机器人》
 
+> **Current status: v1.0 Complete Manuscript**  
+> **Frontier cutoff: 2026-09-14**
+
 ## 0. 项目定位
 
 这不是一部“机器人算法百科”，也不是一部“VLA 综述”。它的组织原则是：
 
-> **从一个智能体如何进入物理世界、形成闭环、从交互中学习，再到跨任务、跨场景、跨本体的通用智能。**
+> **从一个智能体如何进入物理世界、形成闭环、从交互中学习，再到跨任务、跨场景、跨本体和长期发展的通用物理智能。**
 
-全书以 `World ↔ Body ↔ Sensors ↔ State ↔ Prediction ↔ Decision ↔ Control ↔ Action` 为主轴，把传统机器人学与现代机器学习真正接起来。
+全书以
+
+```text
+World ↔ Body ↔ Sensors ↔ State ↔ Prediction ↔ Decision ↔ Control ↔ Action
+                              ↕
+                       Memory / Learning
+```
+
+为主轴，把经典机器人学与现代 foundation model 真正接起来。
 
 ---
 
-## 1. 全书知识图谱
+# 1. v1.0 已完成的教材结构
+
+正文已经形成 12 个 Volume 文件，对应总目录 Part 0–50：
+
+```text
+Volume 0   导论与技术史
+Volume I   数学与计算语言
+Volume II  身体、几何、运动学、动力学、控制、规划
+Volume III 感知、3D/4D、状态估计、触觉、主动感知
+Volume IV  Imitation / RL / Generative Robot Policy
+Volume V   VLM → VLA → Robot Foundation Models
+Volume VI  Reasoning / Memory / Experience / World Models
+Volume VII Manipulation / Bimanual / Dexterity / Navigation / Humanoid
+Volume VIII Cross-Embodiment / Continual / Developmental Intelligence
+Volume IX  Simulation / Data / Systems / Deployment
+Volume X   Evaluation / Reliability / Safety
+Volume XI  Research Method / Mathematical Embodied AI / Open Frontiers
+```
+
+此外已经存在：
+
+- 完整 `book/TOC.md`；
+- `book/APPENDICES.md`：Appendix A–Z；
+- `book/GLOSSARY.md`：中英术语统一；
+- `labs/LABS.md`：40 个 Labs + 3 个 Capstones；
+- `references/REFERENCES.md`：经典基础到 2026-09-14 的来源地图；
+- `AUTHORING_GUIDE.md`：后续扩写的统一作者规范；
+- `book/README.md`：正式阅读入口。
+
+---
+
+# 2. 全书知识图谱
 
 ```text
 Mathematics
-├─ Linear Algebra
-├─ Probability / Statistics
+├─ Linear Algebra / Calculus
+├─ Probability / Information
 ├─ Optimization
 ├─ Differential Equations
 ├─ Geometry / Lie Groups
-├─ Information Theory
-└─ Dynamical Systems
+├─ Dynamical Systems
+└─ Causality
         ↓
 Physics & Robotics
-├─ Rigid-body motion
+├─ Mechanism / Actuation
 ├─ Kinematics
-├─ Dynamics
-├─ Contact
-└─ Actuation
+├─ Dynamics / Contact
+├─ Feedback / Optimal Control
+└─ Planning / Whole-Body Control
         ↓
 Perception & State
-├─ Vision
-├─ Depth / Point Cloud
-├─ Tactile / Force
-├─ Proprioception
-├─ State Estimation
-└─ Representation
-        ↓
-Decision & Control
-├─ Feedback Control
-├─ Optimal Control
-├─ Motion Planning
-├─ MPC
-└─ Whole-body Control
+├─ RGB / Depth / 3D / 4D
+├─ Proprioception / Force / Tactile
+├─ State Estimation / SLAM
+├─ Representation
+├─ Uncertainty
+└─ Active Perception
         ↓
 Robot Learning
-├─ Imitation Learning
+├─ Imitation
 ├─ Reinforcement Learning
-├─ Offline RL
-├─ Representation Learning
-└─ Generative Policies
+├─ Offline / Online RL
+├─ Action Chunking
+├─ Diffusion / Flow / AR
+└─ Experience Learning
         ↓
-Foundation Embodied Intelligence
-├─ VLM
+Foundation Physical Intelligence
+├─ VLM / Grounding
 ├─ VLA
-├─ World Models
-├─ Embodied Reasoning
-├─ Active Perception
-├─ Memory
-└─ Planning
+├─ Memory / Reasoning
+├─ World Model / World Action Model
+├─ Human-to-Robot
+└─ Agentic Systems
         ↓
-General-Purpose Robots
+Capabilities
 ├─ Manipulation
-├─ Bimanual
-├─ Dexterous Hands
-├─ Locomotion
-├─ Humanoids
-├─ Multi-Robot
+├─ Bimanual / Dexterity
+├─ Navigation / Mobile Manipulation
+├─ Locomotion / Humanoid
+├─ Whole-Body
+└─ Multi-Robot / HRI
+        ↓
+Generality over a Lifetime
 ├─ Cross-Embodiment
-└─ Continual / Developmental Learning
+├─ Continual Learning
+├─ Developmental Robotics
+├─ Structural Plasticity
+└─ Self-Evolving Physical Intelligence
+        ↓
+Real Systems
+├─ Simulation / Synthetic Data
+├─ Sim-to-Real
+├─ Data Engineering
+├─ Real-Time Deployment
+├─ Evaluation / Reliability
+└─ Safety / Governance
 ```
 
 ---
 
-## 2. 读者能力路线
+# 3. 读者能力目标
 
-### Level A — 能看懂机器人在干什么
+## Level A — Concept
 
-读者应能回答：
+能解释：state / observation、pose / twist / wrench、action semantics、closed loop、partial observability、world model、VLA、embodiment 分别是什么。
 
-- 世界坐标系、机器人基座坐标系、末端坐标系分别是什么；
-- 一个 joint state、pose、twist、wrench 各自表示什么；
-- camera observation 如何变成 policy 输入；
-- policy 输出的是 torque、joint position、joint velocity 还是 Cartesian delta；
-- 真机闭环频率、模型推理频率和低层控制频率为何不同。
+## Level B — Mathematics
 
-### Level B — 能从头实现基础机器人算法
+能推导和计算：
 
-读者应能实现并验证：
+- SO(3) / SE(3)；
+- FK / IK / Jacobian；
+- rigid-body dynamics；
+- Kalman / Bayes update；
+- PID / impedance / LQR / MPC；
+- Bellman equation；
+- diffusion / flow action model 的基本数学。
 
-- FK / IK；
-- Jacobian；
-- trajectory generation；
-- PID / impedance / operational-space control；
-- Kalman filter；
-- sampling-based planning；
+## Level C — Implementation
+
+能独立实现：
+
+- 基础 perception / state estimation；
+- planning / controller；
 - BC / DAgger / PPO；
-- Transformer / diffusion / flow based robot policy。
+- ACT / Diffusion Policy / Flow Policy；
+- 小型 VLA / world model；
+- multi-rate deployment pipeline。
 
-### Level C — 能理解现代具身模型
+## Level D — Research
 
-读者应能从系统层解释：
+能：
 
-- VLM 与 VLA 的差异；
-- action tokenization 与 continuous action generation；
-- observation history 与 action chunking；
-- Diffusion Policy、ACT、flow matching policy 各自的归纳偏置；
-- world model 到底预测什么；
-- active perception 为什么不是简单“多移动相机”；
-- whole-body policy 如何与低层控制器配合。
-
-### Level D — 能做研究
-
-最终应能：
-
-- 区分研究问题与 benchmark engineering；
-- 从 failure mode 逆推模型假设；
-- 设计对照组和负对照；
-- 判断性能来自数据、架构、训练策略还是评价协议；
-- 形成可证伪假说；
-- 独立复现、批判和扩展最新工作。
+- 从 failure mode 逆推假设；
+- 区分 data gain / architecture gain；
+- 设计 baseline / ablation / negative control；
+- 检验 VLA 是否真正 generalize；
+- 检验 world model 是否真正改善 control；
+- 提出可证伪的新机制。
 
 ---
 
-## 3. 全书四条平行主线
+# 4. 教材工程标准
 
-### 主线 A：物理与控制
+每个被进一步扩成独立 Chapter 的主题，至少包含：
 
-回答“机器人身体为什么会这样动”。
+1. 现实问题；
+2. 物理直觉；
+3. 系统图 / 数据流；
+4. 数学形式化；
+5. 算法；
+6. tensor shape / frame / unit；
+7. 最小代码；
+8. 可运行实验；
+9. failure modes；
+10. 论文谱系；
+11. negative controls；
+12. open questions。
 
-`Rigid Body → Kinematics → Dynamics → Contact → Feedback → Optimal Control → Whole-Body Control`
-
-### 主线 B：感知与世界表示
-
-回答“机器人到底知道世界中的什么”。
-
-`Sensor → Geometry → State Estimation → Representation → Uncertainty → World Model`
-
-### 主线 C：学习与智能
-
-回答“机器人怎样通过数据和交互获得行为”。
-
-`Supervised Learning → Imitation → RL → Generative Policy → Foundation Model → Continual Learning`
-
-### 主线 D：系统与实验
-
-回答“论文里的模型怎样真正变成一个工作的机器人系统”。
-
-`Data → Simulator → Training → Deployment → Real-time System → Evaluation → Failure Analysis`
-
-四条线在每一阶段都要交叉，而不是写成互不相干的课程笔记。
+任何前沿模型 claim 必须区分：**论文/机构报告的结果** 与 **已经形成独立学术共识的结论**。
 
 ---
 
-## 4. 教材工程标准
+# 5. 版本定义
 
-### 4.1 理论层
+## v1.0 — Complete Manuscript（当前）
 
-每个核心概念至少回答：
+“完成”指：
 
-1. 为什么需要它；
-2. 它建立在哪些假设上；
-3. 数学对象是什么；
-4. 对应真实机器人系统中的什么量；
-5. 在代码里是哪一个变量 / tensor；
-6. 哪些情况下会失效。
+- 全局知识依赖已经冻结；
+- Part 0–50 都有正文覆盖；
+- 从数学基础到 2026 前沿连续可读；
+- A–Z 附录、术语、Labs 和参考来源齐备；
+- 前沿部分有明确时间截面；
+- 已没有依赖“以后再补某一整卷”才能成立的结构空洞。
 
-### 4.2 图示层
+**v1.0 不等于出版终稿，也不等于 40 个 Labs 已全部带可执行代码。** 当前 Labs 是完整实验设计与验收协议；代码化属于 v1.x 的下一层工程。
 
-优先原创以下图形：
+## v1.1 — Figure & Citation Pass
 
-- 数据流图；
+- 原创系统图；
 - 坐标系图；
-- tensor shape 图；
-- 时间轴图；
-- feedback loop 图；
-- architecture 图；
-- paper genealogy 图；
-- failure mode 图；
-- benchmark protocol 图。
+- matrix / tensor-shape 图；
+- paper genealogy；
+- 逐章更细 citation；
+- BibTeX 数据库。
 
-### 4.3 代码层
+## v1.2 — Executable Lab Edition
 
-同一个主题通常分三层代码：
+- 为 40 Labs 增加代码；
+- reproducible configs；
+- automated tests；
+- MuJoCo / SAPIEN / Isaac Lab 实验环境；
+- benchmark adapters；
+- CI 检查。
 
-```text
-minimal/      # 最小数学实现，便于学习
-reference/    # 与论文或标准实现对齐
-system/       # 接入真实仿真/机器人系统
-```
+## v1.3 — Deep Chapter Pass
 
-### 4.4 实验层
+把核心 Part 拆成更长的独立 chapter，补：
 
-每个实验必须给出：
+- 完整推导；
+- 逐行代码；
+- case study；
+- raw experiment results；
+- exercises / solutions。
 
-- hypothesis；
-- independent variable；
-- dependent variable；
-- controls；
-- seeds；
-- metrics；
-- expected failure modes；
-- reproducibility instructions。
+## v2.0 — Publication-Grade Edition
 
----
+目标：
 
-## 5. 版本路线
-
-### v0.1 — Book Architecture
-
-- 完成全书目录；
-- 建立作者规范；
-- 完成序章；
-- 建立符号体系；
-- 建立第一批基础实验。
-
-### v0.2 — Mathematical & Robotics Foundations
-
-- 数学卷；
-- 刚体运动；
-- 运动学；
-- 动力学；
-- 控制基础。
-
-### v0.3 — Perception, State, Planning
-
-- 视觉 / 深度 / 点云 / 触觉；
-- 状态估计；
-- mapping；
-- planning；
-- MPC。
-
-### v0.4 — Robot Learning Core
-
-- imitation learning；
-- RL；
-- offline learning；
-- representation learning；
-- generative policies。
-
-### v0.5 — Foundation Models for Robotics
-
-- VLM；
-- VLA；
-- robot foundation models；
-- world models；
-- reasoning / memory / planning。
-
-### v0.6 — Manipulation, Humanoids, Cross-Embodiment
-
-- bimanual；
-- dexterity；
-- locomotion；
-- whole-body；
-- cross-embodiment。
-
-### v0.7 — Systems, Simulation, Data and Evaluation
-
-- Isaac Lab / MuJoCo / SAPIEN；
-- robot data engineering；
-- deployment；
-- benchmarks；
-- sim2real；
-- safety。
-
-### v0.8 — Research Edition
-
-- 论文谱系补全；
-- 大量 reproduction case study；
-- failure analysis；
-- research methodology。
-
-### v1.0 — Complete First Edition
-
-目标不是“所有章节都有文字”，而是：
-
-- 核心概念闭环；
-- 关键实验可运行；
-- 主要论断可追溯；
-- 章节依赖稳定；
-- 前沿部分注明时间版本；
-- 从初学者到研究者具有连续学习路径。
+- 全书统一排版；
+- 数百幅原创图；
+- 可执行 companion code；
+- 课程/习题/答案；
+- PDF / website；
+- 系统 bibliography；
+- 外部技术审校。
 
 ---
 
-## 6. 长期扩展
+# 6. 动态前沿维护规则
 
-v1.0 之后仍持续维护：
+主目录不跟热点漂移。新模型默认进入：
 
-- 新的 VLA / world model / humanoid 系统；
-- 新 benchmark；
-- 新型 action representation；
-- 新型感知与触觉；
-- 新型 robot morphology；
-- continual / developmental learning；
-- post-Transformer embodied architectures；
-- 数学上更统一的物理智能理论。
+- Appendix R：VLA / Foundation Model Atlas；
+- Appendix S：World Model Atlas；
+- Appendix T：Humanoid Atlas；
+- Appendix U：Dexterity / Tactile Atlas；
+- Appendix W：Open-Source Reproduction Index。
 
-因此，本仓库应被视为一部 **living textbook**，而不是一次性出版物。
+只有满足以下任一条件才改变一级知识结构：
+
+1. 出现新的核心数学对象；
+2. 出现新的系统接口；
+3. 形成不可被现有章节自然容纳的独立计算范式；
+4. 长期证据表明现有框架遗漏了一条基础能力链。
+
+---
+
+# 7. 长期质量目标
+
+这套教材最终不是追求“页数最多”，而是追求四件事同时成立：
+
+\[
+\boxed{
+\text{Mechanistic clarity}
++\text{Mathematical depth}
++\text{Executable evidence}
++\text{Frontier relevance}
+}
+\]
+
+v1.0 解决完整性；v1.x 开始系统提高深度、图示、代码与证据密度。
