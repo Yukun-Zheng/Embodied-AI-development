@@ -44,6 +44,7 @@
 - **[中英术语表](book/GLOSSARY.md)**
 - **[符号、坐标系与 Action Convention](book/NOTATION_AND_CONVENTIONS.md)**
 - **[源码级 Case Studies](case-studies/README.md)** — ACT / Diffusion Policy / Modern VLA / World Model+MPC
+- **[Source-Code Atlas](references/SOURCE_CODE_ATLAS.md)** — ACT / Diffusion Policy / OpenVLA / LeRobot / GR00T N1.7 / V-JEPA 2/2.1 的真实源码阅读路径
 - **[统一参考文献与 Source Map](references/REFERENCES.md)**
 - **[逐 Part 原始阅读地图](references/READING_MAP.md)**
 - **[BibTeX](references/BIBLIOGRAPHY.bib)**
@@ -149,7 +150,7 @@ LLM → VLM → VLA → “懂机器人”
 - action chunking、Real-Time Action Chunking、asynchronous inference 与 latency；
 - RT-1 / RT-2 / Open X-Embodiment / Octo / OpenVLA；
 - π0 / FAST / π0.5 / π*0.6 / embodied memory / π0.7；
-- GR00T N1 / N1.5 / N1.6；
+- **GR00T N1 / N1.5 / N1.6 / N1.7**；
 - Gemini Robotics / Robotics 2 / On-Device 2；
 - Figure Helix / Helix 02 与 human-video scaling；
 - V-JEPA 2 / 2.1、action-conditioned predictive models；
@@ -160,7 +161,9 @@ LLM → VLM → VLA → “懂机器人”
 - autonomous experience learning、self-evolving architecture；
 - uncertainty、human intervention 与 reliable deployment。
 
-它们作为**历史节点、案例和可检验机制**进入教材，而不是反过来用品牌名组织整本书。
+其中 GR00T N1.6 / N1.7 的日期已经按官方 GitHub release 纠正为 **2026-04-15 / 2026-04-18**。N1.7 的开放源码还被用于 Source-Code Atlas，追踪 processor、embodiment tags、action head、action horizon、async inference / RTC 与 deployment runtime。
+
+这些模型作为**历史节点、案例和可检验机制**进入教材，而不是反过来用品牌名组织整本书。
 
 ---
 
@@ -259,6 +262,7 @@ Embodied-AI-development/
 └── references/
     ├── REFERENCES.md
     ├── READING_MAP.md
+    ├── SOURCE_CODE_ATLAS.md
     ├── BIBLIOGRAPHY.bib
     ├── TIMELINE.md
     ├── MODEL_ATLAS.md
@@ -283,6 +287,7 @@ Embodied-AI-development/
 - 17 张核心机制图；
 - 10 个最小可执行脚本 + 自动回归 CI；
 - 4 个源码级端到端 Case Study；
+- **Source-Code Atlas：6 个代表性开源栈的真实代码入口与阅读链**；
 - 40 Labs + 3 Capstones + 统一实验协议；
 - 36 周系统课程；
 - Notation / Concept Index / Dependency Graph；
