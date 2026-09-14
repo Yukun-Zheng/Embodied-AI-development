@@ -1,0 +1,110 @@
+site_name: 具身智能：从物理世界到通用机器人
+site_description: 从数学、物理与经典机器人学，到 2026 年 Robot Foundation Models、World Models、Humanoids 与下一代具身智能
+site_author: Yukun Zheng
+site_url: https://yukun-zheng.github.io/Embodied-AI-development/
+repo_url: https://github.com/Yukun-Zheng/Embodied-AI-development
+repo_name: Yukun-Zheng/Embodied-AI-development
+edit_uri: edit/main/
+
+docs_dir: .site-src
+site_dir: .site-build
+use_directory_urls: true
+
+nav:
+  - 首页: index.md
+  - 教材入口: book/README.md
+  - 完整目录: book/TOC.md
+  - 51 章主稿: book/chapters/README.md
+  - 36 周课程: book/SYLLABUS_36_WEEKS.md
+  - 知识依赖图: book/DEPENDENCY_GRAPH.md
+  - 概念索引: book/CONCEPT_INDEX.md
+  - 符号与约定: book/NOTATION_AND_CONVENTIONS.md
+  - 核心推导: book/DERIVATIONS.md
+  - 章末习题: book/EXERCISES.md
+  - 解题要点: book/SOLUTION_SKETCHES.md
+  - 核心机制图: figures/CORE_DIAGRAMS.md
+  - Labs: labs/LABS.md
+  - 实验协议: labs/EXPERIMENT_PROTOCOL.md
+  - 源码 Case Studies: case-studies/README.md
+  - Source-Code Atlas: references/SOURCE_CODE_ATLAS.md
+  - Model Atlas: references/MODEL_ATLAS.md
+  - Dataset Atlas: references/DATASET_ATLAS.md
+  - Hardware Atlas: references/HARDWARE_ATLAS.md
+  - Benchmark Atlas: references/BENCHMARK_ATLAS.md
+  - Failure Atlas: references/FAILURE_ATLAS.md
+  - 技术时间线: references/TIMELINE.md
+  - Reading Map: references/READING_MAP.md
+  - References: references/REFERENCES.md
+
+theme:
+  name: material
+  language: zh
+  features:
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.action.edit
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: white
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: 切换至深色模式
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: 切换至浅色模式
+
+plugins:
+  - search:
+      lang:
+        - zh
+        - en
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.inlinehilite
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+  - https://unpkg.com/mermaid@11/dist/mermaid.min.js
+  - javascripts/mermaid.js
+
+extra:
+  generator: false
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Yukun-Zheng/Embodied-AI-development
+
+copyright: >-
+  Living textbook · frontier snapshot 2026-09-14 · continuously maintained
