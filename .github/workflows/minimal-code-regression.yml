@@ -42,5 +42,6 @@ jobs:
           python labs/runnable/lab27_long_horizon_memory/smoke.py
           python labs/runnable/lab31_reasoning_negative_control/smoke.py
           python labs/runnable/lab33_continual_learning/smoke.py
+          python labs/runnable/lab37_bimanual_coordination/smoke.py
           python labs/runnable/lab38_multi_robot_collaboration/smoke.py
           python labs/runnable/lab40_safety_shield/smoke.py
