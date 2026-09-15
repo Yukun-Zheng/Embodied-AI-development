@@ -1,17 +1,19 @@
-name: Minimal textbook code regression
+name: Executable textbook regression
 
 on:
   push:
     paths:
       - "code/minimal/**"
+      - "labs/runnable/**"
       - ".github/workflows/minimal-code-regression.yml"
   pull_request:
     paths:
       - "code/minimal/**"
+      - "labs/runnable/**"
       - ".github/workflows/minimal-code-regression.yml"
 
 jobs:
-  minimal-code:
+  executable-textbook:
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
@@ -32,3 +34,6 @@ jobs:
 
       - name: Run all minimal examples
         run: python code/minimal/run_all.py
+
+      - name: Run executable lab smoke tests
+        run: python labs/runnable/run_smoke.py
