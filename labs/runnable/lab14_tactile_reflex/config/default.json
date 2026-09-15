@@ -1,0 +1,28 @@
+{
+  "seed": 31,
+  "episodes": 500,
+  "dt": 0.005,
+  "duration_s": 1.5,
+  "slow_policy_period_s": 0.2,
+  "tactile_period_s": 0.005,
+  "base_grip_force_n": 8.0,
+  "rescue_grip_force_n": 16.0,
+  "grip_actuator_time_constant_s": 0.03,
+  "object_load_n": 3.0,
+  "nominal_friction": 0.6,
+  "slip_friction": 0.25,
+  "slip_event_start_range_s": [0.35, 0.75],
+  "slip_event_duration_s": 0.14,
+  "slip_gain": 0.15,
+  "slip_damping": 4.0,
+  "drop_displacement_m": 0.004,
+  "tactile_noise_std": 0.03,
+  "slip_detection_threshold": 0.15,
+  "delayed_tactile_s": 0.12,
+  "release_hold_s": 0.05,
+  "modes": [
+    "slow_policy_only",
+    "fast_tactile_reflex",
+    "delayed_tactile_reflex"
+  ]
+}
