@@ -160,7 +160,14 @@ def build_nav() -> list[tuple[str, str | list]]:
                 ("Labs 总入口", "labs/README.md"),
                 ("40 Labs + 3 Capstones", "labs/LABS.md"),
                 ("Execution Matrix", "labs/EXECUTION_MATRIX.md"),
-                ("Runnable Labs", "labs/runnable/README.md"),
+                (
+                    "Runnable Labs",
+                    [
+                        ("总入口", "labs/runnable/README.md"),
+                        ("Lab 22 · Async Execution", "labs/runnable/lab22_async_execution/README.md"),
+                        ("Lab 29 · World Model MPC", "labs/runnable/lab29_world_model_mpc/README.md"),
+                    ],
+                ),
                 ("统一实验协议", "labs/EXPERIMENT_PROTOCOL.md"),
                 ("最小可执行代码", "code/minimal/README.md"),
             ],
