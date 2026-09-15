@@ -51,7 +51,7 @@
 | **18 为机器人重新学习 ML** | Lab 15–21 | Derivations、Evaluation Atlas | i.i.d. validation loss 为什么不能替代 closed-loop rollout？ |
 | **19 Imitation Learning** | Lab 15–17；`bc_dagger.py` | `ACT_SOURCE_WALKTHROUGH.md` | dataset coverage、covariate shift、chunking 各自贡献多少？ |
 | **20 RL / Offline RL / Interaction** | Lab 18 / 19 / 32 | Experiment Protocol | improvement 来自 reward、exploration、critic 还是新数据本身？ |
-| **21 Generative Action + Real-Time Policy** | Lab 20–22；`generative_actions.py`、`action_tokenization.py`、`chunk_latency.py` | Diffusion Policy / SmolVLA cases、Action Path Comparison | action generator 与 temporal executor 的收益能否被独立隔离？ |
+| **21 Generative Action + Real-Time Policy** | [Runnable Lab 22](../labs/runnable/lab22_async_execution/README.md)；Lab 20–21；`generative_actions.py`、`action_tokenization.py`、`chunk_latency.py` | Diffusion Policy / SmolVLA cases、Action Path Comparison | action generator 与 temporal executor 的收益能否被独立隔离？ |
 
 ## Volume V　Robot Foundation Models
 
@@ -59,7 +59,7 @@
 |---|---|---|---|
 | **22 Language / VLM / Physical Grounding** | Lab 23 / 31 | Model Atlas | 语言/VLM 提升的是 task semantics 还是 motor precision？ |
 | **23 VLA 形成：2022–2024** | Lab 23；`action_tokenization.py` | `OPENVLA_SOURCE_WALKTHROUGH.md` | web semantic prior 到 action 的路径在哪里，量化/归一化又丢了什么？ |
-| **24 VLA 第二阶段：2024–2026** | Lab 22 / 24 / 26；`chunk_latency.py`、`embodiment_interfaces.py` | SmolVLA / GR00T N1.7 cases | flow expert、RTC、embodiment conditioning 哪一项对 success 有独立因果贡献？ |
+| **24 VLA 第二阶段：2024–2026** | [Runnable Lab 22](../labs/runnable/lab22_async_execution/README.md) / Lab 24 / 26；`chunk_latency.py`、`embodiment_interfaces.py` | SmolVLA / GR00T N1.7 cases | flow expert、RTC、embodiment conditioning 哪一项对 success 有独立因果贡献？ |
 | **25 VLA 内部机制** | Lab 23–25 | Action Path Comparison、Source-Code Atlas | 冻结/打乱某一 modality 后行为如何变化？所谓 reasoning/vision 是否被读取？ |
 | **26 Robot Data / Human Video / Cross-Embodiment** | Lab 26；`embodiment_interfaces.py` | Dataset Atlas、cross-matrix | 数据量增加与 coverage dimension 增加如何分开？padding 是否掩盖 action semantics？ |
 
@@ -98,7 +98,7 @@
 | **40 Physics Simulation / Robot Platforms** | Lab 18 / 35 / 36 | Benchmark / Hardware Atlas | simulator fidelity 的哪一部分对目标任务真正敏感？ |
 | **41 Synthetic Data / Sim2Real** | Capstone 1 / 2 | Dataset Atlas | synthetic data 的收益来自 coverage、label quality 还是 domain randomization？ |
 | **42 Robot Data Engineering** | Lab 32 | Dataset Atlas、cross-matrix | schema / normalization / timestamp / success label 错误能否被训练 loss 检测？ |
-| **43 Robot Systems / Deployment** | Lab 22 / 39 / 40；`chunk_latency.py` | SmolVLA / GR00T cases、Hardware Atlas | P50/P95/P99 latency、jitter、queue 和 watchdog 是否作为实验变量报告？ |
+| **43 Robot Systems / Deployment** | [Runnable Lab 22](../labs/runnable/lab22_async_execution/README.md) / Lab 39 / 40；`chunk_latency.py` | SmolVLA / GR00T cases、Hardware Atlas | P50/P95/P99 latency、jitter、queue、action age 和 watchdog 是否作为实验变量报告？ |
 
 ## Volume X　Evaluation 与 Safety
 
