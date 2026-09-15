@@ -5,11 +5,13 @@ on:
     paths:
       - "code/minimal/**"
       - "labs/runnable/**"
+      - "labs/simulators/**"
       - ".github/workflows/minimal-code-regression.yml"
   pull_request:
     paths:
       - "code/minimal/**"
       - "labs/runnable/**"
+      - "labs/simulators/**"
       - ".github/workflows/minimal-code-regression.yml"
 
 jobs:
@@ -31,11 +33,12 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install numpy
           python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -r labs/simulators/mujoco/requirements.txt
 
       - name: Run all minimal examples
         run: python code/minimal/run_all.py
 
-      - name: Run executable lab smoke tests
+      - name: Run executable mechanism lab smoke tests
         run: |
           python labs/runnable/run_smoke.py
           python labs/runnable/lab25_visual_intervention/smoke.py
@@ -48,3 +51,7 @@ jobs:
           python labs/runnable/lab37_bimanual_coordination/smoke.py
           python labs/runnable/lab38_multi_robot_collaboration/smoke.py
           python labs/runnable/lab40_safety_shield/smoke.py
+
+      - name: Run lightweight simulator-layer smoke tests
+        run: |
+          python labs/simulators/mujoco/smoke.py
