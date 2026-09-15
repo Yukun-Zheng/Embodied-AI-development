@@ -81,6 +81,8 @@ jobs:
           test -f .site-build/labs/runnable/lab29_world_model_mpc/REFERENCE_RESULTS/index.html
           test -f .site-build/labs/runnable/lab31_reasoning_negative_control/index.html
           test -f .site-build/labs/runnable/lab31_reasoning_negative_control/REFERENCE_RESULTS/index.html
+          test -f .site-build/labs/runnable/lab32_experience_learning_flywheel/index.html
+          test -f .site-build/labs/runnable/lab32_experience_learning_flywheel/REFERENCE_RESULTS/index.html
           test -f .site-build/labs/runnable/lab33_continual_learning/index.html
           test -f .site-build/labs/runnable/lab33_continual_learning/REFERENCE_RESULTS/index.html
           test -f .site-build/labs/runnable/lab34_self_generated_curriculum/index.html
@@ -106,6 +108,8 @@ jobs:
           grep -q 'Lab 27 · Reference Results' .site-mkdocs.yml
           grep -q 'Lab 29 · World Model MPC' .site-mkdocs.yml
           grep -q 'Lab 31 · Reasoning Negative Control' .site-mkdocs.yml
+          grep -q 'Lab 32 · Experience Learning Flywheel' .site-mkdocs.yml
+          grep -q 'Lab 32 · Reference Results' .site-mkdocs.yml
           grep -q 'Lab 33 · Continual Learning' .site-mkdocs.yml
           grep -q 'Lab 34 · Self-Generated Curriculum' .site-mkdocs.yml
           grep -q 'Lab 34 · Reference Results' .site-mkdocs.yml
