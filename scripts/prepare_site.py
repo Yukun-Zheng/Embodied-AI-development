@@ -171,6 +171,8 @@ def build_nav() -> list[tuple[str, str | list]]:
                         ("Lab 22 · Async Execution", "labs/runnable/lab22_async_execution/README.md"),
                         ("Lab 26 · Cross-Embodiment", "labs/runnable/lab26_cross_embodiment/README.md"),
                         ("Lab 26 · Reference Results", "labs/runnable/lab26_cross_embodiment/REFERENCE_RESULTS.md"),
+                        ("Lab 27 · Long-Horizon Memory", "labs/runnable/lab27_long_horizon_memory/README.md"),
+                        ("Lab 27 · Reference Results", "labs/runnable/lab27_long_horizon_memory/REFERENCE_RESULTS.md"),
                         ("Lab 29 · World Model MPC", "labs/runnable/lab29_world_model_mpc/README.md"),
                         ("Lab 29 · Reference Results", "labs/runnable/lab29_world_model_mpc/REFERENCE_RESULTS.md"),
                         ("Lab 31 · Reasoning Negative Control", "labs/runnable/lab31_reasoning_negative_control/README.md"),
