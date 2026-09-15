@@ -3,10 +3,11 @@
 
 Two classes are intentionally separated:
 A) high-confidence historical/frontier factual claims — releases, dated public
-   capabilities, version changes, public model/data scale. These should migrate
-   toward local primary-source attribution.
+   capabilities, version changes, public model/data scale. These are a hard
+   publication gate and require local primary-source attribution.
 B) quantitative engineering statements — rates, delays, experiment sweep values,
-   toy assumptions. These are review hints, not automatic citation obligations.
+   toy assumptions. These remain advisory review hints, not automatic citation
+   obligations.
 
 Evidence is local when it appears either within ±3 lines OR elsewhere in the same
 H2 subsection. A chapter-end source-map fallback does not support unrelated H2s.
@@ -157,7 +158,7 @@ def main() -> None:
                 )
             )
 
-    print("CLAIM → EVIDENCE AUDIT (REPORT ONLY)")
+    print("CLAIM → EVIDENCE AUDIT")
     for category, label in [("A", "frontier/historical facts"), ("B", "engineering quantitative statements")]:
         group = [f for f in findings if f.category == category]
         supported = sum(f.supported for f in group)
@@ -185,10 +186,19 @@ def main() -> None:
     for f in [x for x in findings if x.category == "B" and not x.supported][:30]:
         print(f"{f.path}:{f.line}: {f.text}")
 
+    if high_missing:
+        raise SystemExit(
+            f"CLASS-A PRIMARY-EVIDENCE GATE FAILED: {len(high_missing)} factual claim(s) lack local primary evidence."
+        )
+
+    class_a = [f for f in findings if f.category == "A"]
     print(
-        "\nNOTE: Class A is designed to become a future quality gate after local "
-        "attribution is improved. Class B remains advisory because many values are "
-        "engineering examples rather than externally sourced facts."
+        f"\nCLASS-A PRIMARY-EVIDENCE GATE PASSED: {len(class_a)}/{len(class_a)} detected "
+        "frontier/historical factual claims have local primary evidence."
+    )
+    print(
+        "Class B remains advisory because many quantitative values are engineering examples, "
+        "toy assumptions or experiment settings rather than externally sourced facts."
     )
 
 
