@@ -69,7 +69,7 @@
 |---|---|---|---|
 | **27 Embodied Reasoning / Agentic Robotics** | Lab 31 | Failure Atlas、Experiment Protocol | correct plan / fluent wrong plan / no plan 三者是否产生可测行为差异？ |
 | **28 Robot Memory** | Lab 27 | Model Atlas | memory 是保存 task state，还是只扩大 context？shuffled memory 会怎样？ |
-| **29 Learning from Experience** | Lab 32 / 33 | Timeline、Dataset Atlas | autonomous data 的 marginal value 是否超过 curated demonstrations？旧任务退化多少？ |
+| **29 Learning from Experience** | [Runnable Lab 33](../labs/runnable/lab33_continual_learning/README.md)；Lab 32 | [Lab 33 CI Reference](../labs/runnable/lab33_continual_learning/REFERENCE_RESULTS.md)、Timeline、Dataset Atlas | autonomous data 的 marginal value 是否超过 curated demonstrations？新经验写入后旧能力退化多少，retention 又付出多少 plasticity / memory 成本？ |
 | **30 World Models / Predictive Intelligence** | [Runnable Lab 29](../labs/runnable/lab29_world_model_mpc/README.md)；Lab 28；`world_model_mpc.py` | [Lab 29 CI Reference](../labs/runnable/lab29_world_model_mpc/REFERENCE_RESULTS.md)、V-JEPA 2.1 case、World Model Control case | passive prediction、counterfactual action sensitivity、multi-step rollout accuracy 与 closed-loop control gain 能否逐层分开？ |
 | **31 Generative Worlds / Physical Simulation Foundation Models** | Lab 30 | World Model Control、Benchmark Atlas | visual realism 与 counterfactual/control fidelity 的相关性有多强？ |
 
@@ -88,8 +88,8 @@
 | Part | 可执行 / Lab | 连接资产 | 研究验收问题 |
 |---|---|---|---|
 | **37 Cross-Embodiment Intelligence** | Lab 26；`embodiment_interfaces.py` | GR00T case、Hardware Atlas | 已见 robot mixture 与 unseen morphology transfer 必须怎样分开报告？ |
-| **38 Continual / Lifelong / Developmental Learning** | Lab 33；`continual_metrics.py` | Experiment Protocol | plasticity 与 retention 是否同时报告？新能力是否靠不可控参数扩张换来？ |
-| **39 Self-Evolving Physical Intelligence** | Lab 32–34；Capstone 2 | Failure Atlas、Timeline | 系统“自我进化”具体改变参数、结构、记忆还是数据分布？怎样证伪？ |
+| **38 Continual / Lifelong / Developmental Learning** | [Runnable Lab 33](../labs/runnable/lab33_continual_learning/README.md)；`continual_metrics.py` | [Lab 33 CI Reference](../labs/runnable/lab33_continual_learning/REFERENCE_RESULTS.md)、Experiment Protocol | plasticity、retention、transfer、memory 是否同时报告？正确 replay 信息是否因果必要？新能力是否靠不可控参数扩张换来？ |
+| **39 Self-Evolving Physical Intelligence** | [Runnable Lab 33](../labs/runnable/lab33_continual_learning/README.md)；Lab 32–34；Capstone 2 | [Lab 33 CI Reference](../labs/runnable/lab33_continual_learning/REFERENCE_RESULTS.md)、Failure Atlas、Timeline | 系统“自我进化”具体改变参数、结构、记忆还是数据分布？它能否在持续更新时跨越 stability–plasticity，而不是只会覆盖旧能力？怎样证伪？ |
 
 ## Volume IX　Simulation、Data 与 Deployment
 
