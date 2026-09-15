@@ -38,7 +38,7 @@
 - **[最小可执行代码](code/minimal/README.md)** — SE(3)、IK、控制、Kalman、DAgger、Diffusion/Flow、World Model+MPC 等
 - **[40 Labs + 3 Capstones](labs/LABS.md)**
 - **[Lab Execution Matrix](labs/EXECUTION_MATRIX.md)** — CPU mechanism / simulator / real-robot 三层执行规划
-- **[Runnable Labs](labs/runnable/README.md)** — 已进入永久 CI 的机制实验；当前覆盖 Active Perception、Tactile Reflex、Async Execution、Cross-Embodiment、World Model MPC、Reasoning Negative Control、Continual Learning
+- **[Runnable Labs](labs/runnable/README.md)** — 已进入永久 CI 的机制实验；当前覆盖 Active Perception、Tactile Reflex、Async Execution、Cross-Embodiment、World Model MPC、Reasoning Negative Control、Continual Learning、Safety Shield
 - **[统一实验协议](labs/EXPERIMENT_PROTOCOL.md)** — hypothesis、controls、seeds、raw logs、failure taxonomy、real-robot protocol
 
 ### 源码级学习
@@ -230,7 +230,7 @@ Jacobian / SE(3)
 → Falsifiable New Architecture
 ```
 
-其中 [`labs/runnable/`](labs/runnable/) 把选定 Lab 落成统一 executable contract。当前 7 个 reference labs 已进入永久 CI：
+其中 [`labs/runnable/`](labs/runnable/) 把选定 Lab 落成统一 executable contract。当前 8 个 reference labs 已进入永久 CI：
 
 ```text
 Lab 13 Active Perception
@@ -253,6 +253,9 @@ Lab 31 Reasoning Negative Control
 
 Lab 33 Continual Learning
 → sequential experience → representation drift → retention / plasticity → memory cost
+
+Lab 40 Watchdog / Safety Shield
+→ fault / stale state → watchdog / predictive stopping → braking outcome → auditability / availability
 ```
 
 统一要求 raw logs、config、seed、failure cases、negative controls、confidence interval 和 reproducible figures。模型结果必须展开成：
@@ -369,7 +372,7 @@ Embodied-AI-development/
 - **204** 道章末题 + solution sketches；
 - **30** 组核心长推导；
 - **18** 张 canonical 核心机制图；
-- **13** 个最小可执行脚本 + **7** 个 CI-verified runnable reference labs；
+- **13** 个最小可执行脚本 + **8** 个 CI-verified runnable reference labs；
 - **7** 篇 canonical 深度 Case Study + **1** 份 Action Path Comparison；
 - Source-Code Atlas：ACT / Diffusion Policy / OpenVLA / LeRobot / GR00T N1.7 / V-JEPA 2/2.1；
 - **40 Labs + 3 Capstones** + Execution Matrix + 统一实验协议；
