@@ -32,6 +32,8 @@ from labs.runnable.common import RunRecorder, write_csv, write_json  # noqa: E40
 
 LAB_ID = "sim_mujoco_lab05_06_model_based_control"
 MODEL_PATH = Path(__file__).resolve().parent / "models" / "lab04_planar3.xml"
+KP = 28.0
+KD = 11.0
 
 
 def full_mass_matrix(model: mujoco.MjModel, data: mujoco.MjData) -> np.ndarray:
@@ -59,6 +61,16 @@ def desired_state(t: float) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     return q, qd, qdd
 
 
+def acceleration_command(
+    q: np.ndarray,
+    qd: np.ndarray,
+    q_des: np.ndarray,
+    qd_des: np.ndarray,
+    qdd_des: np.ndarray,
+) -> np.ndarray:
+    return qdd_des + KP * (q_des - q) + KD * (qd_des - qd)
+
+
 def compute_control(
     condition: str,
     *,
@@ -70,20 +82,38 @@ def compute_control(
     q_des: np.ndarray,
     qd_des: np.ndarray,
     qdd_des: np.ndarray,
-) -> np.ndarray:
-    kp = 28.0
-    kd = 11.0
-    acc_cmd = qdd_des + kp * (q_des - q) + kd * (qd_des - qd)
+) -> tuple[np.ndarray, np.ndarray]:
+    acc_cmd = acceleration_command(q, qd, q_des, qd_des, qdd_des)
 
     if condition == "computed_torque_matched":
-        return M @ acc_cmd + bias - passive
+        return M @ acc_cmd + bias - passive, acc_cmd
     if condition == "computed_torque_wrong_mass":
-        return (0.6 * M) @ acc_cmd + bias - passive
+        return (0.6 * M) @ acc_cmd + bias - passive, acc_cmd
     if condition == "computed_torque_omit_passive":
-        return M @ acc_cmd + bias
+        return M @ acc_cmd + bias, acc_cmd
     if condition == "plain_pd":
-        return kp * (q_des - q) + kd * (qd_des - qd)
+        return KP * (q_des - q) + KD * (qd_des - qd), acc_cmd
     raise ValueError(condition)
+
+
+def inverse_dynamics_required_force(
+    model: mujoco.MjModel,
+    data: mujoco.MjData,
+    qacc_desired: np.ndarray,
+) -> np.ndarray:
+    """Return MuJoCo inverse-dynamics generalized external/actuation force.
+
+    The caller provides a state with zero user-applied generalized force. The
+    result can therefore be compared directly to the manually reconstructed
+    computed-torque force at unconstrained states.
+    """
+    saved_qacc = np.asarray(data.qacc, dtype=np.float64).copy()
+    data.qacc[:] = qacc_desired
+    mujoco.mj_inverse(model, data)
+    required = np.asarray(data.qfrc_inverse, dtype=np.float64).copy()
+    data.qacc[:] = saved_qacc
+    mujoco.mj_forward(model, data)
+    return required
 
 
 def run_condition(condition: str, output: Path) -> dict[str, Any]:
@@ -114,6 +144,8 @@ def run_condition(condition: str, output: Path) -> dict[str, Any]:
             "disturbance_start_s": disturbance_start,
             "disturbance_end_s": disturbance_end,
             "disturbance_generalized_force": disturbance.tolist(),
+            "kp": KP,
+            "kd": KD,
             "mujoco_version": getattr(mujoco, "__version__", "unknown"),
         },
         repo_root=REPO_ROOT,
@@ -126,6 +158,10 @@ def run_condition(condition: str, output: Path) -> dict[str, Any]:
     max_error = 0.0
     post_disturbance_errors: list[float] = []
     disturbance_end_error: float | None = None
+    manual_vs_inverse_errors: list[float] = []
+    realized_acceleration_errors: list[float] = []
+    nominal_realized_acceleration_errors: list[float] = []
+    early_position_errors: list[float] = []
 
     for step in range(steps):
         t = float(data.time)
@@ -142,7 +178,7 @@ def run_condition(condition: str, output: Path) -> dict[str, Any]:
         bias = np.asarray(data.qfrc_bias, dtype=np.float64).copy()
         passive = np.asarray(data.qfrc_passive, dtype=np.float64).copy()
 
-        raw_tau = compute_control(
+        raw_tau, acc_cmd = compute_control(
             condition,
             M=M,
             bias=bias,
@@ -153,15 +189,35 @@ def run_condition(condition: str, output: Path) -> dict[str, Any]:
             qd_des=qd_des,
             qdd_des=qdd_des,
         )
+
+        inverse_tau = inverse_dynamics_required_force(model, data, acc_cmd)
+        manual_matched_tau = M @ acc_cmd + bias - passive
+        manual_vs_inverse_error = float(np.linalg.norm(manual_matched_tau - inverse_tau))
+        manual_vs_inverse_errors.append(manual_vs_inverse_error)
+
         tau = np.clip(raw_tau, -torque_limits, torque_limits)
         saturated = bool(np.any(np.abs(raw_tau) > torque_limits + 1e-12))
         saturated_steps += int(saturated)
         data.ctrl[:] = tau
 
-        if disturbance_start <= t < disturbance_end:
+        disturbance_active = disturbance_start <= t < disturbance_end
+        if disturbance_active:
             data.qfrc_applied[:] = disturbance
         else:
             data.qfrc_applied[:] = 0.0
+
+        # Ask the engine what acceleration the *actual* control/applied-force
+        # combination produces before advancing time. This diagnoses whether a
+        # tracking failure originates in the force model or later in execution.
+        mujoco.mj_forward(model, data)
+        realized_qacc = np.asarray(data.qacc, dtype=np.float64).copy()
+        expected_qacc = acc_cmd.copy()
+        if disturbance_active:
+            expected_qacc = expected_qacc + np.linalg.solve(M, disturbance)
+        realized_acceleration_error = float(np.linalg.norm(realized_qacc - expected_qacc))
+        realized_acceleration_errors.append(realized_acceleration_error)
+        if condition == "computed_torque_matched" and not disturbance_active and not saturated:
+            nominal_realized_acceleration_errors.append(realized_acceleration_error)
 
         position_error = q_des - q
         velocity_error = qd_des - qd
@@ -170,6 +226,8 @@ def run_condition(condition: str, output: Path) -> dict[str, Any]:
         squared_velocity_error += float(velocity_error @ velocity_error)
         control_energy += float(tau @ tau) * dt
         max_error = max(max_error, error_norm)
+        if t < 0.50:
+            early_position_errors.append(error_norm)
 
         if disturbance_end_error is None and t >= disturbance_end:
             disturbance_end_error = error_norm
@@ -191,10 +249,15 @@ def run_condition(condition: str, output: Path) -> dict[str, Any]:
             q_des2=float(q_des[2]),
             position_error_norm=error_norm,
             velocity_error_norm=float(np.linalg.norm(velocity_error)),
+            acc_cmd_norm=float(np.linalg.norm(acc_cmd)),
+            realized_qacc_norm=float(np.linalg.norm(realized_qacc)),
+            acceleration_realization_error_norm=realized_acceleration_error,
+            manual_vs_inverse_torque_error_norm=manual_vs_inverse_error,
             raw_torque_norm=float(np.linalg.norm(raw_tau)),
+            inverse_torque_norm=float(np.linalg.norm(inverse_tau)),
             torque_norm=float(np.linalg.norm(tau)),
             saturated=int(saturated),
-            disturbance=int(disturbance_start <= t < disturbance_end),
+            disturbance=int(disturbance_active),
         )
         mujoco.mj_step(model, data)
 
@@ -206,6 +269,7 @@ def run_condition(condition: str, output: Path) -> dict[str, Any]:
         "mujoco_version": getattr(mujoco, "__version__", "unknown"),
         "position_rmse": position_rmse,
         "velocity_rmse": velocity_rmse,
+        "early_mean_error_norm": float(np.mean(early_position_errors)),
         "max_position_error_norm": max_error,
         "disturbance_end_error_norm": (
             float(disturbance_end_error) if disturbance_end_error is not None else math.nan
@@ -213,6 +277,14 @@ def run_condition(condition: str, output: Path) -> dict[str, Any]:
         "late_mean_error_norm": late_mean_error,
         "control_energy": control_energy,
         "saturation_fraction": saturated_steps / steps,
+        "mean_manual_vs_inverse_torque_error": float(np.mean(manual_vs_inverse_errors)),
+        "max_manual_vs_inverse_torque_error": float(np.max(manual_vs_inverse_errors)),
+        "mean_realized_acceleration_error": float(np.mean(realized_acceleration_errors)),
+        "mean_nominal_realized_acceleration_error": (
+            float(np.mean(nominal_realized_acceleration_errors))
+            if nominal_realized_acceleration_errors
+            else math.nan
+        ),
         "finite": int(np.all(np.isfinite(data.qpos)) and np.all(np.isfinite(data.qvel))),
     }
     recorder.finalize(summary)
@@ -242,8 +314,11 @@ def main() -> None:
     for row in summaries:
         print(
             f"{row['condition']:30s} pos-rmse={row['position_rmse']:.4f} "
+            f"early={row['early_mean_error_norm']:.4f} "
             f"late={row['late_mean_error_norm']:.4f} "
-            f"energy={row['control_energy']:.2f} sat={row['saturation_fraction']:.3f}"
+            f"energy={row['control_energy']:.2f} sat={row['saturation_fraction']:.3f} "
+            f"tau-inv={row['mean_manual_vs_inverse_torque_error']:.3e} "
+            f"acc-res={row['mean_nominal_realized_acceleration_error']:.3e}"
         )
 
 
