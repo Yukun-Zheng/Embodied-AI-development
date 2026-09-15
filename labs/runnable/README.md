@@ -165,6 +165,23 @@ passive one-step prediction
 
 CI-verified quick reference results 见 [`REFERENCE_RESULTS.md`](lab29_world_model_mpc/REFERENCE_RESULTS.md)。
 
+### [`Lab 33 — Continual Learning`](lab33_continual_learning/README.md)
+
+把 stability–plasticity dilemma 放进固定容量 sequential learning：
+
+```text
+3 independent task directions
+→ 2-D shared bottleneck
+→ A → B → C sequential updates
+→ representation drift
+→ retention / plasticity / transfer
+→ replay or anchor memory cost
+```
+
+比较 `naive_finetune / replay / quadratic_anchor / replay_shuffled_labels`。关键机制问题是：**旧能力保留是否来自正确旧信息，而且 retention gain 付出了多少 plasticity 与 memory 成本。**
+
+CI-verified quick reference results 见 [`REFERENCE_RESULTS.md`](lab33_continual_learning/REFERENCE_RESULTS.md)。
+
 ## Phase 1 completion criterion
 
 Runnable Lab 不是“有 `run.py`”就算完成。当前 reference labs 必须经过同一长期 CI：
