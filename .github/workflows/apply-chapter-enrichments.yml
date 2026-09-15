@@ -1,0 +1,50 @@
+name: Apply Chapter Research Enrichments
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/apply_chapter_enrichments.py"
+      - ".github/workflows/apply-chapter-enrichments.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  enrich:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Apply curated chapter enrichments
+        run: python scripts/apply_chapter_enrichments.py
+
+      - name: Regenerate chapter-driven TOC
+        run: python scripts/generate_toc.py
+
+      - name: Validate enriched manuscript
+        run: |
+          python scripts/validate_book.py
+          python scripts/audit_chapters.py
+
+      - name: Commit enriched chapters and TOC when needed
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- book/chapters book/TOC.md; then
+            echo "Curated enrichments are already applied."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add book/chapters book/TOC.md
+          git commit -m "Apply curated chapter research enrichments"
+          git pull --rebase origin main
+          git push origin HEAD:main
