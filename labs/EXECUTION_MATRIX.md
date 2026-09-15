@@ -77,9 +77,11 @@ Legend: `✓` = recommended execution layer, `○` = useful extension, `—` = n
 |---|:---:|:---:|:---:|---|---|
 | 23 Action-Token VLA | ✓ | ✓ | ○ | tiny VLA → OpenVLA | tokenization/decode error + tensor trace |
 | 24 Continuous Action Expert | ✓ | ✓ | ○ | tiny flow expert → SmolVLA | continuous expert vs token action |
-| 25 VLA Visual Intervention | ○ | ✓ | ✓ | RoboTwin / LIBERO / real arm | causal visual intervention matrix |
+| **25 VLA Visual Intervention** | **✓** | ✓ | ✓ | synthetic visual causal mechanism → RoboTwin / LIBERO / real arm | geometry × appearance × camera × distractor intervention matrix |
 | **26 Cross-Embodiment** | **✓** | ✓ | ○ | 1-D physical mechanism → two+ robot sims | interface semantics × seen lookup × held-out morphology conditioning |
 | **27 Long-Horizon VLA + Memory** | **✓** | ✓ | ○ | partially observable memory task → household sim | bounded context × episodic × semantic × shuffled/unrelated controls |
+
+Lab 25 已进入 permanent executable CI：同一 fixed instruction 与同一 representation schema 下，构造 geometry-causal、appearance-shortcut、camera-unaware 与 distractor-shortcut action head；base distribution 故意让四者都达到 100% success，再逐一干预 target position、texture、background、camera yaw、irrelevant distractor 与 target-geometry token。CI 同时检查 action sensitivity、nuisance invariance、downstream success 与 geometry-probe RMSE，从而显式区分“feature 中可解码信息”与“policy 因果使用信息”。
 
 Lab 26 已进入 permanent executable CI：同一 shared canonical policy 在 A/B seen bodies 与 C/D held-out bodies 上执行；分别控制 raw interface、canonical state/action semantics、seen robot-ID lookup、continuous morphology descriptor、wrong morphology tag 与 wrong action semantics，并强制 `adaptation_steps=0` 报告 held-out interpolation / extrapolation。
 
@@ -151,7 +153,7 @@ config
 → reproducible output directory
 ```
 
-首个 reference implementation 是 **Lab 22 Asynchronous Policy Execution**；当前 CI-verified reference set 已扩展为 **Lab 13 / 14 / 22 / 26 / 27 / 29 / 31 / 33 / 37 / 38 / 40**。
+首个 reference implementation 是 **Lab 22 Asynchronous Policy Execution**；当前 CI-verified reference set 已扩展为 **Lab 13 / 14 / 22 / 25 / 26 / 27 / 29 / 31 / 33 / 37 / 38 / 40**。
 
 ### Phase 2 — Physics adapters
 
