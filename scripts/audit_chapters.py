@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
-r"""Audit structural depth of all 51 textbook chapters.
+r"""Audit and enforce structural depth for all 51 canonical chapters.
 
-This is a diagnostic, not yet a hard gate. It makes manuscript imbalance visible
-without pretending that raw word count alone measures quality.
+Every chapter must contain six publication-baseline dimensions:
+1. at least one display equation,
+2. at least one code/dataflow block,
+3. an explicit failure section,
+4. an explicit experiment section,
+5. an explicit research-question section,
+6. source evidence (authored anchors or canonical source-map fallback).
 
-Equation coverage counts both Markdown/MathJax display styles used by this book:
-`$$...$$` and `\[...\]`. Failure/experiment/research coverage requires an
-explicit Markdown heading, rather than an incidental keyword in prose.
+This gate does not claim all chapters are equally good; it prevents structural
+regression so future editing can focus on evidence quality and exposition.
 """
 
 from __future__ import annotations
@@ -62,9 +66,25 @@ class Row:
             ]
         )
 
+    @property
+    def missing(self) -> list[str]:
+        missing: list[str] = []
+        if self.equations == 0:
+            missing.append("equation")
+        if self.code_blocks == 0:
+            missing.append("code/dataflow")
+        if not self.has_failure:
+            missing.append("failure-section")
+        if not self.has_experiment:
+            missing.append("experiment-section")
+        if not self.has_research:
+            missing.append("research-question-section")
+        if not self.has_source_evidence:
+            missing.append("source-evidence")
+        return missing
+
 
 def count_display_equations(text: str) -> int:
-    """Count complete display-math blocks in the canonical book styles."""
     dollar_blocks = text.count("$$") // 2
     bracket_open = text.count(r"\[")
     bracket_close = text.count(r"\]")
@@ -149,20 +169,7 @@ def main() -> None:
 
     print("\nLOWEST STRUCTURE COVERAGE")
     for r in sorted(rows, key=lambda x: (x.structure_score, x.chars))[:20]:
-        missing = []
-        if r.equations == 0:
-            missing.append("equation")
-        if r.code_blocks == 0:
-            missing.append("code/dataflow")
-        if not r.has_failure:
-            missing.append("failure-section")
-        if not r.has_experiment:
-            missing.append("experiment-section")
-        if not r.has_research:
-            missing.append("research-question-section")
-        if not r.has_source_evidence:
-            missing.append("source-evidence")
-        print(f"Part {r.part:02d}: {r.structure_score}/6 missing={','.join(missing) or 'none'}")
+        print(f"Part {r.part:02d}: {r.structure_score}/6 missing={','.join(r.missing) or 'none'}")
 
     print("\nSUMMARY")
     print(f"chapters={len(rows)}")
@@ -174,7 +181,15 @@ def main() -> None:
     print(f"with_failure_section={sum(r.has_failure for r in rows)}/51")
     print(f"with_experiment_section={sum(r.has_experiment for r in rows)}/51")
     print(f"with_research_question_section={sum(r.has_research for r in rows)}/51")
-    print("Audit is diagnostic only; publication thresholds will be set after inspecting this distribution.")
+
+    failures = [r for r in rows if r.structure_score != 6]
+    if failures:
+        print("\nPUBLICATION BASELINE FAILED")
+        for r in failures:
+            print(f"Part {r.part:02d}: missing={','.join(r.missing)}")
+        raise SystemExit(1)
+
+    print("PUBLICATION BASELINE PASSED: all 51 chapters satisfy 6/6 structural requirements.")
 
 
 if __name__ == "__main__":
