@@ -1,0 +1,26 @@
+{
+  "seed": 23,
+  "episodes": 1000,
+  "sensing_steps": 4,
+  "n_cells": 7,
+  "initial_view": 2,
+  "view_positions": [-2.0, -1.0, 0.0, 1.0, 2.0],
+  "visible_cells_by_view": [
+    [0, 1, 2],
+    [0, 1, 2, 3],
+    [2, 3, 4],
+    [3, 4, 5, 6],
+    [4, 5, 6]
+  ],
+  "visible_accuracy": 0.93,
+  "occluded_accuracy": 0.28,
+  "information_gain_motion_lambda": 0.08,
+  "task_motion_penalty": 0.03,
+  "shuffled_geometry_permutation": [4, 3, 2, 1, 0],
+  "policies": [
+    "fixed_center",
+    "random_view",
+    "info_gain",
+    "info_gain_shuffled_geometry"
+  ]
+}
