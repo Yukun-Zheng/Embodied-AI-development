@@ -29,7 +29,7 @@
 | **6 机器人身体与机电系统** | Lab 39 / 40 | Hardware Atlas | policy 输出之后经过哪些 driver、bus、actuator 与 safety boundary？ |
 | **7 刚体几何与 SE(3)** | Lab 03；`se3.py` | D4–D5；Core Diagrams 的 frame 图 | world/base/camera/EE frame 是否在代码、数据和标注中完全一致？ |
 | **8 运动学与 Jacobian** | Lab 02 / 04；`planar_arm.py` | D1–D3/D6 | 同一个 learned action 在 singularity / joint limit 附近是否仍可执行？ |
-| **9 动力学、接触与抓取** | Lab 05 / 14 | Failure Atlas 的 contact/dynamics 条目 | success gain 来自 policy 还是 controller/contact model/friction setting？ |
+| **9 动力学、接触与抓取** | [Runnable Lab 14](../labs/runnable/lab14_tactile_reflex/README.md)；Lab 05 | [Lab 14 CI Reference](../labs/runnable/lab14_tactile_reflex/REFERENCE_RESULTS.md)、Failure Atlas 的 contact/dynamics 条目 | contact failure 来自 policy、摩擦/动力学、controller bandwidth 还是 feedback latency？这些因素能否独立干预？ |
 | **10 Feedback / Optimal / Whole-Body Control** | Lab 06；`control.py` | Hardware Atlas、Part 35 | learned policy 与 PID/impedance/WBC 的边界究竟在哪里？ |
 | **11 Motion / Task / Uncertainty Planning** | [Runnable Lab 29](../labs/runnable/lab29_world_model_mpc/README.md)；Lab 07；`world_model_mpc.py` | [Lab 29 CI Reference](../labs/runnable/lab29_world_model_mpc/REFERENCE_RESULTS.md)、World Model Control case | planner 的收益来自搜索、模型预测还是更大 compute budget？planning horizon 何时开始放大 model bias？ |
 
@@ -41,7 +41,7 @@
 | **13 2D Vision 与 Representation** | Lab 12 / 25 | Model Atlas、视觉 intervention protocol | feature 里“有信息”与 policy “因果使用信息”如何区分？ |
 | **14 3D / 4D World Representation** | Lab 09 / 11 | Benchmark Atlas | 几何精度提升是否真的提高 manipulation，而非只提高 probe？ |
 | **15 State Estimation / Localization** | Lab 10 / 11；`kalman_filter.py` | Failure Atlas state/belief 条目 | observation 与 belief 混用会产生什么 failure？ |
-| **16 Tactile / Contact Intelligence** | Lab 14 | Hardware Atlas、Failure Atlas contact/slip | 高频 tactile residual 是否在视觉/VLA 控制频率之外提供独立增益？ |
+| **16 Tactile / Contact Intelligence** | [Runnable Lab 14](../labs/runnable/lab14_tactile_reflex/README.md) | [Lab 14 CI Reference](../labs/runnable/lab14_tactile_reflex/REFERENCE_RESULTS.md)、Hardware Atlas、Failure Atlas contact/slip | 高频 tactile residual 是否在慢语义策略之外提供独立增益？若 tactile 数据 stale，高更新频率还是否有效？ |
 | **17 Active Perception** | [Runnable Lab 13](../labs/runnable/lab13_active_perception/README.md)；`active_perception.py` | [Lab 13 CI Reference](../labs/runnable/lab13_active_perception/REFERENCE_RESULTS.md)、Benchmark Atlas、Experiment Protocol | information gain 是否真正提高任务判断？正确 view geometry 是否因果必要？额外 sensing motion 是否值得？ |
 
 ## Volume IV　Robot Learning
@@ -78,7 +78,7 @@
 | Part | 可执行 / Lab | 连接资产 | 研究验收问题 |
 |---|---|---|---|
 | **32 Manipulation** | Lab 15 / 20；Capstone 1 | Benchmark Atlas、Failure Atlas | success failure 是 perception、action distribution、contact 还是 controller？ |
-| **33 Bimanual / Dexterity / Tactile** | Lab 14 / 17 / 37 | ACT case、Hardware Atlas | 双臂独立 policy 与 relative/coordinated representation 的差异在哪里？ |
+| **33 Bimanual / Dexterity / Tactile** | [Runnable Lab 14](../labs/runnable/lab14_tactile_reflex/README.md)；Lab 17 / 37 | [Lab 14 CI Reference](../labs/runnable/lab14_tactile_reflex/REFERENCE_RESULTS.md)、ACT case、Hardware Atlas | 双臂/灵巧接触中，慢语义策略与快 contact residual 应如何分工？收益来自 tactile modality 还是低延迟闭环？ |
 | **34 Mobile / Embodied Navigation** | [Runnable Lab 13](../labs/runnable/lab13_active_perception/README.md)；Lab 07 | [Lab 13 CI Reference](../labs/runnable/lab13_active_perception/REFERENCE_RESULTS.md)、Benchmark Atlas | map/belief/planner 与 learned policy 的边界怎样做公平比较？主动 sensing 的信息收益如何计入额外运动成本？ |
 | **35 Humanoid / Whole-Body** | Lab 35 / 36 | Hardware Atlas、GR00T N1.7 case | whole-body 不是 action dim 变大：balance/contact/WBC 哪一层承担了稳定性？ |
 | **36 Human–Robot / Multi-Robot** | Lab 38 | Failure Atlas communication/system 条目 | collaboration gain 在 communication delay/dropout 下是否仍成立？ |
@@ -98,7 +98,7 @@
 | **40 Physics Simulation / Robot Platforms** | Lab 18 / 35 / 36 | Benchmark / Hardware Atlas | simulator fidelity 的哪一部分对目标任务真正敏感？ |
 | **41 Synthetic Data / Sim2Real** | Capstone 1 / 2 | Dataset Atlas | synthetic data 的收益来自 coverage、label quality 还是 domain randomization？ |
 | **42 Robot Data Engineering** | Lab 32 | Dataset Atlas、cross-matrix | schema / normalization / timestamp / success label 错误能否被训练 loss 检测？ |
-| **43 Robot Systems / Deployment** | [Runnable Lab 22](../labs/runnable/lab22_async_execution/README.md) / Lab 39 / 40；`chunk_latency.py` | SmolVLA / GR00T cases、Hardware Atlas | P50/P95/P99 latency、jitter、queue、action age 和 watchdog 是否作为实验变量报告？ |
+| **43 Robot Systems / Deployment** | [Runnable Lab 22](../labs/runnable/lab22_async_execution/README.md) / [Runnable Lab 14](../labs/runnable/lab14_tactile_reflex/README.md) / Lab 39 / 40；`chunk_latency.py` | Lab 14/22 CI References、SmolVLA / GR00T cases、Hardware Atlas | P50/P95/P99 latency、jitter、queue、action age、sensor age、multi-rate residual 和 watchdog 是否作为实验变量报告？ |
 
 ## Volume X　Evaluation 与 Safety
 
