@@ -22,6 +22,8 @@ LAB22 = LAB22_DIR / "run.py"
 LAB22_ANALYZE = LAB22_DIR / "analyze.py"
 LAB29_DIR = ROOT / "labs" / "runnable" / "lab29_world_model_mpc"
 LAB29 = LAB29_DIR / "run.py"
+LAB29_HORIZON = LAB29_DIR / "horizon_probe.py"
+LAB29_ANALYZE = LAB29_DIR / "analyze.py"
 
 
 def read_rows(path: Path) -> list[dict[str, str]]:
@@ -154,9 +156,61 @@ def test_lab29(tmp: Path) -> None:
     assert as_float(blind, "final_position_error") > 0.80
     assert as_float(wrong, "final_position_error") > 2.0
 
+    # The second layer makes model bias an explicit independent variable and
+    # asks whether longer imagined rollouts compound that bias.
+    subprocess.run(
+        [sys.executable, str(LAB29_HORIZON), "--quick", "--output", str(output)],
+        cwd=ROOT,
+        check=True,
+    )
+    horizon_path = output / "horizon_sweep.csv"
+    horizon_manifest = output / "horizon_probe_manifest.json"
+    assert horizon_path.is_file(), "Lab 29 horizon probe did not write horizon_sweep.csv"
+    assert horizon_manifest.is_file(), "Lab 29 horizon probe did not write its manifest"
+
+    horizon_rows = read_rows(horizon_path)
+    assert [int(row["planning_horizon"]) for row in horizon_rows] == [1, 4, 16, 32]
+    for row in horizon_rows:
+        for metric in [
+            "rollout_prediction_rmse",
+            "terminal_prediction_rmse",
+            "realized_control_cost",
+            "final_position_error",
+        ]:
+            as_float(row, metric)
+
+    first_terminal = as_float(horizon_rows[0], "terminal_prediction_rmse")
+    last_terminal = as_float(horizon_rows[-1], "terminal_prediction_rmse")
+    assert last_terminal > 3.0 * first_terminal, (
+        "Injected action-gain bias did not compound over the planning horizon: "
+        f"h1={first_terminal:.4f}, h32={last_terminal:.4f}"
+    )
+
+    costs = [as_float(row, "realized_control_cost") for row in horizon_rows]
+    assert costs[-1] > 1.15 * min(costs), (
+        "Longest biased planning horizon did not become measurably worse than an intermediate horizon: "
+        f"costs={costs}"
+    )
+
+    subprocess.run(
+        [sys.executable, str(LAB29_ANALYZE), str(output)],
+        cwd=ROOT,
+        check=True,
+    )
+    analysis_json = output / "analysis.json"
+    analysis_md = output / "ANALYSIS.md"
+    assert analysis_json.is_file(), "Lab 29 analyzer did not write analysis.json"
+    assert analysis_md.is_file(), "Lab 29 analyzer did not write ANALYSIS.md"
+    with analysis_json.open("r", encoding="utf-8") as handle:
+        analysis = json.load(handle)
+    assert analysis["observational_prediction_is_insufficient"] is True
+    assert analysis["counterfactual_direction_matters"] is True
+    assert analysis["horizon_prediction_error_accumulates"] is True
+    assert analysis["long_horizon_control_not_monotonic"] is True
+
     print(
-        "PASS lab29_world_model_mpc: low passive prediction error was separated "
-        "from counterfactual action sensitivity and closed-loop control utility"
+        "PASS lab29_world_model_mpc: passive prediction, counterfactual action sensitivity, "
+        "closed-loop utility and horizon-dependent model-bias amplification were separated"
     )
 
 
