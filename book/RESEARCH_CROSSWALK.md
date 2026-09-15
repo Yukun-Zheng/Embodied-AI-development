@@ -67,7 +67,7 @@
 
 | Part | 可执行 / Lab | 连接资产 | 研究验收问题 |
 |---|---|---|---|
-| **27 Embodied Reasoning / Agentic Robotics** | Lab 31 | Failure Atlas、Experiment Protocol | correct plan / fluent wrong plan / no plan 三者是否产生可测行为差异？ |
+| **27 Embodied Reasoning / Agentic Robotics** | [Runnable Lab 31](../labs/runnable/lab31_reasoning_negative_control/README.md) | [Lab 31 CI Reference](../labs/runnable/lab31_reasoning_negative_control/REFERENCE_RESULTS.md)、Failure Atlas、Experiment Protocol | correct / no-plan / random-order / fluent-wrong / binding controls 能否把表面自洽、局部可执行与真实因果正确性分开？ |
 | **28 Robot Memory** | Lab 27 | Model Atlas | memory 是保存 task state，还是只扩大 context？shuffled memory 会怎样？ |
 | **29 Learning from Experience** | [Runnable Lab 33](../labs/runnable/lab33_continual_learning/README.md)；Lab 32 | [Lab 33 CI Reference](../labs/runnable/lab33_continual_learning/REFERENCE_RESULTS.md)、Timeline、Dataset Atlas | autonomous data 的 marginal value 是否超过 curated demonstrations？新经验写入后旧能力退化多少，retention 又付出多少 plasticity / memory 成本？ |
 | **30 World Models / Predictive Intelligence** | [Runnable Lab 29](../labs/runnable/lab29_world_model_mpc/README.md)；Lab 28；`world_model_mpc.py` | [Lab 29 CI Reference](../labs/runnable/lab29_world_model_mpc/REFERENCE_RESULTS.md)、V-JEPA 2.1 case、World Model Control case | passive prediction、counterfactual action sensitivity、multi-step rollout accuracy 与 closed-loop control gain 能否逐层分开？ |
@@ -111,7 +111,7 @@
 
 | Part | 可执行 / Lab | 连接资产 | 研究验收问题 |
 |---|---|---|---|
-| **46 Rigorous Embodied-AI Research** | Capstone 3 | `EXPERIMENT_PROTOCOL.md`、Failure Atlas | hypothesis 是否提前给出能让方法失败的 negative control？ |
+| **46 Rigorous Embodied-AI Research** | [Runnable Lab 31](../labs/runnable/lab31_reasoning_negative_control/README.md)；Capstone 3 | [Lab 31 CI Reference](../labs/runnable/lab31_reasoning_negative_control/REFERENCE_RESULTS.md)、`EXPERIMENT_PROTOCOL.md`、Failure Atlas | hypothesis 是否提前给出能让方法失败的 negative control？能否证明负对照攻击的是因果机制而非输出长度、动作词表或 compute budget？ |
 | **47 Transformer 的角色与边界** | Lab 23/24；Action Path Comparison | OpenVLA / SmolVLA / GR00T cases | tokenization / attention 的收益是机制必需，还是工程惯性？ |
 | **48 Mathematical Embodied Intelligence** | Lab 01–07；全部 Derivations | `DERIVATIONS.md` | 能否把模糊“智能模块”写成状态、约束、objective、operator 与可验证不变量？ |
 | **49 Open Frontiers 2026-09** | Capstone 3 | Model Atlas、Timeline、Source-Code Atlas | 新模型到底改变哪个长期科学问题，而不是多一个品牌名？ |
