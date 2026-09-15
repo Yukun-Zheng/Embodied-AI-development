@@ -13,7 +13,8 @@ labXX_name/
 ├── README.md
 ├── config/
 │   └── default.json
-└── run.py
+├── run.py
+└── analyze.py              # 当机制结论需要从 raw outputs 派生时
 ```
 
 运行时生成的文件不提交为教材源文件：
@@ -29,7 +30,9 @@ runs/<run-id>/
 跨条件 sweep 还应生成：
 
 ```text
-results.csv
+results.csv / policy_metrics.csv / model_metrics.csv
+analysis.json
+ANALYSIS.md
 ```
 
 公共记录逻辑放在 [`common.py`](common.py)。
@@ -60,6 +63,19 @@ results.csv
 
 只保存由 raw logs 可重建的摘要指标。
 
+### `analysis.json / ANALYSIS.md`
+
+当实验 claim 不是单个 scalar 能表达时，用 analyzer 从 raw/sweep outputs 推导：
+
+```text
+intermediate mechanism changed?
+→ downstream task changed?
+→ negative control degraded?
+→ failure explanation still holds?
+```
+
+CI 可以直接检查 machine-readable `analysis.json`，避免把自然语言解释与实际数据分离。
+
 ## CI 原则
 
 Hosted CI 只运行：
@@ -79,6 +95,22 @@ Hosted CI 只运行：
 这些重实验仍应使用同一 manifest/results/failure schema，从而让本地、服务器和真机结果可以进入同一分析链。
 
 ## Current runnable reference labs
+
+### [`Lab 13 — Active Perception`](lab13_active_perception/README.md)
+
+在 partially observable toy scene 中显式模拟：
+
+```text
+occlusion
+→ belief uncertainty
+→ candidate viewpoints
+→ information gain - motion cost
+→ camera movement
+→ new observation
+→ task decision
+```
+
+比较 `fixed_center / random_view / info_gain / info_gain_shuffled_geometry`。关键机制问题是：**主动减少 uncertainty 是否真的提高任务判断，而且正确的 view geometry 是否因果必要。**
 
 ### [`Lab 22 — Asynchronous Policy Execution`](lab22_async_execution/README.md)
 
@@ -102,10 +134,16 @@ observation timestamp
 ```text
 passive one-step prediction
 → counterfactual action sensitivity
+→ multi-step rollout bias
 → MPC control utility
 ```
 
-比较 `action_aware / action_blind / wrong_action_sign`。核心目标是复现一个反例：**被动分布上的小 prediction error 可以和错误的 intervention model、失败的 closed-loop planning 同时存在。**
+比较 `action_aware / action_blind / wrong_action_sign`，再对 action-aware model 注入可控 action-gain bias 并扫描 planning horizon。核心目标是复现两个反例：
+
+1. **被动分布上的小 prediction error 可以和错误 intervention model、失败 closed-loop planning 同时存在；**
+2. **更长 planning horizon 先可能带来 look-ahead 收益，随后也可能放大 model bias。**
+
+CI-verified quick reference results 见 [`REFERENCE_RESULTS.md`](lab29_world_model_mpc/REFERENCE_RESULTS.md)。
 
 ## Phase 1 completion criterion
 
@@ -116,6 +154,7 @@ raw artifacts exist
 + metrics finite
 + negative controls pass
 + claimed mechanism variable actually changes
++ downstream task consequence is measured
 + falsification condition behaves as designed
 ```
 
