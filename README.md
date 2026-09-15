@@ -27,7 +27,7 @@
 - **[自动生成完整目录](book/TOC.md)** — 从 51 个 Chapter 的真实标题生成，避免目录漂移
 - **[12 卷连续通读版](book/volumes/)** — 先建立全局框架，再进入逐 Part 深章
 - **[36 周系统学习路线](book/SYLLABUS_36_WEEKS.md)** — 从基础到独立研究的一年课程
-- **[知识依赖图](book/DEPENDENCY_GRAPH.md)** / **[概念索引](book/CONCEPT_INDEX.md)** — 支持跳读与按概念查找
+- **[知识依赖图](book/DEPENDENCY_GRAPH.md)** / **[Research Crosswalk](book/RESEARCH_CROSSWALK.md)** / **[概念索引](book/CONCEPT_INDEX.md)** — 从 prerequisite 跳到实验、源码与研究问题
 
 ### 数学、图、习题与实验
 
@@ -74,6 +74,7 @@ dataset
 - **[Benchmark / Platform Atlas](references/BENCHMARK_ATLAS.md)**
 - **[Failure Atlas](references/FAILURE_ATLAS.md)**
 - **[Model × Data × Hardware × Benchmark Matrix](references/MODEL_DATA_HARDWARE_BENCHMARK_MATRIX.md)**
+- **[51-Part Primary Source Map](references/CHAPTER_SOURCE_ANCHORS.md)** — 每个 canonical Chapter 的 foundation / primary / official-source 入口
 - **[1948–2026 技术时间线](references/TIMELINE.md)**
 - **[逐 Part Reading Map](references/READING_MAP.md)**
 - **[统一 References](references/REFERENCES.md)** / **[BibTeX](references/BIBLIOGRAPHY.bib)**
@@ -258,7 +259,7 @@ MathJax formulas + Mermaid diagrams + searchable navigation
 当前自动回归覆盖三层：
 
 - **Minimal code regression** — 最小数学/机器人代码；
-- **Textbook QA** — Part 0–50 连续性、TOC、关键资产与本地 Markdown 链接；
+- **Textbook QA** — Part 0–50 连续性、TOC、关键资产、本地链接，以及 51/51 Chapter 的 6/6 publication baseline；
 - **Website Build** — publication staging、MathJax/Mermaid 构建、Part 0/24/50 与关键源码案例 smoke test。
 
 ---
@@ -294,6 +295,7 @@ Embodied-AI-development/
 │   ├── SYLLABUS_36_WEEKS.md
 │   ├── CONCEPT_INDEX.md
 │   ├── DEPENDENCY_GRAPH.md
+│   ├── RESEARCH_CROSSWALK.md
 │   ├── NOTATION_AND_CONVENTIONS.md
 │   ├── DERIVATIONS.md
 │   ├── EXERCISES.md
@@ -311,6 +313,7 @@ Embodied-AI-development/
 │   ├── LABS.md
 │   └── EXPERIMENT_PROTOCOL.md
 ├── references/
+│   ├── CHAPTER_SOURCE_ANCHORS.md
 │   ├── SOURCE_CODE_ATLAS.md
 │   ├── MODEL_ATLAS.md
 │   ├── DATASET_ATLAS.md
@@ -335,7 +338,7 @@ Embodied-AI-development/
 - **204** 道章末题 + solution sketches；
 - **30** 组核心长推导；
 - **18** 张 canonical 核心机制图；
-- **10** 个最小可执行脚本；
+- **13** 个最小可执行脚本 + 一键 regression；
 - **7** 篇 canonical 深度 Case Study + **1** 份 Action Path Comparison；
 - Source-Code Atlas：ACT / Diffusion Policy / OpenVLA / LeRobot / GR00T N1.7 / V-JEPA 2/2.1；
 - **40 Labs + 3 Capstones** + 统一实验协议；
@@ -345,9 +348,10 @@ Embodied-AI-development/
 - References / Reading Map / BibTeX / 1948–2026 Timeline；
 - chapter-driven TOC + chapter-driven website navigation；
 - minimal-code / textbook-QA / website-build 三层 CI；
+- **51/51 Chapter 结构基线 6/6**：equation + dataflow/code + failure + experiment + research questions + source evidence；
 - 统一前沿时间截面：**2026-09-14**。
 
-v1.x 将继续重点推进：**逐章 primary-source citations、simulator-level executable labs、真实/仿真实验结果回填、更多源码级解剖、跨章交叉引用与出版编辑**。
+v1.x 将继续重点推进：**高可核查 claim 的就地 primary-source attribution、simulator-level executable labs、真实/仿真实验结果回填、更多源码级解剖、跨章交叉引用与出版编辑**。
 
 ---
 
