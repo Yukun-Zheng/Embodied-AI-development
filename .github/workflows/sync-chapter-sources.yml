@@ -27,17 +27,25 @@ jobs:
       - name: Synchronize chapter source entry points
         run: python scripts/sync_chapter_sources.py
 
-      - name: Commit generated source blocks when needed
+      - name: Regenerate chapter-driven TOC
+        run: python scripts/generate_toc.py
+
+      - name: Validate manuscript after synchronization
+        run: |
+          python scripts/validate_book.py
+          python scripts/audit_chapters.py
+
+      - name: Commit synchronized chapters and TOC when needed
         shell: bash
         run: |
           set -euo pipefail
-          if git diff --quiet -- book/chapters; then
-            echo "Chapter source blocks are already synchronized."
+          if git diff --quiet -- book/chapters book/TOC.md; then
+            echo "Chapter sources and TOC are already synchronized."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add book/chapters
+          git add book/chapters book/TOC.md
           git commit -m "Synchronize chapter primary-source entry points"
           git pull --rebase origin main
           git push origin HEAD:main
