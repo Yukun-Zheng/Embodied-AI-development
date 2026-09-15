@@ -4,6 +4,8 @@
 
 本章不是背年份，而是理解具身智能反复出现的五组张力：**反馈 vs 离线规划、显式模型 vs 端到端学习、符号 vs 连续控制、模块化 vs 通用模型、离线数据 vs 自主经验。**
 
+真正会读技术史，不是能列出模型版本，而是能解释：前一代什么假设失效、下一代改了哪一个计算对象或系统接口、实验究竟支持了多强的结论。
+
 ---
 
 ## 1.1 控制论：智能首先是反馈
@@ -21,6 +23,8 @@ u_t=K(r_t-y_t).
 ## 1.2 Sense–Plan–Act
 
 早期机器人把系统分成：感知世界 → 建模 → 规划 → 执行。优点是职责清晰、可验证；缺点是动态世界中，等完整 world model 建好再行动可能已经过时，而且模块误差逐级传播。
+
+重要的是不要把它简化成“旧式模块化失败了”。在安全、工业机器人和 whole-body system 中，perception / planning / controller / safety boundary 仍然必须被工程化区分。
 
 ## 1.3 Behavior-Based Robotics
 
@@ -74,7 +78,7 @@ SayCan 将语言 plausibility 与 affordance/value 相乘；PaLM-E 将 sensor em
 
 ## 1.10 RT-1 / RT-2
 
-RT-1 展示大规模真实机器人多任务 Transformer；RT-2 进一步将 VLM 与机器人 action co-training，把动作离散成 token，使 web-scale视觉语言知识进入直接 robot control。
+RT-1 展示大规模真实机器人多任务 Transformer；RT-2 进一步将 VLM 与机器人 action co-training，把动作离散成 token，使 web-scale 视觉语言知识进入直接 robot control。
 
 从此 Vision-Language-Action 成为主流术语。
 
@@ -96,9 +100,9 @@ Octo 以 Transformer + diffusion policy 做开放 generalist policy；OpenVLA �
 
 ## 1.14 GR00T / Gemini Robotics / Helix
 
-GR00T 将 human video、simulation、real robot 数据用于 humanoid foundation model，并继续走向 loco-manipulation；Gemini Robotics 把 embodied reasoning 与 VLA 分层，并在 Robotics 2 进入 whole-body、dexterity、multi-robot、on-device；Helix 展示 industrial humanoid 的统一 upper-body VLA 路线。
+GR00T 将 human video、simulation、real robot 数据用于 humanoid foundation model，并继续走向 loco-manipulation；Gemini Robotics 把 embodied reasoning 与 VLA 分层，并在 Robotics 2 进入 whole-body、dexterity、multi-robot、on-device；Helix 展示 industrial humanoid 的 multi-rate foundation-policy 路线。
 
-2026 的问题已不再是“机械臂能否 follow language”，而是完整身体、长时任务、跨本体与可靠性。
+截至本书 2026-09-14 的冻结截面，GR00T N1.7 已进入公开源码主线。本书不把版本号本身当科学进步，而追踪 backbone、action expert、embodiment interface、executor 与 controller 的机制变化。
 
 ## 1.15 World Model 的回归
 
@@ -120,17 +124,115 @@ offline planning      ←→ online feedback
 
 成熟系统往往不是一端彻底胜利，而是重新找到更好的分工边界。
 
-## 1.17 读历史的正确方法
+## 1.17 版本演进不等于科学问题演进
 
-每篇经典工作只记录四件事：
+同一条产品/模型线可以连续发布多个版本，但科学分析应换一套坐标轴：
 
-1. 前一代什么假设失败？
-2. 它引入什么新计算机制？
-3. 在什么实验上证实？
-4. 新机制又留下什么失败？
+```text
+What changed?
+├─ data coverage
+├─ representation / backbone
+├─ action representation
+├─ objective / post-training
+├─ temporal executor
+├─ embodiment interface
+├─ low-level controller
+└─ evaluation protocol
+```
 
-这样历史变成“问题谱系”，而不是论文年表。
+如果一个新版本同时更换数据、模型、controller 和 benchmark，单纯观察 success 提升不能归因“新架构有效”。
 
-## 小练习
+反过来，两个名字完全不同的系统也可能在机制上高度相似，例如都采用：
 
-选择 RT-2、Diffusion Policy、V-JEPA 2 三条路线，各画一张“它反对/补充上一代什么假设”的因果图。不要比较 benchmark 分数，比较**问题定义**。
+```text
+slow semantic model
+→ latent goal / context
+→ fast motor expert
+→ conventional low-level controller
+```
+
+所以历史学习的单位应该是**机制与接口**，而不是品牌。
+
+## 1.18 证据等级随历史阶段变化
+
+前沿技术常先经历：
+
+```text
+concept claim
+→ curated demo
+→ official benchmark
+→ paper / technical report
+→ public code / checkpoint
+→ independent reproduction
+→ cross-lab real-world evidence
+```
+
+不能把这几层证据混成一句“已经证明”。教材对 2025–2026 系统尤其需要区分：官方公开结果、论文证据、开放源码和独立复现。
+
+## 1.19 读历史的常见失败
+
+### Survivorship bias
+
+今天被反复引用的方法不一定是当年唯一合理路线。只看成功谱系，会误以为技术演进是线性的。
+
+### Hindsight bias
+
+知道 Transformer/VLA 后再读早期工作，很容易把所有历史都解释成“等待大模型”。实际上许多限制来自传感器、计算、数据、控制硬件与实验基础设施。
+
+### Rename bias
+
+把旧问题换成新名字后误认为是全新科学对象，例如：
+
+- world model ↔ learned dynamics / model-based control；
+- memory ↔ belief / persistent task state；
+- embodied reasoning ↔ planning + state tracking + feedback；
+- whole-body VLA ↔ semantic policy + whole-body control。
+
+新计算工具确实改变可扩展性，但问题谱系必须连续阅读。
+
+### Demo bias
+
+工业系统往往先公开最成功的能力。历史记录必须区分“首次展示”“系统化评测”“开放复现”。
+
+## 最小实验：做一次机制谱系审计
+
+任选一个今天的系统，例如 OpenVLA、GR00T N1.7、V-JEPA 2.1：
+
+1. 从 `references/TIMELINE.md` 向前追 3–5 个祖先节点；
+2. 每个节点只写 `problem → mechanism → evidence → failure`；
+3. 把模型名全部删掉，只保留机制描述；
+4. 检查读者是否仍能理解为什么下一代出现。
+
+输出示例：
+
+```text
+single-step BC
+→ covariate shift
+→ dataset aggregation / chunking
+→ latency & stale actions
+→ asynchronous execution / RTC-like mechanism
+```
+
+若删除品牌名后逻辑断裂，说明你记住的是 timeline，不是技术史。
+
+## 研究问题
+
+1. 机器人基础模型时代，模块化与 end-to-end 的新最优边界在哪里？
+2. 哪些“新能力”来自 architecture，哪些只是 data / simulator / hardware scaling 首次让旧思想可运行？
+3. 当 foundation model 与经典 controller 强耦合时，论文应如何分配 capability credit？
+4. autonomous experience 是否会把机器人学习从静态 dataset paradigm 再次推回 cybernetic continual feedback？
+5. 下一个真正的范式变化，需要引入新的数学对象，还是更强的 physical-system interface 就足够？
+
+## Source anchors / 原始来源
+
+- Wiener, *Cybernetics*（反馈、控制与通信的历史起点之一）: https://mitpress.mit.edu/9780262730099/cybernetics/
+- Brooks, “A Robust Layered Control System for a Mobile Robot,” 1986: https://doi.org/10.1109/JRA.1986.1087032
+- Brooks, “Intelligence without Representation,” 1991: https://doi.org/10.1016/0004-3702(91)90053-M
+- Open X-Embodiment Collaboration, 2023: https://arxiv.org/abs/2310.08864
+- Brohan et al., RT-2, 2023: https://arxiv.org/abs/2307.15818
+- Meta V-JEPA 2 / 2.1 official code: https://github.com/facebookresearch/vjepa2
+- 本书跨年代证据索引：[`references/TIMELINE.md`](../../references/TIMELINE.md) 与 [`references/READING_MAP.md`](../../references/READING_MAP.md)。
+
+## 本章结论
+
+技术史不是版本号序列，而是**失败假设 → 新机制 → 新证据 → 新失败**的循环。具身智能今天看似被 foundation models 重新定义，但 feedback、geometry、state、planning、control、data coverage 与 physical deployment 这些核心矛盾从未消失。
