@@ -147,6 +147,22 @@ observation timestamp
 
 比较 blocking/synchronous、naive async queue 与 latency-aware rebase。它的关键教学结果是：**降低 action age 是可验证的机制干预，但不保证 tracking 一定改善。**
 
+### [`Lab 25 — VLA Visual Intervention`](lab25_visual_intervention/README.md)
+
+把“视觉 feature 中有信息”与“action head 真正使用信息”拆成 paired intervention：
+
+```text
+fixed instruction + shared visual representation
+→ target geometry / appearance / camera / distractor
+→ action head
+→ target-position response or nuisance invariance
+→ downstream success
+```
+
+比较 `geometry_causal / appearance_shortcut / camera_unaware / distractor_shortcut`，并逐一干预 target position、texture、background、camera angle、irrelevant distractor 与 target-geometry token。关键机制问题是：**probe 可以精确解码 target geometry 时，policy 是否真的对物理 target displacement 做出对应 action；texture/background/camera/distractor 这些 nuisance / frame variables 又是否以正确方式影响行为。**
+
+CI-verified quick reference results 见 [`REFERENCE_RESULTS.md`](lab25_visual_intervention/REFERENCE_RESULTS.md)。
+
 ### [`Lab 26 — Cross-Embodiment Transfer`](lab26_cross_embodiment/README.md)
 
 把 cross-embodiment claim 分解成三个不能混写的层级：
