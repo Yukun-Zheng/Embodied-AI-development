@@ -217,6 +217,24 @@ CI-verified quick reference results 见 [`REFERENCE_RESULTS.md`](lab31_reasoning
 
 CI-verified quick reference results 见 [`REFERENCE_RESULTS.md`](lab33_continual_learning/REFERENCE_RESULTS.md)。
 
+### [`Lab 40 — Watchdog / Safety Shield`](lab40_safety_shield/README.md)
+
+把 safety layer 从“规则是否触发”改写成闭环物理机制：
+
+```text
+model / sensor fault
+→ timestamp / freshness
+→ proposed command
+→ reject / predictive safe-stop / ask-human
+→ finite braking dynamics
+→ physical safety outcome
+→ audit evidence
+```
+
+比较 `no_shield / static_rules / predictive_no_freshness / predictive_shield / overconservative_shield`。关键机制问题是：**target rejection、freshness watchdog 与 stopping-distance prediction 是否各自因果必要；以及 safety gain 是否以正常任务可用性为代价。**
+
+CI-verified quick reference results 见 [`REFERENCE_RESULTS.md`](lab40_safety_shield/REFERENCE_RESULTS.md)。该 Lab 是闭环机制实验，**不构成真实机器人 functional-safety certification**。
+
 ## Phase 1 completion criterion
 
 Runnable Lab 不是“有 `run.py`”就算完成。当前 reference labs 必须经过同一长期 CI：
