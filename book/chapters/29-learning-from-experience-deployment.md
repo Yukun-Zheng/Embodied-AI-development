@@ -75,6 +75,8 @@ RL 主要精修困难区域。
 
 2026 年 Physical Intelligence 公布了针对 precise manipulation 的 efficient online RL 方法，核心动机是：
 
+**Primary evidence:** Physical Intelligence, efficient online RL for precise manipulation — https://www.pi.website/research/rlt
+
 > 不必每次在线 RL 都更新整个巨大 VLA。
 
 可以引入小的可学习条件 \(z_{RL}\)：

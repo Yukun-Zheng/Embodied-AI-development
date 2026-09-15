@@ -216,6 +216,8 @@ walk to refrigerator
 
 截至 2025–2026，Figure 和 Physical Intelligence 都公开展示/研究了 human video 到 robot capability transfer 的迹象，但这一方向仍需更严格的数据泄漏与任务重合控制。
 
+**Primary evidence:** Figure, Project Go-Big — https://www.figure.ai/news/project-go-big  ·  Physical Intelligence, Human-to-Robot Transfer — https://www.pi.website/research/human_to_robot
+
 ---
 
 ## 26.11 Retargeting

@@ -208,6 +208,8 @@ few-shot 则必须报告：
 
 2026 的 Gemini Robotics On-Device 2 等公开系统把 few-hour adaptation 作为重要能力，但科学比较需要统一适配预算。
 
+**Primary evidence:** Google DeepMind Gemini Robotics On-Device 2 — https://deepmind.google/models/gemini-robotics/on-device/
+
 ---
 
 ## 37.12 Motion Transfer

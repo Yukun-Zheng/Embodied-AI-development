@@ -458,6 +458,8 @@ Dexterous hand action 高维、contact mode 多、reward sparse，因此常依�
 
 以 Physical Intelligence π*0.6 / 2026 online-RL 路线为代表，foundation policy 提供安全且较强的初始 behavior，RL 不再探索“什么是抓取”，而是优化“怎样更快更准地完成这个特殊任务”。
 
+**Primary evidence:** Physical Intelligence π*0.6 — https://www.pi.website/blog/pistar06  ·  efficient online RL — https://www.pi.website/research/rlt
+
 ## 20.33 Experience Data Flywheel
 
 \[

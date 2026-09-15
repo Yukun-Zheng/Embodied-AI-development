@@ -163,6 +163,8 @@ JEPA 类思想学习在 representation space 中预测目标，而不是重建�
 
 V-JEPA 2 将大规模视频自监督表示与 prediction / planning 连接起来。
 
+**Primary evidence:** Meta V-JEPA 2 official source — https://github.com/facebookresearch/vjepa2
+
 机器人研究最值得关注两点：
 
 1. video representation 是否包含 motion / interaction information；
@@ -175,6 +177,8 @@ V-JEPA 2 将大规模视频自监督表示与 prediction / planning 连接起来
 ## 30.10 V-JEPA 2.1
 
 Meta 于 2026-03 发布 V-JEPA 2.1，强调更高质量且时间一致的 dense video features。
+
+**Primary evidence:** V-JEPA 2.1 — https://arxiv.org/abs/2603.14482
 
 dense representation 对 robotics 潜在重要，因为精细 manipulation 需要：
 

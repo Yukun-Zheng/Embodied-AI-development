@@ -159,6 +159,8 @@ NVIDIA Cosmos 是这一方向的重要代表。
 
 到 2026 年，Cosmos 3 进一步把：
 
+**Primary evidence:** NVIDIA Cosmos 3 research — https://research.nvidia.com/labs/cosmos-lab/cosmos3/
+
 - vision reasoning；
 - world generation；
 - action prediction
@@ -166,6 +168,8 @@ NVIDIA Cosmos 是这一方向的重要代表。
 放进统一的 omnimodal physical-AI 模型框架。
 
 NVIDIA 官方公开资料将 Cosmos 3 描述为可用于 world simulation、reasoning、synthetic data 和 World Action Model backbone 的开放模型。
+
+**Primary evidence:** NVIDIA Cosmos 3 — https://research.nvidia.com/labs/cosmos-lab/cosmos3/  ·  NVIDIA Cosmos platform — https://www.nvidia.com/en-us/ai/cosmos/
 
 这里应区分：
 

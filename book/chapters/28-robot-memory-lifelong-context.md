@@ -200,6 +200,8 @@ a_t=\pi(o_t,l,z_{mem}).
 
 2026 年 Physical Intelligence 公布的 Multi-Scale Embodied Memory（MEM）明确把 long-term 与 short-term memory 结合到 VLA 中，用于更长的多阶段任务。
 
+**Primary evidence:** Physical Intelligence, Multi-Scale Embodied Memory — https://www.pi.website/research/memory
+
 这个方向最重要的思想不是某个模块名字，而是承认：
 
 > 机器人记忆天然具有多个时间尺度。

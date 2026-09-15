@@ -253,6 +253,8 @@ perception
 
 2026 的 Gemini Robotics 2、Helix 02、GR00T 路线表明 VLA / foundation policy 正从 tabletop 进入 whole-body。
 
+**Primary evidence:** Google DeepMind Gemini Robotics 2 — https://deepmind.google/blog/gemini-robotics-2-brings-whole-body-intelligence-to-robots/  ·  Figure Helix 02 — https://www.figure.ai/news/helix-02  ·  NVIDIA Isaac-GR00T — https://github.com/NVIDIA/Isaac-GR00T
+
 但必须追问：
 
 - VLA 输出什么 action？

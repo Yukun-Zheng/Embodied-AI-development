@@ -104,11 +104,15 @@ GR00T 将 human video、simulation、real robot 数据用于 humanoid foundation
 
 截至本书 2026-09-14 的冻结截面，GR00T N1.7 已进入公开源码主线。本书不把版本号本身当科学进步，而追踪 backbone、action expert、embodiment interface、executor 与 controller 的机制变化。
 
+**Primary evidence:** NVIDIA Isaac-GR00T official repository / current N1.7 documentation — https://github.com/NVIDIA/Isaac-GR00T
+
 ## 1.15 World Model 的回归
 
 World model 从来不是新概念，但 JEPA/video prediction/latent dynamics 使问题重新中心化：机器人是否应该只学 \(o\to a\)，还是应该先学“动作后世界如何变化”？
 
 V-JEPA 2/2.1、robot video world models、world-action models 都在探索预测与控制的关系。
+
+**Primary evidence:** Meta V-JEPA 2 official source — https://github.com/facebookresearch/vjepa2  ·  V-JEPA 2.1 — https://arxiv.org/abs/2603.14482
 
 ## 1.16 历史中的循环
 
