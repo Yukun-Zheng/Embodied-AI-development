@@ -17,6 +17,9 @@ import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
+LAB13_DIR = ROOT / "labs" / "runnable" / "lab13_active_perception"
+LAB13 = LAB13_DIR / "run.py"
+LAB13_ANALYZE = LAB13_DIR / "analyze.py"
 LAB22_DIR = ROOT / "labs" / "runnable" / "lab22_async_execution"
 LAB22 = LAB22_DIR / "run.py"
 LAB22_ANALYZE = LAB22_DIR / "analyze.py"
@@ -35,6 +38,86 @@ def as_float(row: dict[str, str], key: str) -> float:
     value = float(row[key])
     assert math.isfinite(value), f"{key} is not finite in {row}"
     return value
+
+
+def test_lab13(tmp: Path) -> None:
+    output = tmp / "lab13"
+    subprocess.run(
+        [sys.executable, str(LAB13), "--quick", "--output", str(output)],
+        cwd=ROOT,
+        check=True,
+    )
+
+    metrics_path = output / "policy_metrics.csv"
+    manifest_path = output / "experiment_manifest.json"
+    assert metrics_path.is_file(), "Lab 13 did not write policy_metrics.csv"
+    assert manifest_path.is_file(), "Lab 13 did not write experiment_manifest.json"
+
+    rows = read_rows(metrics_path)
+    assert len(rows) == 4, f"Expected 4 active-perception policies, got {len(rows)}"
+    keyed = {row["policy"]: row for row in rows}
+    assert set(keyed) == {
+        "fixed_center",
+        "random_view",
+        "info_gain",
+        "info_gain_shuffled_geometry",
+    }
+
+    for row in rows:
+        for metric in [
+            "accuracy",
+            "mean_final_entropy",
+            "mean_entropy_reduction",
+            "mean_movement_distance",
+            "mean_task_utility",
+        ]:
+            as_float(row, metric)
+        run_dir = output / row["run_dir"]
+        for required in ["manifest.json", "steps.csv", "failures.jsonl", "summary.json"]:
+            assert (run_dir / required).is_file(), f"Lab 13 missing {required} for {row['policy']}"
+
+    fixed = keyed["fixed_center"]
+    random = keyed["random_view"]
+    active = keyed["info_gain"]
+    shuffled = keyed["info_gain_shuffled_geometry"]
+
+    # The active mechanism must change an intermediate information variable.
+    assert as_float(active, "mean_final_entropy") < 0.75 * as_float(random, "mean_final_entropy")
+    assert as_float(active, "mean_final_entropy") < 0.50 * as_float(fixed, "mean_final_entropy")
+
+    # Information reduction must survive to the task decision.
+    assert as_float(active, "accuracy") > as_float(random, "accuracy") + 0.05
+    assert as_float(active, "accuracy") > as_float(fixed, "accuracy") + 0.20
+
+    # Active sensing should not obtain its gain by moving more than the random policy.
+    assert as_float(active, "mean_movement_distance") < 0.60 * as_float(random, "mean_movement_distance")
+    assert as_float(active, "mean_task_utility") > as_float(random, "mean_task_utility") + 0.10
+
+    # Negative control: corrupt only the view model used to choose where to look;
+    # the observation and Bayesian update remain correct.
+    assert as_float(active, "accuracy") > as_float(shuffled, "accuracy") + 0.10
+    assert as_float(shuffled, "mean_final_entropy") > 2.0 * as_float(active, "mean_final_entropy")
+
+    subprocess.run(
+        [sys.executable, str(LAB13_ANALYZE), str(metrics_path), "--output-dir", str(output)],
+        cwd=ROOT,
+        check=True,
+    )
+    analysis_json = output / "analysis.json"
+    analysis_md = output / "ANALYSIS.md"
+    assert analysis_json.is_file(), "Lab 13 analyzer did not write analysis.json"
+    assert analysis_md.is_file(), "Lab 13 analyzer did not write ANALYSIS.md"
+    with analysis_json.open("r", encoding="utf-8") as handle:
+        analysis = json.load(handle)
+    assert analysis["information_gain_reduces_uncertainty"] is True
+    assert analysis["active_sensing_improves_task_success"] is True
+    assert analysis["active_sensing_is_motion_efficient"] is True
+    assert analysis["correct_view_geometry_is_causal"] is True
+
+    print(
+        "PASS lab13_active_perception: uncertainty reduction, task success, sensing motion "
+        "and shuffled-geometry negative control were jointly verified"
+    )
 
 
 def test_lab22(tmp: Path) -> None:
@@ -142,22 +225,16 @@ def test_lab29(tmp: Path) -> None:
     blind = keyed["action_blind"]
     wrong = keyed["wrong_action_sign"]
 
-    # Observational prediction can look numerically good even when the causal
-    # action interface is unusable for planning.
     assert as_float(blind, "one_step_rmse") < 0.005
     assert as_float(wrong, "one_step_rmse") < 0.01
     assert as_float(aware, "counterfactual_sensitivity_error") < 0.01
     assert as_float(blind, "counterfactual_sensitivity_error") > 0.10
     assert as_float(wrong, "counterfactual_sensitivity_error") > 0.20
 
-    # Closed-loop falsification: only the action-aware model should reach the
-    # target under the same MPC search and receding-horizon feedback.
     assert as_float(aware, "final_position_error") < 0.10
     assert as_float(blind, "final_position_error") > 0.80
     assert as_float(wrong, "final_position_error") > 2.0
 
-    # The second layer makes model bias an explicit independent variable and
-    # asks whether longer imagined rollouts compound that bias.
     subprocess.run(
         [sys.executable, str(LAB29_HORIZON), "--quick", "--output", str(output)],
         cwd=ROOT,
@@ -217,6 +294,7 @@ def test_lab29(tmp: Path) -> None:
 def main() -> None:
     with tempfile.TemporaryDirectory(prefix="embodied-ai-runnable-labs-") as tmpdir:
         tmp = Path(tmpdir)
+        test_lab13(tmp)
         test_lab22(tmp)
         test_lab29(tmp)
     print("RUNNABLE LAB SMOKE PASSED")
