@@ -62,7 +62,7 @@ def copy_dir(rel: str) -> None:
     shutil.copytree(
         src,
         dst,
-        ignore=shutil.ignore_patterns("__pycache__", "*.pyc", ".DS_Store"),
+        ignore=shutil.ignore_patterns("__pycache__", "*.pyc", ".DS_Store", "runs"),
     )
 
 
@@ -157,7 +157,10 @@ def build_nav() -> list[tuple[str, str | list]]:
         (
             "Labs 与实现",
             [
+                ("Labs 总入口", "labs/README.md"),
                 ("40 Labs + 3 Capstones", "labs/LABS.md"),
+                ("Execution Matrix", "labs/EXECUTION_MATRIX.md"),
+                ("Runnable Labs", "labs/runnable/README.md"),
                 ("统一实验协议", "labs/EXPERIMENT_PROTOCOL.md"),
                 ("最小可执行代码", "code/minimal/README.md"),
             ],
@@ -183,6 +186,7 @@ def build_nav() -> list[tuple[str, str | list]]:
                 ("1948–2026 技术时间线", "references/TIMELINE.md"),
                 ("逐 Part Reading Map", "references/READING_MAP.md"),
                 ("统一参考文献", "references/REFERENCES.md"),
+                ("教材维护与发布工程", "book/MAINTENANCE.md"),
                 ("写作与证据规范", "AUTHORING_GUIDE.md"),
                 ("全书工程设计", "BOOK_PLAN.md"),
             ],
