@@ -71,6 +71,8 @@ jobs:
           test -f .site-build/labs/runnable/lab14_tactile_reflex/index.html
           test -f .site-build/labs/runnable/lab14_tactile_reflex/REFERENCE_RESULTS/index.html
           test -f .site-build/labs/runnable/lab22_async_execution/index.html
+          test -f .site-build/labs/runnable/lab25_visual_intervention/index.html
+          test -f .site-build/labs/runnable/lab25_visual_intervention/REFERENCE_RESULTS/index.html
           test -f .site-build/labs/runnable/lab26_cross_embodiment/index.html
           test -f .site-build/labs/runnable/lab26_cross_embodiment/REFERENCE_RESULTS/index.html
           test -f .site-build/labs/runnable/lab27_long_horizon_memory/index.html
@@ -95,6 +97,8 @@ jobs:
           grep -q 'Lab 13 · Active Perception' .site-mkdocs.yml
           grep -q 'Lab 14 · Tactile Reflex' .site-mkdocs.yml
           grep -q 'Lab 22 · Async Execution' .site-mkdocs.yml
+          grep -q 'Lab 25 · Visual Intervention' .site-mkdocs.yml
+          grep -q 'Lab 25 · Reference Results' .site-mkdocs.yml
           grep -q 'Lab 26 · Cross-Embodiment' .site-mkdocs.yml
           grep -q 'Lab 27 · Long-Horizon Memory' .site-mkdocs.yml
           grep -q 'Lab 27 · Reference Results' .site-mkdocs.yml
