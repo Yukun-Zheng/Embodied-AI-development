@@ -38,7 +38,7 @@
 - **[最小可执行代码](code/minimal/README.md)** — SE(3)、IK、控制、Kalman、DAgger、Diffusion/Flow、World Model+MPC 等
 - **[40 Labs + 3 Capstones](labs/LABS.md)**
 - **[Lab Execution Matrix](labs/EXECUTION_MATRIX.md)** — CPU mechanism / simulator / real-robot 三层执行规划
-- **[Runnable Labs](labs/runnable/README.md)** — 已进入永久 CI 的机制实验；当前覆盖 Active Perception、Tactile Reflex、Async Execution、VLA Visual Intervention、Cross-Embodiment、Long-Horizon Memory、World Model MPC、Reasoning Negative Control、Continual Learning、Self-Generated Curriculum、Bimanual Coordination、Multi-Robot Collaboration、Safety Shield
+- **[Runnable Labs](labs/runnable/README.md)** — 已进入永久 CI 的机制实验；当前覆盖 Active Perception、Tactile Reflex、Async Execution、VLA Visual Intervention、Cross-Embodiment、Long-Horizon Memory、World Model MPC、Reasoning Negative Control、Experience Learning Flywheel、Continual Learning、Self-Generated Curriculum、Bimanual Coordination、Multi-Robot Collaboration、Safety Shield
 - **[统一实验协议](labs/EXPERIMENT_PROTOCOL.md)** — hypothesis、controls、seeds、raw logs、failure taxonomy、real-robot protocol
 
 ### 源码级学习
@@ -230,7 +230,7 @@ Jacobian / SE(3)
 → Falsifiable New Architecture
 ```
 
-其中 [`labs/runnable/`](labs/runnable/) 把选定 Lab 落成统一 executable contract。当前 13 个 reference labs 已进入永久 CI：
+其中 [`labs/runnable/`](labs/runnable/) 把选定 Lab 落成统一 executable contract。当前 14 个 reference labs 已进入永久 CI：
 
 ```text
 Lab 13 Active Perception
@@ -256,6 +256,9 @@ Lab 29 World Model MPC
 
 Lab 31 Reasoning Negative Control
 → causal model → executable plan → negative controls → real behavior
+
+Lab 32 Experience Learning Flywheel
+→ autonomous rollout → failure mining → corrective semantics → capability gain → regression audit
 
 Lab 33 Continual Learning
 → sequential experience → representation drift → retention / plasticity → memory cost
@@ -387,7 +390,7 @@ Embodied-AI-development/
 - **204** 道章末题 + solution sketches；
 - **30** 组核心长推导；
 - **18** 张 canonical 核心机制图；
-- **13** 个最小可执行脚本 + **13** 个 CI-verified runnable reference labs；
+- **13** 个最小可执行脚本 + **14** 个 CI-verified runnable reference labs；
 - **7** 篇 canonical 深度 Case Study + **1** 份 Action Path Comparison；
 - Source-Code Atlas：ACT / Diffusion Policy / OpenVLA / LeRobot / GR00T N1.7 / V-JEPA 2/2.1；
 - **40 Labs + 3 Capstones** + Execution Matrix + 统一实验协议；
@@ -401,6 +404,6 @@ Embodied-AI-development/
 - **Class-A 前沿/历史事实：100% local primary evidence（CI hard gate）**；Class B 工程量化示例保持 advisory；
 - 统一前沿时间截面：**2026-09-14**。
 
-v1.x 将继续重点推进：**把更多机制 Lab 升级为 runnable / simulator-level experiments、真实/仿真实验结果回填、更多源码级解剖、跨章交叉引用、citation provenance 与出版编辑**。
+v1.x 将继续重点推进：**simulator-level experiments、真实/仿真实验结果回填、更多源码级解剖、跨章交叉引用、citation provenance 与出版编辑**。
 
 ---
