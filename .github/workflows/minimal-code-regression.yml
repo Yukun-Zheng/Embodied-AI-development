@@ -15,7 +15,7 @@ on:
       - ".github/workflows/minimal-code-regression.yml"
 
 jobs:
-  executable-textbook:
+  mechanism-textbook:
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
@@ -28,12 +28,11 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install dependencies
+      - name: Install mechanism dependencies
         run: |
           python -m pip install --upgrade pip
           python -m pip install numpy
           python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
-          python -m pip install -r labs/simulators/mujoco/requirements.txt
 
       - name: Run all minimal examples
         run: python code/minimal/run_all.py
@@ -52,7 +51,26 @@ jobs:
           python labs/runnable/lab38_multi_robot_collaboration/smoke.py
           python labs/runnable/lab40_safety_shield/smoke.py
 
-      - name: Run lightweight simulator-layer smoke tests
+  simulator-textbook:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install simulator dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy
+          python -m pip install -r labs/simulators/mujoco/requirements.txt
+
+      - name: Run MuJoCo simulator-layer smoke tests
         run: |
           python labs/simulators/mujoco/lab04_smoke.py
           python labs/simulators/mujoco/lab05_smoke.py
