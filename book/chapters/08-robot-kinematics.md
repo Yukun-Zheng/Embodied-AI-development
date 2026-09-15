@@ -2,7 +2,7 @@
 
 ## 学习目标
 
-能够从 robot geometry 推导 FK/Jacobian；理解 IK 为什么会多解、无解和数值不稳定；掌握 redundancy、null space、trajectory 与双臂/whole-body kinematics。
+能够从 robot geometry 推导 FK/Jacobian；理解 IK 为什么会多解、无解和数值不稳定；掌握 redundancy、null space、trajectory 与双臂/whole-body kinematics；并能沿着 policy → task-space target → IK → joint command 的真实接口诊断失败。
 
 ---
 
@@ -202,10 +202,99 @@ J_{task}\dot q=V_{task}.
 
 所谓“端到端”往往只是隐藏了其中一个接口，而不是物理约束消失。
 
-## 实验
+## 8.20 一条真实 Cartesian-action 数据流
+
+```text
+VLA / policy
+→ Δx, ΔR in camera/base/EE frame
+→ frame transform
+→ desired SE(3) pose / twist
+→ Jacobian + IK / differential IK
+→ joint position/velocity target
+→ joint controller
+→ actuator
+```
+
+若 task success 降低，必须沿链逐层检查，而不是直接归因于 policy。尤其应记录：
+
+```text
+input frame
+pose-error convention
+sigma_min(J)
+IK residual
+joint-limit margin
+collision margin
+command saturation
+```
+
+在很多真实系统中，高层网络输出只有 6–7 维，而 IK/WBC 才负责把它变成几十维 joint target。这个中间层决定了“action representation 是否真正可执行”。
+
+## 8.21 IK Failure Taxonomy
+
+### Target 根本不可达
+
+目标超出 workspace。任何局部 solver 都不该被期待“优化出来”。先做 reachable-set / coarse planning 检查。
+
+### Target 几何可达但约束不可行
+
+满足 EE pose 的解可能违反 joint limit、self-collision、environment collision 或 humanoid balance。
+
+### 接近 singularity
+
+\(\sigma_{min}(J)\to0\) 时 Cartesian error 很小也可能映射成巨大 \(\Delta q\)。clip joint velocity 只能缓解症状，会引入新的 task-space tracking error。
+
+### Frame / quaternion convention 错
+
+最危险的一类：solver 看起来能收敛，但总朝稳定的错误方向移动。检查 world/base/camera/EE frame、left/right multiplication 与 quaternion order。
+
+### Initial guess 导致错误 branch
+
+多解 IK 中，数值解可能跳到 elbow-up / elbow-down 的另一 branch，产生大关节跃迁。连续控制应将前一时刻 solution 作为 prior，并对 configuration distance 加代价。
+
+### Position success、orientation failure
+
+只看 position tolerance 会让 grasp approach、tool orientation、bimanual relative pose 等任务产生“假成功”。
+
+## 8.22 Hierarchical Task Priority
+
+对于 whole-body robot，不是简单把所有 task stack 后 least squares 就够了。若 feet contact 必须严格保持，而 hand target 只是 soft objective，需要显式 priority：
+
+```text
+Priority 1: contact / balance / hard safety
+Priority 2: hand / tool task
+Priority 3: posture / manipulability / comfort
+```
+
+理想的 null-space projection 应确保低优先级更新不破坏高优先级 task。实际 QP/WBC 还会加入 torque、friction cone 和 dynamics constraints，因此 IK 与 control 在 humanoid 上逐渐汇合。
+
+## 最小实验
 
 在 7-DOF arm 上采样 10,000 个 target，比较 pseudoinverse IK、DLS、constrained IK：success、iterations、joint-limit violation、minimum collision distance、\(\sigma_{min}(J)\)。
 
+必须增加四个 slice：
+
+1. workspace boundary；
+2. singularity neighborhood；
+3. near joint limits；
+4. same target but different initial guesses。
+
+对应最小实现：[`code/minimal/planar_arm.py`](../../code/minimal/planar_arm.py)，再进入 Lab 02 / Lab 04。
+
 ## 研究问题
 
-跨本体 VLA 最合适的 shared action layer 是 joint、end-effector、task-space relation，还是更抽象的 world effect？
+1. 跨本体 VLA 最合适的 shared action layer 是 joint、end-effector、task-space relation，还是更抽象的 world effect？
+2. 如果两个 VLA 使用不同 IK/controller，能否仅凭 policy success rate 比较架构优劣？
+3. 学习型 IK 相比 DLS/QP 的增益来自更好处理多解、collision，还是只是更快 amortized optimization？
+4. morphology-conditioned policy 是否应该显式读取 kinematic Jacobian / graph，还是让模型隐式学习？
+5. Whole-body foundation policy 的 high-level action 应该位于 IK 之前、WBC task-space，还是直接 joint/motor space？
+
+## Source anchors / 原始来源
+
+- Lynch & Park, *Modern Robotics: Mechanics, Planning, and Control*: https://modernrobotics.northwestern.edu/
+- Siciliano et al., *Robotics: Modelling, Planning and Control*: https://doi.org/10.1007/978-1-84628-642-1
+- Liégeois, “Automatic Supervisory Control of the Configuration and Behavior of Multibody Mechanisms,” IEEE SMC 1977（经典 redundancy/null-space 思想）: https://doi.org/10.1109/TSMC.1977.4309644
+- 配套推导：[`book/DERIVATIONS.md`](../DERIVATIONS.md) D1–D3 / D6。
+
+## 本章结论
+
+运动学不是 foundation policy 之前的“旧知识”，而是 learned action 与真实身体之间的可执行性约束。只要 policy 输出的不是 motor current，FK/Jacobian/IK/frame convention 就仍然存在；隐藏接口不等于接口消失。
