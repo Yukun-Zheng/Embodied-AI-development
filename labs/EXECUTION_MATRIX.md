@@ -79,9 +79,11 @@ Legend: `✓` = recommended execution layer, `○` = useful extension, `—` = n
 | 24 Continuous Action Expert | ✓ | ✓ | ○ | tiny flow expert → SmolVLA | continuous expert vs token action |
 | 25 VLA Visual Intervention | ○ | ✓ | ✓ | RoboTwin / LIBERO / real arm | causal visual intervention matrix |
 | **26 Cross-Embodiment** | **✓** | ✓ | ○ | 1-D physical mechanism → two+ robot sims | interface semantics × seen lookup × held-out morphology conditioning |
-| 27 Long-Horizon VLA + Memory | ✓ | ✓ | ○ | toy memory env → household sim | correct/shuffled/no-memory controls |
+| **27 Long-Horizon VLA + Memory** | **✓** | ✓ | ○ | partially observable memory task → household sim | bounded context × episodic × semantic × shuffled/unrelated controls |
 
 Lab 26 已进入 permanent executable CI：同一 shared canonical policy 在 A/B seen bodies 与 C/D held-out bodies 上执行；分别控制 raw interface、canonical state/action semantics、seen robot-ID lookup、continuous morphology descriptor、wrong morphology tag 与 wrong action semantics，并强制 `adaptation_steps=0` 报告 held-out interpolation / extrapolation。
+
+Lab 27 已进入 permanent executable CI：one-shot mission binding 只在 episode 开头可见，随后经过 4/10/16 个 distractor subtasks 再做 object/gate/bin 三次 memory-dependent 决策；比较 no-memory、8-observation frame context、full episodic log、compact semantic state、capacity-matched shuffled memory 与 unrelated persistent memory，并同时记录 success、query accuracy、memory bytes 和 retrieval cost。
 
 ---
 
@@ -145,7 +147,7 @@ config
 → reproducible output directory
 ```
 
-首个 reference implementation 是 **Lab 22 Asynchronous Policy Execution**；当前 CI-verified reference set 已扩展为 **Lab 13 / 14 / 22 / 26 / 29 / 31 / 33 / 40**。
+首个 reference implementation 是 **Lab 22 Asynchronous Policy Execution**；当前 CI-verified reference set 已扩展为 **Lab 13 / 14 / 22 / 26 / 27 / 29 / 31 / 33 / 40**。
 
 ### Phase 2 — Physics adapters
 
