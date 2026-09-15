@@ -226,6 +226,59 @@ Gap=G_{visual}+G_{geometry}+G_{dynamics}+G_{sensor}+G_{control}+G_{task}.
 ## 本章结论
 
 Sim-to-real 不是一个技巧，而是一套**误差建模工程**。只有先分解 reality gap，才能知道该用 system ID、randomization、real fine-tuning 还是更好的 simulator。
+<!-- CHAPTER-ENRICHMENT-P41:START -->
+## 41.15 Transfer Gap 不应只报一个数字
+
+定义任务指标 \(J\) 后，可写：
+
+\[
+G_{transfer}=J_{sim}-J_{real}.
+\]
+
+但一个 scalar gap 仍然太粗。更有诊断价值的是按扰动轴分解：
+
+```text
+visual gap      → light / texture / exposure
+geometry gap    → asset shape / collision mesh / tolerances
+dynamics gap    → mass / inertia / friction / damping
+sensor gap      → noise / latency / dropped frames
+actuation gap   → motor model / backlash / saturation
+contact gap     → compliance / deformation / slip
+human/world gap → unmodeled agents / long-tail events
+```
+
+每一项都应该有可控 intervention，才能判断该增加 randomization、做 system ID、改 simulator，还是收真实数据。
+
+## 41.16 Sim2Real 常见失败
+
+### Randomization 范围越宽越好
+
+错误。过宽分布会把 policy 推向极度保守甚至不可学习的策略；关键是覆盖**真实 posterior**而不是最大化参数范围。
+
+### 只随机视觉却声称解决 reality gap
+
+fine manipulation 失败可能来自 friction/contact/latency，视觉 domain randomization 对这些没有直接作用。
+
+### Simulator success 饱和后继续加算力
+
+当瓶颈是 model bias 时，更多 sim rollout 只会更精确地适配错误 simulator。
+
+### Real fine-tuning 掩盖 zero-shot transfer
+
+如果大量真实数据参与适配，应分别报告 zero-shot sim2real 与 post-adaptation performance，不能把两者合称“sim2real”。
+
+### Digital twin 追求像素真实而忽略 task fidelity
+
+对控制而言，正确的 contact、reachability、latency 可能比 photorealism 更重要。
+
+## 41.17 研究问题
+
+1. Domain randomization 的 distribution 能否由 real-world posterior 在线更新，而不是人工拍脑袋设范围？
+2. 哪些 simulator fidelity 维度对 VLA / diffusion policy / locomotion policy 的 sensitivity 不同？
+3. World model 生成的 synthetic trajectories 与 physics simulator 数据，分别在哪些 failure mode 上更可信？
+4. Real-to-sim reconstruction 是否能形成自动 failure replay：真机失败 → 仿真重建 → counterfactual sweep → 修复？
+5. 如何定义 task-sufficient digital twin，使建模预算集中在真正影响 action selection 的变量？
+<!-- CHAPTER-ENRICHMENT-P41:END -->
 
 <!-- CHAPTER-SOURCE-MAP:START -->
 ## Source anchors / 原始来源

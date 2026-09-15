@@ -257,6 +257,53 @@ Embodied AI 不应狭义等于桌面机械臂。
 ## 本章结论
 
 导航展示了一个重要事实：智能必须维护跨时间的空间状态。没有 localization、memory、map 或等价内部机制，长距离具身任务很容易退化成短视的 reactive behavior。
+<!-- CHAPTER-ENRICHMENT-P34:START -->
+## 34.17 Navigation Failure Taxonomy
+
+### Localization drift
+
+路径规划正确，但 belief pose 漂移，导致 map-relative waypoint 与真实世界错位。应同时画 localization error 与 task failure，而不是只看 SPL。
+
+### Semantic shortcut
+
+ObjectNav policy 可能学到“冰箱常在厨房右侧”等数据集统计，而没有真正建立可更新的 spatial belief。改变 layout 后性能骤降是典型证据。
+
+### Map staleness
+
+动态障碍、开关门、人群移动会使静态 map 过期。系统必须区分 persistent map 与 transient obstacle state。
+
+### Planner–controller mismatch
+
+global path 在几何上可行，但 local controller 受最小转弯半径、加速度、轮胎/底盘约束无法跟踪。
+
+### Memory aliasing
+
+相似走廊/房间产生 perceptual aliasing。单帧视觉 policy 可能反复走回已访问区域，却把它当新位置。
+
+## 34.18 Navigation 的完整闭环接口
+
+```text
+RGB / depth / LiDAR / odometry
+→ localization + belief
+→ metric / semantic / topological memory
+→ global goal / frontier selection
+→ path / waypoint
+→ local collision-aware command
+→ base controller
+→ physical motion
+→ new observation
+```
+
+端到端 policy 可以隐藏中间表示，但不能消除这些功能需求。研究者应通过 intervention 判断功能究竟是否存在，例如冻结 memory、注入 pose error、交换地图、移动动态障碍。
+
+## 34.19 研究问题
+
+1. Learned implicit memory 何时比 explicit metric/semantic map 更高效，何时只是更难诊断？
+2. ObjectNav/VLN 的 language prior 对真正新布局是帮助还是 shortcut？
+3. Mobile manipulation 中 base placement 应由高层 VLA、motion planner 还是 whole-body optimizer 决定？
+4. 如何把 localization uncertainty 传播到 learned navigation policy，而不是只把一个估计 pose 当真值？
+5. 对家庭机器人，SPL 是否仍是合理主指标，还是应联合 success、human disturbance、time、energy 与 intervention rate？
+<!-- CHAPTER-ENRICHMENT-P34:END -->
 
 <!-- CHAPTER-SOURCE-MAP:START -->
 ## Source anchors / 原始来源

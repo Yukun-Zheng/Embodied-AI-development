@@ -159,6 +159,54 @@ Flow matching 学习
 ## 最小实验
 
 用 double integrator \(x=[p,v]\) 比较：手工 PD、LQR、MPC。加入 control bound 与 obstacle 后观察：为什么 LQR 解析最优性失效，而 constrained MPC 仍能显式处理约束。
+<!-- CHAPTER-ENRICHMENT-P04:START -->
+## 4.16 Model Mismatch：最优解只对所写问题最优
+
+优化器返回的 \(x^*\) 只对**当前 objective、constraint 与 dynamics model**有意义：
+
+\[
+x^*=\arg\min_x f_{\hat\theta}(x)\quad\text{s.t.}\quad g_{\hat\theta}(x)\le0.
+\]
+
+如果真实系统参数是 \(\theta\neq\hat\theta\)，则 solver 数值收敛并不保证真实闭环最优。机器人里最典型的是：friction、payload、delay、contact mode 或 actuator saturation 被错误建模。
+
+因此必须把两种误差分开：
+
+```text
+optimization error: 没有把已定义的问题解好
+modeling error:      把错误的问题解得非常好
+```
+
+## 4.17 常见失败
+
+### Objective hacking
+
+一个 reward/cost 可以被 policy 以设计者没预期的方式满足。仿真 reward 上升不代表真实任务语义改善。
+
+### Constraint 只在 nominal trajectory 成立
+
+trajectory optimizer 在预测模型中满足 collision/force bound，但 tracking error 与 model mismatch 会让真实轨迹越界。需要 margin、robust constraint 或 feedback correction。
+
+### Open-loop optimality 冒充 feedback robustness
+
+一次求出的长 horizon trajectory 可能在 nominal model 上最优，但 disturbance 后没有 recovery。必须比较 open-loop plan 与 receding-horizon / feedback execution。
+
+### 非凸 solver 的“成功”依赖 initialization
+
+同一 target 不同 initial guess 得到不同 local optimum。只汇报最好结果会隐藏 basin-of-attraction 问题。
+
+### Learned optimizer 改变了问题而不自知
+
+神经网络可能 amortize 求解，但如果训练数据隐式改变 constraint distribution，不能只比较 wall-clock time 就宣称“替代了优化”。
+
+## 4.18 研究问题
+
+1. Learned policy、MPC 与 trajectory optimization 在相同 model/data/compute budget 下，性能差异究竟来自哪里？
+2. Foundation policy 的 action expert 是否可以解释为 amortized optimizer；若可以，它隐式优化的 objective 是什么？
+3. 对 contact-rich manipulation，robust MPC、online system identification 与 experience-based policy adaptation 应怎样分工？
+4. 如何设计 benchmark，把 optimizer failure、model mismatch 与 controller tracking failure 分开记录？
+5. Flow-matching action generator 的 ODE integration error 在什么条件下会真正影响 physical control，而不是仅影响离线 likelihood？
+<!-- CHAPTER-ENRICHMENT-P04:END -->
 
 <!-- CHAPTER-SOURCE-MAP:START -->
 ## Source anchors / 原始来源

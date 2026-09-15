@@ -149,6 +149,37 @@ critical          → safe stop
 ## 最小实验
 
 构造两个重叠 Gaussian class。训练一个分类器后制造 OOD 区域，分别比较 softmax confidence、ensemble uncertainty、distance-based OOD score。画 risk–coverage curve，并让高 uncertainty 触发“拒绝执行”。
+<!-- CHAPTER-ENRICHMENT-P03:START -->
+## 3.16 从“不确定”到决策：Uncertainty 的闭环接口
+
+不确定性只有进入 action selection 才有系统价值。设机器人维护 belief
+
+\[
+b_t(x)=p(x_t=x\mid o_{\le t},a_{<t}),
+\]
+
+决策不应只依赖 posterior mean，而应比较**信息价值、任务收益与风险**：
+
+\[
+a_t^*=\arg\max_a\;\mathbb E_{x\sim b_t}[R(x,a)]-\lambda\,\mathrm{Risk}(a,b_t).
+\]
+
+如果还允许主动获取观测，则可以加入信息项：
+
+\[
+a_t^*=\arg\max_a\;\mathbb E[R]-\lambda_r\mathrm{Risk}+\lambda_i I(X;O_{future}\mid a).
+\]
+
+这把 calibration、active perception、human handoff 和 safe stop 统一为同一个问题：**belief 如何改变行为。**
+
+### 研究问题
+
+1. VLA 的 token probability / diffusion variance / ensemble variance，哪一种最接近真实 task-failure probability？
+2. Epistemic 与 aleatoric uncertainty 在真实机器人上怎样通过 intervention 被区分，而不是只靠模型结构命名？
+3. Risk–coverage curve 是否比单一 success rate 更适合评价“会说不知道”的机器人？
+4. 当 perception uncertainty 与 action uncertainty 同时存在时，应该先主动看、慢速执行、还是直接请求人类？
+5. 一个 uncertainty head 若不改变 policy/executor，是否应被视为系统能力的一部分？
+<!-- CHAPTER-ENRICHMENT-P03:END -->
 
 <!-- CHAPTER-SOURCE-MAP:START -->
 ## Source anchors / 原始来源

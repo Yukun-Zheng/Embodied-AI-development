@@ -103,6 +103,7 @@
 ## 3.13 Calibration
 ## 3.14 Monte Carlo
 ## 3.15 Uncertainty 必须改变行为
+## 3.16 从“不确定”到决策：Uncertainty 的闭环接口
 ## Source anchors / 原始来源
 
 # [Part 4　优化、动态系统与最优决策](./chapters/04-optimization-dynamics-decision.md)
@@ -122,6 +123,9 @@
 ## 4.13 MPC
 ## 4.14 Pontryagin Minimum Principle
 ## 4.15 Optimal Transport / Flow
+## 4.16 Model Mismatch：最优解只对所写问题最优
+## 4.17 常见失败
+## 4.18 研究问题
 ## Source anchors / 原始来源
 
 # [Part 5　几何、流形、图与因果](./chapters/05-geometry-graphs-causality.md)
@@ -737,6 +741,10 @@
 ## 常见误读
 ## 最小研究练习
 ## 延伸来源
+## 23.23 VLA 谱系的 Failure Taxonomy
+## 23.24 最小受控实验：把“VLA 提升”拆开
+## 23.25 Negative Controls
+## 23.26 研究问题
 ## Source anchors / 原始来源
 
 # [Part 24　VLA 的第二阶段：2024–2026 的架构分化](./chapters/24-vla-second-stage-2024-2026.md)
@@ -992,6 +1000,9 @@
 ## 34.14 Home / Office / Warehouse
 ## 34.15 Habitat / BEHAVIOR / OmniGibson
 ## 34.16 Drone / Field Robot / Autonomous Vehicle
+## 34.17 Navigation Failure Taxonomy
+## 34.18 Navigation 的完整闭环接口
+## 34.19 研究问题
 ## Source anchors / 原始来源
 
 # [Part 35　Legged Locomotion、Humanoid 与 Whole-Body Intelligence](./chapters/35-humanoid-whole-body-intelligence.md)
@@ -1150,6 +1161,9 @@
 ## 41.12 Neural Asset / Generative Scene
 ## 41.13 Reality Gap 分解
 ## 41.14 哪些能力适合在 Simulation 学
+## 41.15 Transfer Gap 不应只报一个数字
+## 41.16 Sim2Real 常见失败
+## 41.17 研究问题
 ## Source anchors / 原始来源
 
 # [Part 42　机器人数据工程](./chapters/42-robot-data-engineering.md)
@@ -1172,6 +1186,10 @@
 ## 42.16 Distributed Storage
 ## 42.17 Governance / Privacy
 ## 42.18 Robotics Data Flywheel
+## 42.19 Dataset Contract：数据也需要可执行规范
+## 42.20 数据价值不等于 Episode 数量
+## 42.21 最小实验：Data QA 能否提前发现训练灾难
+## 42.22 研究问题
 ## Source anchors / 原始来源
 
 # [Part 43　机器人系统工程与真实部署](./chapters/43-robot-systems-deployment.md)

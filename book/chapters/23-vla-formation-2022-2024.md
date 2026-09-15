@@ -355,6 +355,79 @@ OpenVLA
 - Open X-Embodiment / RT-X — https://deepmind.google/blog/scaling-up-learning-across-many-different-robot-types
 - Octo — https://octo-models.github.io/
 - OpenVLA — https://openvla.github.io/
+<!-- CHAPTER-ENRICHMENT-P23:START -->
+## 23.23 VLA 谱系的 Failure Taxonomy
+
+这一阶段的系统容易被同一个“success rate”掩盖不同失败源：
+
+```text
+semantic failure
+→ instruction / object grounding 错
+
+representation failure
+→ 看见了对象但缺 precision / geometry
+
+action-interface failure
+→ tokenization / normalization / frame 不合适
+
+temporal failure
+→ inference latency / stale action
+
+controller failure
+→ policy target 合理但 IK / low-level controller 执行失败
+
+data failure
+→ train mixture / embodiment / scene coverage 不足
+```
+
+如果论文只给最终成功率，无法知道 VLM pretraining、robot data scaling 与 action representation 各自解决了哪一种 failure。
+
+## 23.24 最小受控实验：把“VLA 提升”拆开
+
+固定同一个 robot、task split、vision encoder、controller 与训练步数，只改变一个轴：
+
+```text
+A. BC regression head
+B. action-token head
+C. diffusion head
+D. flow head
+```
+
+再分别加入：
+
+```text
++ web/VLM pretraining
++ cross-robot data
++ language conditioning
+```
+
+要求报告：
+
+- seen-task success；
+- novel-object / novel-instruction success；
+- action quantization / trajectory error；
+- inference latency；
+- recovery；
+- controller saturation / IK failure。
+
+这比直接比较 RT-2、Octo、OpenVLA 的论文数字更接近因果问题，因为后者的数据、参数量、controller 与 benchmark 通常都不同。
+
+## 23.25 Negative Controls
+
+1. **Shuffled language**：保持视觉与动作数据不变，打乱 instruction，测 language 是否真的被读取；
+2. **Frozen/random VLM features**：控制 parameter count，测 web semantic prior 的真实贡献；
+3. **Matched robot-data budget**：避免“更多机器人数据”被误写成 architecture gain；
+4. **Action de-tokenization oracle**：把量化误差单独隔离；
+5. **Same controller**：不同 policy 必须经过同一 IK / low-level controller 才能做 architecture credit assignment。
+
+## 23.26 研究问题
+
+1. VLA 的关键跨越究竟是“语言进入 action”，还是“大规模异质数据终于进入统一 policy”？
+2. Web-scale semantic prior 对真实 precision manipulation 的边际贡献在什么任务上接近零？
+3. Cross-robot training 学到的是 embodiment-agnostic interaction structure，还是 robot-ID-conditioned mixture of experts？
+4. Action tokenization 何时是合理 inductive bias，何时只是复用 LLM 工具链的工程便利？
+5. 一个模型能在多个已见 robot 上工作，需要什么额外实验才能支持 unseen-morphology generalization？
+<!-- CHAPTER-ENRICHMENT-P23:END -->
 
 <!-- CHAPTER-SOURCE-MAP:START -->
 ## Source anchors / 原始来源

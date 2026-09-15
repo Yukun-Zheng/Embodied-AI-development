@@ -286,6 +286,63 @@ deploy
 ## 本章结论
 
 机器人数据工程决定 foundation model 的上限。Timestamp、schema、action convention、failure label 和 versioning 看似琐碎，却会直接决定模型是否学到真实因果关系，还是只学到错位的数据相关性。
+<!-- CHAPTER-ENRICHMENT-P42:START -->
+## 42.19 Dataset Contract：数据也需要可执行规范
+
+一个可复现 robot dataset 不应只给文件格式，还要定义 contract：
+
+```text
+observation keys + dtype + shape + unit + frame
+state/action semantics + normalization + valid mask
+source timestamp + aligned timestamp + interpolation rule
+episode boundary + success/failure/abort semantics
+robot/calibration/controller/software version
+```
+
+训练前可以把这些 contract 写成 machine-checkable schema。这样 action convention 改变、camera 丢帧、时间戳倒序等问题会在 dataset ingestion 阶段失败，而不是训练数天后才从 loss 中猜。
+
+## 42.20 数据价值不等于 Episode 数量
+
+数据的边际价值更接近 coverage：
+
+\[
+V(D)\approx f(\text{state},\text{action},\text{object},\text{scene},\text{failure},\text{embodiment coverage}).
+\]
+
+重复 10 万次同一简单成功轨迹，未必比 1000 条覆盖 recovery/contact edge case 的数据更有价值。
+
+因此 data flywheel 应优化：
+
+\[
+\frac{\Delta \text{capability}}{\Delta \text{collection cost}},
+\]
+
+而不是只优化累计小时数。
+
+## 42.21 最小实验：Data QA 能否提前发现训练灾难
+
+构造一份小型 episodic dataset，然后分别注入：
+
+1. camera/action 错位 100 ms；
+2. action unit 从 rad 改成 degree 但 metadata 不变；
+3. 5% success label 翻转；
+4. duplicate episodes；
+5. train/test scene leakage；
+6. action convention 从 absolute 改成 delta。
+
+要求 data validator 在**不训练模型**的前提下尽量发现问题，并记录哪些只能通过 statistical / downstream test 发现。
+
+再训练一个极小 BC policy，比较每类 corruption 对 offline loss 与 closed-loop success 的影响。尤其关注：哪些 corruption 的 train loss 看起来正常，却让真实控制崩溃。
+
+## 42.22 研究问题
+
+1. 机器人 foundation model 的 scaling law 应按 hours/episodes，还是按独立 state-action coverage / intervention entropy 计量？
+2. 如何自动估计一条新 episode 对当前模型的 marginal information value？
+3. Failure data 应以多大权重进入 mixture，才能提高 recovery 而不让 policy 过度保守？
+4. 跨实验室 dataset mixture 中，action semantics 对齐应靠 canonical action space、embodiment adapters 还是 explicit morphology graph？
+5. 数据版本改变后，如何追踪某个 checkpoint 的所有上游 raw episodes、derived transforms 与 annotation versions？
+6. 能否把 timestamp/calibration/schema validation 做成机器人数据系统的 CI，像软件测试一样阻止坏数据进入训练？
+<!-- CHAPTER-ENRICHMENT-P42:END -->
 
 <!-- CHAPTER-SOURCE-MAP:START -->
 ## Source anchors / 原始来源
