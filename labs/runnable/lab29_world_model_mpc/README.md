@@ -6,7 +6,7 @@
 
 一个 world model 在 held-out dataset 上 one-step prediction error 很低，是否足以证明它可以用于 planning / control？
 
-本 Lab 把这个问题拆成三层：
+本 Lab 把这个问题拆成四层：
 
 ```text
 observational prediction
@@ -14,9 +14,11 @@ observational prediction
 counterfactual action sensitivity
         ↓
 closed-loop control utility
+        ↓
+planning horizon × model bias
 ```
 
-重点不是“训练一个更强 world model”，而是构造**预测分数很好但控制机制错误**的反例。
+重点不是“训练一个更强 world model”，而是构造**预测分数很好但控制机制错误**的反例，并继续检查 model error 在多步 imagined rollout 中怎样累积。
 
 ---
 
@@ -47,7 +49,8 @@ f(x_t,u_t)
 1. `action_blind` 的 passive one-step RMSE 可以仍然很小；
 2. 但它预测不出改变 action 后 next state 怎样变化；
 3. 放进 MPC 后，它没有可用的 action gradient / ranking，因此控制失败；
-4. `wrong_action_sign` 即使 passive prediction error 仍是“小数”，control 也会因为 intervention direction 错误而严重失败。
+4. `wrong_action_sign` 即使 passive prediction error 仍是“小数”，control 也会因为 intervention direction 错误而严重失败；
+5. 当一个 action-aware model 存在受控 dynamics bias 时，imagined horizon 越长，rollout error 会累积；更多 look-ahead 只有在 planning benefit 大于 model-bias amplification 时才有价值。
 
 ---
 
@@ -131,7 +134,7 @@ MPC action limit = ±2.0
 
 ---
 
-## Three evaluations
+## Three base evaluations
 
 ### 1. Passive one-step RMSE
 
@@ -190,6 +193,66 @@ current real state
 
 ---
 
+## Planning-horizon × model-bias probe
+
+基础实验回答“world model 是否具备正确 intervention semantics”。第二层继续问：
+
+> **即使 action direction 是对的，只要 dynamics gain 有偏差，更长 imagined horizon 会不会把偏差累积到超过 look-ahead 的收益？**
+
+`horizon_probe.py` 从已经拟合好的 `action_aware` model 出发，只对 learned action coefficient 做受控缩放：
+
+\[
+\hat B_{probe}=\alpha\hat B,
+\qquad \alpha=0.5.
+\]
+
+这不是在宣称真实 world model 通常会有 `50%` action-gain error，也不是为了人为让长 horizon 输。它是一个**independent-variable intervention**：任务、真实 plant、cost、MPC 形式都保持不变，只显式注入一种已知 dynamics bias，再扫描：
+
+```text
+planning horizon = 1 / 4 / 8 / 16 / 32
+```
+
+每个 horizon 同时测两类量：
+
+### Imagined-model error
+
+- `rollout_prediction_rmse`：整个 imagined trajectory 上的状态误差；
+- `terminal_prediction_rmse`：最后一个 imagined step 的误差。
+
+### Realized control utility
+
+- `realized_control_cost`；
+- final position error；
+- closed-loop position RMSE。
+
+因此可以区分：
+
+```text
+longer horizon
+→ more information about future
+```
+
+和：
+
+```text
+longer horizon
+→ more repeated applications of a biased transition model
+→ compounding model error
+→ planner may optimize a false future
+```
+
+真正要检验的是：
+
+\[
+\text{planning benefit}(H)
+-
+\text{model-bias cost}(H)
+\]
+
+何时开始变成负值。
+
+---
+
 ## Metrics
 
 `model_metrics.csv` 同时报告：
@@ -203,25 +266,34 @@ current real state
 - mean action magnitude；
 - failure events。
 
+`horizon_sweep.csv` 另外报告：
+
+- planning horizon；
+- injected action-gain scale；
+- rollout prediction RMSE；
+- terminal prediction RMSE；
+- realized control cost；
+- final position error。
+
 关键比较不是：
 
 > 谁的 one-step RMSE 最小？
 
 而是：
 
-> **prediction error、action sensitivity、control utility 三者的排序是否一致？**
+> **prediction error、action sensitivity、multi-step model error、control utility 四者的排序是否一致？**
 
 ---
 
 ## Run
 
-完整实验：
+基础实验：
 
 ```bash
 python labs/runnable/lab29_world_model_mpc/run.py
 ```
 
-CI / quick experiment：
+CI / quick base experiment：
 
 ```bash
 python labs/runnable/lab29_world_model_mpc/run.py \
@@ -229,12 +301,30 @@ python labs/runnable/lab29_world_model_mpc/run.py \
   --output /tmp/lab29
 ```
 
-输出：
+planning-horizon bias probe：
+
+```bash
+python labs/runnable/lab29_world_model_mpc/horizon_probe.py \
+  --quick \
+  --output /tmp/lab29
+```
+
+生成派生分析：
+
+```bash
+python labs/runnable/lab29_world_model_mpc/analyze.py /tmp/lab29
+```
+
+完整输出：
 
 ```text
 models.json
 experiment_manifest.json
 model_metrics.csv
+horizon_probe_manifest.json
+horizon_sweep.csv
+analysis.json
+ANALYSIS.md
 <model-run>/manifest.json
 <model-run>/steps.csv
 <model-run>/failures.jsonl
@@ -261,7 +351,13 @@ model_metrics.csv
 
 ### Control C — receding horizon remains identical
 
-所有模型每一步都重新 observe real state 并重新 planning，因此失败不能简单归因于“没有 closed-loop feedback”。
+所有 base model 每一步都重新 observe real state 并重新 planning，因此失败不能简单归因于“没有 closed-loop feedback”。
+
+### Control D — known model-bias injection
+
+horizon probe 不更换 task、真实 plant 或 objective，只缩放 learned action gain。若 terminal rollout error 不随 horizon 增长，则“模型误差累积”这一解释没有被该实验支持。
+
+反过来，即使 prediction error 随 horizon 增长，也不能直接得出“长 horizon 一定更差”；还必须检查真实 closed-loop cost 是否出现非单调甚至恶化。
 
 ---
 
@@ -274,6 +370,7 @@ model_metrics.csv
 - **wrong intervention direction**：action effect 符号/方向错误；
 - **planning exploitation**：planner 主动寻找 model error；
 - **distribution shift**：MPC candidate action 超出 identification data 的 action scale；
+- **compounding model bias**：单步误差在 imagined rollout 中反复积累；
 - **closed-loop divergence**：错误 model 导致真实状态持续远离目标。
 
 尤其要注意：
@@ -282,6 +379,8 @@ model_metrics.csv
 \text{small one-step error}
 \not\Rightarrow
 \text{correct counterfactual}
+\not\Rightarrow
+\text{accurate long rollout}
 \not\Rightarrow
 \text{useful control}.
 \]
@@ -296,10 +395,14 @@ model_metrics.csv
 1. observational prediction test
 2. action intervention test
 3. counterfactual ranking test
-4. closed-loop planning test
+4. multi-step rollout error test
+5. closed-loop planning test
+6. planning-horizon × model-bias test
 ```
 
 如果一个 world model 只通过第 1 层，就不能直接把 representation/video prediction quality 写成“physical reasoning”或“planning capability”。
+
+同样，如果一个 model 通过 one-step 与 action intervention，却在长 horizon 被 planner 系统性利用错误，也不能把“可预测”直接等同于“可规划”。
 
 ---
 
@@ -324,4 +427,4 @@ real/sim observation
 - candidate ranking consistency；
 - MPC success / recovery。
 
-真正值得研究的问题是：**哪一种 prediction metric 最能预测 control utility？**
+真正值得研究的问题是：**哪一种 prediction metric 最能预测 control utility，以及这个关系怎样随 planning horizon 改变？**
