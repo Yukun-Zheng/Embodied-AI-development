@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Audit structural depth of all 51 textbook chapters.
+r"""Audit structural depth of all 51 textbook chapters.
 
 This is a diagnostic, not yet a hard gate. It makes manuscript imbalance visible
 without pretending that raw word count alone measures quality.
