@@ -43,8 +43,17 @@ PROBES = [
 
 
 def full_mass_matrix(model: mujoco.MjModel, data: mujoco.MjData) -> np.ndarray:
+    """Expand MuJoCo's packed joint-space inertia across binding versions.
+
+    The C/API documentation traditionally calls this packed field `qM`; the
+    current 3.13 Python wheel used by hosted CI exposes it as `M`. Supporting
+    both keeps the textbook adapter compatible across MuJoCo 3.x bindings.
+    """
     M = np.zeros((model.nv, model.nv), dtype=np.float64)
-    mujoco.mj_fullM(model, M, data.qM)
+    packed = getattr(data, "qM", None)
+    if packed is None:
+        packed = data.M
+    mujoco.mj_fullM(model, M, packed)
     return M
 
 
