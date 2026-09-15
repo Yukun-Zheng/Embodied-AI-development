@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
-"""Report checkable manuscript claims that may need local evidence attribution.
+"""Audit checkable manuscript claims for local evidence attribution.
 
-This is deliberately a report-only audit at first. It looks for sentences with
-high-verifiability signals (dates, model versions, percentages, frequencies,
-parameter/data-scale numbers) and asks whether direct evidence appears nearby.
-A canonical chapter source-map fallback is NOT counted as local attribution:
-important numeric/frontier claims should eventually cite evidence near the claim.
+Two classes are intentionally separated:
+A) high-confidence historical/frontier factual claims — releases, dated public
+   capabilities, version changes, public model/data scale. These should migrate
+   toward local primary-source attribution.
+B) quantitative engineering statements — rates, delays, experiment sweep values,
+   toy assumptions. These are review hints, not automatic citation obligations.
+
+The canonical chapter source-map fallback does NOT count as local attribution.
 """
 
 from __future__ import annotations
@@ -17,14 +20,27 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CHAPTER_DIR = ROOT / "book" / "chapters"
 
-# Signals chosen for precision over recall. Ordinary equation numbers and Part
-# numbers should not dominate the report.
-CHECKABLE_PATTERNS = [
-    re.compile(r"\b(?:19|20)\d{2}(?:[-–/]\d{1,2})?\b"),
-    re.compile(r"\b\d+(?:\.\d+)?\s*(?:%|Hz|kHz|MHz|GHz|ms|s|GB|MB|TB|B|M|K)\b", re.I),
-    re.compile(r"\b\d+(?:\.\d+)?[BbMmKk]\s*(?:parameters?|params?|checkpoint)?\b", re.I),
-    re.compile(r"\b(?:N1\.\d+|π0\.\d+|V-JEPA\s*2(?:\.1)?|Gemini Robotics\s*\d+(?:\.\d+)?)\b", re.I),
-]
+YEAR = re.compile(r"\b(?:19|20)\d{2}(?:[-–/]\d{1,2})?\b")
+MODEL_VERSION = re.compile(
+    r"\b(?:N1\.\d+|π0\.\d+|π\*0\.\d+|V-JEPA\s*2(?:\.1)?|"
+    r"Gemini Robotics(?: On-Device)?\s*\d+(?:\.\d+)?|Helix\s*0?2|Cosmos\s*3)\b",
+    re.I,
+)
+NUMERIC_SYSTEM = re.compile(
+    r"\b\d+(?:\.\d+)?\s*(?:%|Hz|kHz|MHz|GHz|ms|GB|MB|TB)\b|"
+    r"\b\d+(?:\.\d+)?[BbMmKk]\s*(?:parameters?|params?|checkpoint|model)?\b",
+    re.I,
+)
+FRONTIER_VERBS = re.compile(
+    r"发布|公布|公开|推出|发布于|进入|标记为|版本|支持|展示|报告|宣称|"
+    r"released|published|announced|official|supports?|reported|demonstrated|latest|general availability",
+    re.I,
+)
+FRONTIER_NAMES = re.compile(
+    r"Physical Intelligence|NVIDIA|GR00T|Gemini Robotics|Google DeepMind|Figure|Helix|"
+    r"V-JEPA|Meta|Cosmos|OpenVLA|Open X-Embodiment|RT-[12X]|Octo|DROID|TouchWorld|T-Rex",
+    re.I,
+)
 
 DIRECT_EVIDENCE = re.compile(
     r"https?://|\[[^\]]+\]\([^\)]+\)|doi:|arxiv:|\[@[^\]]+\]",
@@ -32,18 +48,49 @@ DIRECT_EVIDENCE = re.compile(
 )
 
 SKIP_LINE_PREFIXES = ("#", "```", "|", "- [", "<!--")
+QUESTION_PREFIXES = ("为什么", "如何", "是否", "什么", "何时", "能否", "哪", "1.", "2.", "3.", "4.", "5.", "6.")
+EXPERIMENT_CONTEXT = re.compile(r"假设|设定|模拟|扫描|注入|例如|例：|实验|比较|取值|sweep", re.I)
 
 
 @dataclass
 class Finding:
+    category: str
     part: int
     path: str
     line: int
     text: str
+    supported: bool
 
 
-def is_checkable(text: str) -> bool:
-    return any(p.search(text) for p in CHECKABLE_PATTERNS)
+def classification(text: str) -> str | None:
+    """Return A, B, or None with precision prioritized over recall."""
+    stripped = text.strip()
+    if stripped.startswith(QUESTION_PREFIXES):
+        return None
+
+    has_year = bool(YEAR.search(stripped))
+    has_version = bool(MODEL_VERSION.search(stripped))
+    has_frontier_name = bool(FRONTIER_NAMES.search(stripped))
+    has_frontier_verb = bool(FRONTIER_VERBS.search(stripped))
+    has_numeric = bool(NUMERIC_SYSTEM.search(stripped))
+
+    # Class A: a dated/versioned factual statement tied to a named public system
+    # or release/capability verb. These are the strongest candidates for nearby
+    # primary evidence.
+    if (has_year or has_version) and (has_frontier_name or has_frontier_verb):
+        return "A"
+
+    # Some scale claims omit a year but name a public system and a concrete
+    # numeric scale (e.g. 7B checkpoint).
+    if has_frontier_name and has_numeric and not EXPERIMENT_CONTEXT.search(stripped):
+        return "A"
+
+    # Class B: system-rate / timing / scale statement. If clearly introduced as
+    # an experiment or hypothetical setting, keep it out of the report.
+    if has_numeric and not EXPERIMENT_CONTEXT.search(stripped):
+        return "B"
+
+    return None
 
 
 def nearby_evidence(lines: list[str], idx: int, radius: int = 3) -> bool:
@@ -54,8 +101,6 @@ def nearby_evidence(lines: list[str], idx: int, radius: int = 3) -> bool:
 
 def main() -> None:
     findings: list[Finding] = []
-    total_checkable = 0
-    locally_supported = 0
 
     for path in sorted(CHAPTER_DIR.glob("[0-9][0-9]-*.md")):
         part = int(path.name[:2])
@@ -72,44 +117,53 @@ def main() -> None:
                 continue
             if stripped.startswith(("\\[", "\\]", "$$")):
                 continue
-            if not is_checkable(stripped):
-                continue
 
-            total_checkable += 1
-            if nearby_evidence(lines, idx):
-                locally_supported += 1
-            else:
-                findings.append(
-                    Finding(
-                        part=part,
-                        path=path.relative_to(ROOT).as_posix(),
-                        line=idx + 1,
-                        text=stripped[:220],
-                    )
+            category = classification(stripped)
+            if category is None:
+                continue
+            findings.append(
+                Finding(
+                    category=category,
+                    part=part,
+                    path=path.relative_to(ROOT).as_posix(),
+                    line=idx + 1,
+                    text=stripped[:240],
+                    supported=nearby_evidence(lines, idx),
                 )
+            )
 
     print("CLAIM → EVIDENCE AUDIT (REPORT ONLY)")
-    print(f"checkable_lines={total_checkable}")
-    print(f"locally_supported={locally_supported}")
-    print(f"needs_review={len(findings)}")
-    if total_checkable:
-        print(f"local_support_rate={locally_supported / total_checkable:.1%}")
+    for category, label in [("A", "frontier/historical facts"), ("B", "engineering quantitative statements")]:
+        group = [f for f in findings if f.category == category]
+        supported = sum(f.supported for f in group)
+        missing = len(group) - supported
+        rate = supported / len(group) if group else 1.0
+        print(
+            f"class_{category}_{label.replace(' ', '_')}="
+            f"total:{len(group)}, locally_supported:{supported}, needs_review:{missing}, rate:{rate:.1%}"
+        )
 
+    high_missing = [f for f in findings if f.category == "A" and not f.supported]
     by_part: dict[int, list[Finding]] = {}
-    for f in findings:
+    for f in high_missing:
         by_part.setdefault(f.part, []).append(f)
 
-    print("\nTOP PARTS NEEDING LOCAL ATTRIBUTION")
+    print("\nCLASS A — TOP PARTS NEEDING LOCAL PRIMARY EVIDENCE")
     for part, part_findings in sorted(by_part.items(), key=lambda item: (-len(item[1]), item[0]))[:20]:
         print(f"Part {part:02d}: {len(part_findings)}")
 
-    print("\nSAMPLE FINDINGS")
-    for f in findings[:80]:
+    print("\nCLASS A — ALL UNSUPPORTED FINDINGS")
+    for f in high_missing:
+        print(f"{f.path}:{f.line}: {f.text}")
+
+    print("\nCLASS B — SAMPLE REVIEW HINTS")
+    for f in [x for x in findings if x.category == "B" and not x.supported][:30]:
         print(f"{f.path}:{f.line}: {f.text}")
 
     print(
-        "\nNOTE: This audit intentionally over-reports some historical/context lines. "
-        "Review findings before turning any rule into a hard gate."
+        "\nNOTE: Class A is designed to become a future quality gate after local "
+        "attribution is improved. Class B remains advisory because many values are "
+        "engineering examples rather than externally sourced facts."
     )
 
 
