@@ -26,7 +26,7 @@
 
 | Part | 可执行 / Lab | 连接资产 | 研究验收问题 |
 |---|---|---|---|
-| **6 机器人身体与机电系统** | Lab 39 / 40 | Hardware Atlas | policy 输出之后经过哪些 driver、bus、actuator 与 safety boundary？ |
+| **6 机器人身体与机电系统** | Lab 39 / [Runnable Lab 40](../labs/runnable/lab40_safety_shield/README.md) | [Lab 40 CI Reference](../labs/runnable/lab40_safety_shield/REFERENCE_RESULTS.md)、Hardware Atlas | policy 输出之后经过哪些 driver、bus、actuator 与 safety boundary？安全规则触发后，有限 braking dynamics 是否真的阻止物理越界？ |
 | **7 刚体几何与 SE(3)** | Lab 03；`se3.py` | D4–D5；Core Diagrams 的 frame 图 | world/base/camera/EE frame 是否在代码、数据和标注中完全一致？ |
 | **8 运动学与 Jacobian** | Lab 02 / 04；`planar_arm.py` | D1–D3/D6 | 同一个 learned action 在 singularity / joint limit 附近是否仍可执行？ |
 | **9 动力学、接触与抓取** | [Runnable Lab 14](../labs/runnable/lab14_tactile_reflex/README.md)；Lab 05 | [Lab 14 CI Reference](../labs/runnable/lab14_tactile_reflex/REFERENCE_RESULTS.md)、Failure Atlas 的 contact/dynamics 条目 | contact failure 来自 policy、摩擦/动力学、controller bandwidth 还是 feedback latency？这些因素能否独立干预？ |
@@ -37,7 +37,7 @@
 
 | Part | 可执行 / Lab | 连接资产 | 研究验收问题 |
 |---|---|---|---|
-| **12 Sensors、Calibration 与 Time** | Lab 08 / 39 | Failure Atlas F-SEN 系列 | timestamp / calibration error 能否解释所谓视觉泛化失败？ |
+| **12 Sensors、Calibration 与 Time** | Lab 08 / 39 / [Runnable Lab 40](../labs/runnable/lab40_safety_shield/README.md) | [Lab 40 CI Reference](../labs/runnable/lab40_safety_shield/REFERENCE_RESULTS.md)、Failure Atlas F-SEN 系列 | timestamp / calibration error 能否解释所谓视觉泛化失败？即使几何预测正确，stale observation 是否仍可导致闭环安全失败？ |
 | **13 2D Vision 与 Representation** | Lab 12 / 25 | Model Atlas、视觉 intervention protocol | feature 里“有信息”与 policy “因果使用信息”如何区分？ |
 | **14 3D / 4D World Representation** | Lab 09 / 11 | Benchmark Atlas | 几何精度提升是否真的提高 manipulation，而非只提高 probe？ |
 | **15 State Estimation / Localization** | Lab 10 / 11；`kalman_filter.py` | Failure Atlas state/belief 条目 | observation 与 belief 混用会产生什么 failure？ |
@@ -98,14 +98,14 @@
 | **40 Physics Simulation / Robot Platforms** | Lab 18 / 35 / 36 | Benchmark / Hardware Atlas | simulator fidelity 的哪一部分对目标任务真正敏感？ |
 | **41 Synthetic Data / Sim2Real** | Capstone 1 / 2 | Dataset Atlas | synthetic data 的收益来自 coverage、label quality 还是 domain randomization？ |
 | **42 Robot Data Engineering** | Lab 32 | Dataset Atlas、cross-matrix | schema / normalization / timestamp / success label 错误能否被训练 loss 检测？ |
-| **43 Robot Systems / Deployment** | [Runnable Lab 22](../labs/runnable/lab22_async_execution/README.md) / [Runnable Lab 14](../labs/runnable/lab14_tactile_reflex/README.md) / Lab 39 / 40；`chunk_latency.py` | Lab 14/22 CI References、SmolVLA / GR00T cases、Hardware Atlas | P50/P95/P99 latency、jitter、queue、action age、sensor age、multi-rate residual 和 watchdog 是否作为实验变量报告？ |
+| **43 Robot Systems / Deployment** | [Runnable Lab 22](../labs/runnable/lab22_async_execution/README.md) / [Runnable Lab 14](../labs/runnable/lab14_tactile_reflex/README.md) / Lab 39 / [Runnable Lab 40](../labs/runnable/lab40_safety_shield/README.md)；`chunk_latency.py` | [Lab 40 CI Reference](../labs/runnable/lab40_safety_shield/REFERENCE_RESULTS.md)、Lab 14/22 CI References、SmolVLA / GR00T cases、Hardware Atlas | P50/P95/P99 latency、jitter、queue、action age、sensor age、multi-rate residual 和 watchdog 是否作为实验变量报告？timeout / stale sensing 发生后，safe-stop 是否来得及在 braking dynamics 内阻止越界？ |
 
 ## Volume X　Evaluation 与 Safety
 
 | Part | 可执行 / Lab | 连接资产 | 研究验收问题 |
 |---|---|---|---|
 | **44 Benchmarks / Evaluation Science** | `evaluation_stats.py`；所有 Lab 的统一统计 | Benchmark Atlas、cross-matrix | 不同 robot/controller/reset/protocol 的 success rate 是否有资格放在同一表？ |
-| **45 Reliability / Safety / Human Intervention** | Lab 40 | Failure Atlas | unsafe action 在 model、executor、controller、watchdog 哪一层被拦截？漏检/误杀率是多少？ |
+| **45 Reliability / Safety / Human Intervention** | [Runnable Lab 40](../labs/runnable/lab40_safety_shield/README.md) | [Lab 40 CI Reference](../labs/runnable/lab40_safety_shield/REFERENCE_RESULTS.md)、Failure Atlas | unsafe action 在 model、executor、controller、watchdog 哪一层被拦截？漏检/误杀率是多少？static rejection、freshness monitoring、predictive stopping 与 ask-human routing 哪一项是因果必要？正常 availability 是否一起报告？ |
 
 ## Volume XI　研究方法与下一代架构
 
@@ -118,19 +118,3 @@
 | **50 从学习者到独立研究者** | 36 周路线 + 3 Capstones | 全部 Research Atlas | 能否从 failure 出发提出机制 hypothesis，并完成 controlled falsification？ |
 
 ---
-
-# 推荐的“每 Part 完成定义”
-
-读完一章，不以“看完文字”为完成。至少留下：
-
-```text
-1. 一张自己重画的数据流 / 物理流图
-2. 一个关键公式的 shape-level 推导
-3. 一个 minimal executable check
-4. 一个 Lab / source-code trace
-5. 一个 failure case
-6. 一个 negative control
-7. 一个仍然未解决、可实验的问题
-```
-
-当这七项都存在时，知识才从“知道名词”进入“可用于科研”。
