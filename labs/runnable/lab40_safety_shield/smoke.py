@@ -208,6 +208,47 @@ def main() -> None:
         ]:
             assert analysis[key] is True, f"Lab 40 mechanism assertion failed: {key}"
 
+        reference_metrics = {
+            "no_shield_fault_violation": finite(
+                keyed["no_shield"], "fault_violation_rate"
+            ),
+            "static_fault_violation": finite(
+                keyed["static_rules"], "fault_violation_rate"
+            ),
+            "predictive_no_freshness_fault_violation": finite(
+                keyed["predictive_no_freshness"], "fault_violation_rate"
+            ),
+            "predictive_shield_fault_violation": finite(
+                keyed["predictive_shield"], "fault_violation_rate"
+            ),
+            "predictive_normal_completion": finite(
+                keyed["predictive_shield"], "normal_completion_rate"
+            ),
+            "predictive_normal_false_intervention": finite(
+                keyed["predictive_shield"], "normal_false_intervention_rate"
+            ),
+            "overconservative_normal_completion": finite(
+                keyed["overconservative_shield"], "normal_completion_rate"
+            ),
+            "overconservative_normal_false_intervention": finite(
+                keyed["overconservative_shield"], "normal_false_intervention_rate"
+            ),
+            "stale_without_freshness": v(
+                "predictive_no_freshness", "stale_camera"
+            ),
+            "stale_with_full_shield": v("predictive_shield", "stale_camera"),
+            "human_static": v("static_rules", "human_proximity"),
+            "human_predictive": v("predictive_shield", "human_proximity"),
+            "timeout_static": v("static_rules", "model_timeout"),
+            "timeout_predictive": v("predictive_shield", "model_timeout"),
+            "unsafe_target_ask_human": ask(
+                "predictive_shield", "unsafe_joint_target"
+            ),
+        }
+        print(
+            "::notice title=Lab40 reference metrics::"
+            + json.dumps(reference_metrics, sort_keys=True, separators=(",", ":"))
+        )
         print(
             "PASS lab40_safety_shield: timeout, stale-sensor, unsafe-target, "
             "predictive-stopping and safety/availability controls verified"
