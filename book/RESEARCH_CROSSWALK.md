@@ -18,7 +18,7 @@
 | Part | 可执行 / Lab | 连接资产 | 研究验收问题 |
 |---|---|---|---|
 | **2 线代、微积分与数值计算** | Lab 01；`planar_arm.py` | `DERIVATIONS.md` D1–D3/D6 | 数值误差、rank 与 conditioning 什么时候会被误判成“模型失败”？ |
-| **3 概率、信息与不确定性** | Lab 10 / 13；`kalman_filter.py`、`active_perception.py` | Failure Atlas 的 uncertainty/calibration 条目 | 置信度是否校准？不确定性是否真的改变 action / sensing decision？ |
+| **3 概率、信息与不确定性** | [Runnable Lab 13](../labs/runnable/lab13_active_perception/README.md)；Lab 10；`kalman_filter.py`、`active_perception.py` | [Lab 13 CI Reference](../labs/runnable/lab13_active_perception/REFERENCE_RESULTS.md)、Failure Atlas 的 uncertainty/calibration 条目 | 置信度是否校准？不确定性是否真的改变 sensing decision，而且这种变化是否传到任务成功？ |
 | **4 优化、动态系统与决策** | Lab 05–07；`control.py` | `DERIVATIONS.md` 的 optimal/control 推导 | 优化器改善的是 objective，还是实际闭环行为？模型误差进入稳定性后会怎样？ |
 | **5 几何、图与因果** | Lab 03 / 11 / 31 | Experiment Protocol 的 intervention/negative control | correlation、prediction、intervention、control 四者怎样分开验证？ |
 
@@ -31,7 +31,7 @@
 | **8 运动学与 Jacobian** | Lab 02 / 04；`planar_arm.py` | D1–D3/D6 | 同一个 learned action 在 singularity / joint limit 附近是否仍可执行？ |
 | **9 动力学、接触与抓取** | Lab 05 / 14 | Failure Atlas 的 contact/dynamics 条目 | success gain 来自 policy 还是 controller/contact model/friction setting？ |
 | **10 Feedback / Optimal / Whole-Body Control** | Lab 06；`control.py` | Hardware Atlas、Part 35 | learned policy 与 PID/impedance/WBC 的边界究竟在哪里？ |
-| **11 Motion / Task / Uncertainty Planning** | Lab 07 / 29 | World Model Control case | planner 的收益来自搜索、模型预测还是更大 compute budget？ |
+| **11 Motion / Task / Uncertainty Planning** | [Runnable Lab 29](../labs/runnable/lab29_world_model_mpc/README.md)；Lab 07；`world_model_mpc.py` | [Lab 29 CI Reference](../labs/runnable/lab29_world_model_mpc/REFERENCE_RESULTS.md)、World Model Control case | planner 的收益来自搜索、模型预测还是更大 compute budget？planning horizon 何时开始放大 model bias？ |
 
 ## Volume III　感知、状态与世界表示
 
@@ -42,7 +42,7 @@
 | **14 3D / 4D World Representation** | Lab 09 / 11 | Benchmark Atlas | 几何精度提升是否真的提高 manipulation，而非只提高 probe？ |
 | **15 State Estimation / Localization** | Lab 10 / 11；`kalman_filter.py` | Failure Atlas state/belief 条目 | observation 与 belief 混用会产生什么 failure？ |
 | **16 Tactile / Contact Intelligence** | Lab 14 | Hardware Atlas、Failure Atlas contact/slip | 高频 tactile residual 是否在视觉/VLA 控制频率之外提供独立增益？ |
-| **17 Active Perception** | Lab 13；`active_perception.py` | Benchmark Atlas、Experiment Protocol | information gain 是否值得额外动作成本与 latency？ |
+| **17 Active Perception** | [Runnable Lab 13](../labs/runnable/lab13_active_perception/README.md)；`active_perception.py` | [Lab 13 CI Reference](../labs/runnable/lab13_active_perception/REFERENCE_RESULTS.md)、Benchmark Atlas、Experiment Protocol | information gain 是否真正提高任务判断？正确 view geometry 是否因果必要？额外 sensing motion 是否值得？ |
 
 ## Volume IV　Robot Learning
 
@@ -70,7 +70,7 @@
 | **27 Embodied Reasoning / Agentic Robotics** | Lab 31 | Failure Atlas、Experiment Protocol | correct plan / fluent wrong plan / no plan 三者是否产生可测行为差异？ |
 | **28 Robot Memory** | Lab 27 | Model Atlas | memory 是保存 task state，还是只扩大 context？shuffled memory 会怎样？ |
 | **29 Learning from Experience** | Lab 32 / 33 | Timeline、Dataset Atlas | autonomous data 的 marginal value 是否超过 curated demonstrations？旧任务退化多少？ |
-| **30 World Models / Predictive Intelligence** | Lab 28 / 29；`world_model_mpc.py` | V-JEPA 2.1 case、World Model Control case | representation prediction 能否通过 action intervention 与 control gain 证明有用？ |
+| **30 World Models / Predictive Intelligence** | [Runnable Lab 29](../labs/runnable/lab29_world_model_mpc/README.md)；Lab 28；`world_model_mpc.py` | [Lab 29 CI Reference](../labs/runnable/lab29_world_model_mpc/REFERENCE_RESULTS.md)、V-JEPA 2.1 case、World Model Control case | passive prediction、counterfactual action sensitivity、multi-step rollout accuracy 与 closed-loop control gain 能否逐层分开？ |
 | **31 Generative Worlds / Physical Simulation Foundation Models** | Lab 30 | World Model Control、Benchmark Atlas | visual realism 与 counterfactual/control fidelity 的相关性有多强？ |
 
 ## Volume VII　Manipulation、Navigation、Humanoid 与 Multi-Robot
@@ -79,7 +79,7 @@
 |---|---|---|---|
 | **32 Manipulation** | Lab 15 / 20；Capstone 1 | Benchmark Atlas、Failure Atlas | success failure 是 perception、action distribution、contact 还是 controller？ |
 | **33 Bimanual / Dexterity / Tactile** | Lab 14 / 17 / 37 | ACT case、Hardware Atlas | 双臂独立 policy 与 relative/coordinated representation 的差异在哪里？ |
-| **34 Mobile / Embodied Navigation** | Lab 07 / 13 | Benchmark Atlas | map/belief/planner 与 learned policy 的边界怎样做公平比较？ |
+| **34 Mobile / Embodied Navigation** | [Runnable Lab 13](../labs/runnable/lab13_active_perception/README.md)；Lab 07 | [Lab 13 CI Reference](../labs/runnable/lab13_active_perception/REFERENCE_RESULTS.md)、Benchmark Atlas | map/belief/planner 与 learned policy 的边界怎样做公平比较？主动 sensing 的信息收益如何计入额外运动成本？ |
 | **35 Humanoid / Whole-Body** | Lab 35 / 36 | Hardware Atlas、GR00T N1.7 case | whole-body 不是 action dim 变大：balance/contact/WBC 哪一层承担了稳定性？ |
 | **36 Human–Robot / Multi-Robot** | Lab 38 | Failure Atlas communication/system 条目 | collaboration gain 在 communication delay/dropout 下是否仍成立？ |
 
