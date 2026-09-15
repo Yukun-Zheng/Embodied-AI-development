@@ -1,0 +1,35 @@
+{
+  "seed": 38038,
+  "normal_horizon_steps": 18,
+  "normal_job_count": 12,
+  "failure_horizon_steps": 20,
+  "failure_job_count": 8,
+  "failure_step": 5,
+  "work_per_job": 2.0,
+  "job_types": ["precision", "haul"],
+  "agents": {
+    "dexter": {
+      "precision": 1.0,
+      "haul": 0.35
+    },
+    "carrier": {
+      "precision": 0.35,
+      "haul": 1.0
+    }
+  },
+  "communication": {
+    "delayed_steps": 2,
+    "dropout_modulus": 4
+  },
+  "normal_conditions": [
+    "independent_no_comm",
+    "coordinated_fresh",
+    "coordinated_delayed",
+    "coordinated_dropout",
+    "shuffled_capability_map"
+  ],
+  "failure_conditions": [
+    "failure_no_reallocation",
+    "failure_reallocation"
+  ]
+}
