@@ -235,3 +235,12 @@ Physics engine 必须选择：solver、regularization、substep、friction appro
 ## 研究问题
 
 World model 应显式表示 contact mode，还是让大 latent model 自己隐式学习？如何设计实验区分二者？
+
+<!-- CHAPTER-SOURCE-MAP:START -->
+## Source anchors / 原始来源
+
+本章的 canonical primary-source 入口见：
+[`references/CHAPTER_SOURCE_ANCHORS.md — Part 09`](../../references/CHAPTER_SOURCE_ANCHORS.md#part-09)。
+
+该 source map 给出 foundation book、primary paper 或官方项目/源码入口；涉及具体数值、版本或能力 claim 时，正文仍应就地标注来源。
+<!-- CHAPTER-SOURCE-MAP:END -->

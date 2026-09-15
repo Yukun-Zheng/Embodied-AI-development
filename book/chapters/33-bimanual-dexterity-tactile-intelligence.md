@@ -336,3 +336,12 @@ a_t=a_t^{base}+\Delta a_t^{tactile}.
 ## 本章结论
 
 双臂与灵巧手把机器人从“轨迹生成”推向真正的**协调接触系统**。未来高水平 dexterity 很可能依赖：结构化双臂关系 + 多接触表示 + 高频触觉闭环，而不是单纯扩大视觉语言模型。
+
+<!-- CHAPTER-SOURCE-MAP:START -->
+## Source anchors / 原始来源
+
+本章的 canonical primary-source 入口见：
+[`references/CHAPTER_SOURCE_ANCHORS.md — Part 33`](../../references/CHAPTER_SOURCE_ANCHORS.md#part-33)。
+
+该 source map 给出 foundation book、primary paper 或官方项目/源码入口；涉及具体数值、版本或能力 claim 时，正文仍应就地标注来源。
+<!-- CHAPTER-SOURCE-MAP:END -->

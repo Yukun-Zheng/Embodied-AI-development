@@ -278,3 +278,12 @@ Question Bank
 数学给它结构，物理给它约束，身体给它接口，感知给它证据，控制给它稳定闭环，学习给它适应，记忆给它时间连续性，世界模型给它反事实，实验科学告诉我们它是否真的学会了。
 
 这也是本书从第一章到最后一章唯一不变的问题。
+
+<!-- CHAPTER-SOURCE-MAP:START -->
+## Source anchors / 原始来源
+
+本章的 canonical primary-source 入口见：
+[`references/CHAPTER_SOURCE_ANCHORS.md — Part 50`](../../references/CHAPTER_SOURCE_ANCHORS.md#part-50)。
+
+该 source map 给出 foundation book、primary paper 或官方项目/源码入口；涉及具体数值、版本或能力 claim 时，正文仍应就地标注来源。
+<!-- CHAPTER-SOURCE-MAP:END -->

@@ -266,3 +266,12 @@ controller
 ## 本章结论
 
 Transformer 是极其强大的通用信息路由器和预训练载体，但物理智能还需要**持续状态、几何结构、动力学、接触、实时反馈和多时间尺度**。下一代具身架构的问题不是“推翻 Transformer”，而是找到哪些物理/计算结构不应继续被压扁成 token sequence。
+
+<!-- CHAPTER-SOURCE-MAP:START -->
+## Source anchors / 原始来源
+
+本章的 canonical primary-source 入口见：
+[`references/CHAPTER_SOURCE_ANCHORS.md — Part 47`](../../references/CHAPTER_SOURCE_ANCHORS.md#part-47)。
+
+该 source map 给出 foundation book、primary paper 或官方项目/源码入口；涉及具体数值、版本或能力 claim 时，正文仍应就地标注来源。
+<!-- CHAPTER-SOURCE-MAP:END -->

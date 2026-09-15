@@ -319,3 +319,12 @@ Physical world
 1. Foundation VLA 规模越来越大后，显式 motion planner 还应该保留在哪些场景？
 2. 能否让 world model 提供 counterfactual rollout，同时由 classical constraints 保证 action 可执行？
 3. 最优 task abstraction 应由人定义，还是从长期 experience 自动形成？
+
+<!-- CHAPTER-SOURCE-MAP:START -->
+## Source anchors / 原始来源
+
+本章的 canonical primary-source 入口见：
+[`references/CHAPTER_SOURCE_ANCHORS.md — Part 11`](../../references/CHAPTER_SOURCE_ANCHORS.md#part-11)。
+
+该 source map 给出 foundation book、primary paper 或官方项目/源码入口；涉及具体数值、版本或能力 claim 时，正文仍应就地标注来源。
+<!-- CHAPTER-SOURCE-MAP:END -->

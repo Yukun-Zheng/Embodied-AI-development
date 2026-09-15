@@ -355,3 +355,12 @@ validity / confidence
 1. Foundation policy 应直接接 raw asynchronous stream，还是先由 state estimator 对齐？
 2. 多模态 token 是否需要显式携带 timestamp/frame metadata？
 3. 能否让模型主动判断 sensor calibration 已经漂移？
+
+<!-- CHAPTER-SOURCE-MAP:START -->
+## Source anchors / 原始来源
+
+本章的 canonical primary-source 入口见：
+[`references/CHAPTER_SOURCE_ANCHORS.md — Part 12`](../../references/CHAPTER_SOURCE_ANCHORS.md#part-12)。
+
+该 source map 给出 foundation book、primary paper 或官方项目/源码入口；涉及具体数值、版本或能力 claim 时，正文仍应就地标注来源。
+<!-- CHAPTER-SOURCE-MAP:END -->

@@ -430,3 +430,12 @@ D\rightarrow \theta\rightarrow \pi_\theta
 1. Robot representation learning 最小充分目标应该围绕 future prediction、control effect 还是 task success？
 2. 大型 multimodal backbone 与 fast sensorimotor state 是否应该共享同一个 sequence model？
 3. 机器人 scaling law 最值得横轴放 data 量、物理交互量、任务 diversity，还是 embodiment diversity？
+
+<!-- CHAPTER-SOURCE-MAP:START -->
+## Source anchors / 原始来源
+
+本章的 canonical primary-source 入口见：
+[`references/CHAPTER_SOURCE_ANCHORS.md — Part 18`](../../references/CHAPTER_SOURCE_ANCHORS.md#part-18)。
+
+该 source map 给出 foundation book、primary paper 或官方项目/源码入口；涉及具体数值、版本或能力 claim 时，正文仍应就地标注来源。
+<!-- CHAPTER-SOURCE-MAP:END -->

@@ -226,3 +226,12 @@ Gap=G_{visual}+G_{geometry}+G_{dynamics}+G_{sensor}+G_{control}+G_{task}.
 ## 本章结论
 
 Sim-to-real 不是一个技巧，而是一套**误差建模工程**。只有先分解 reality gap，才能知道该用 system ID、randomization、real fine-tuning 还是更好的 simulator。
+
+<!-- CHAPTER-SOURCE-MAP:START -->
+## Source anchors / 原始来源
+
+本章的 canonical primary-source 入口见：
+[`references/CHAPTER_SOURCE_ANCHORS.md — Part 41`](../../references/CHAPTER_SOURCE_ANCHORS.md#part-41)。
+
+该 source map 给出 foundation book、primary paper 或官方项目/源码入口；涉及具体数值、版本或能力 claim 时，正文仍应就地标注来源。
+<!-- CHAPTER-SOURCE-MAP:END -->

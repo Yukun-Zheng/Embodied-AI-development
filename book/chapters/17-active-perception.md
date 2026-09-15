@@ -407,3 +407,12 @@ Navigation 中同时定位、建图、规划探索路径：
 2. 如何让主动感知目标跨 embodiment 表达，而不依赖某台机器人的 head/base/arm？
 3. World model 应该主动预测“我去看那里能得到什么证据”，还是直接学习 observation value？
 4. 机器人是否可以通过长期经验自动形成 sensing skill library？
+
+<!-- CHAPTER-SOURCE-MAP:START -->
+## Source anchors / 原始来源
+
+本章的 canonical primary-source 入口见：
+[`references/CHAPTER_SOURCE_ANCHORS.md — Part 17`](../../references/CHAPTER_SOURCE_ANCHORS.md#part-17)。
+
+该 source map 给出 foundation book、primary paper 或官方项目/源码入口；涉及具体数值、版本或能力 claim 时，正文仍应就地标注来源。
+<!-- CHAPTER-SOURCE-MAP:END -->

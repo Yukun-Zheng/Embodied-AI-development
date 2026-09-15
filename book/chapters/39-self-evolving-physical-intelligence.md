@@ -321,3 +321,12 @@ E: collaborative human environment
 ## 本章结论
 
 Self-evolving physical intelligence 不应该被定义为“网络会自己改参数”。更严格的目标是：**机器人能自主选择有信息的交互，从失败和成功中形成记忆与机制，组合旧能力产生新能力，并在有限资源与持续安全约束下长期保持和扩张能力集合。** 只要不能被这些实验指标证伪，就还不是科学意义上的“自进化”。
+
+<!-- CHAPTER-SOURCE-MAP:START -->
+## Source anchors / 原始来源
+
+本章的 canonical primary-source 入口见：
+[`references/CHAPTER_SOURCE_ANCHORS.md — Part 39`](../../references/CHAPTER_SOURCE_ANCHORS.md#part-39)。
+
+该 source map 给出 foundation book、primary paper 或官方项目/源码入口；涉及具体数值、版本或能力 claim 时，正文仍应就地标注来源。
+<!-- CHAPTER-SOURCE-MAP:END -->

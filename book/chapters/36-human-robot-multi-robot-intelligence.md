@@ -319,3 +319,12 @@ high-level task coordinator
 ## 本章结论
 
 Human–Robot 与 Multi-Robot 的共同核心是：**智能体必须推断其他 agent 的状态和意图，并在共享物理世界中协调控制权、空间、任务和安全**。这是单体 VLA success rate 无法覆盖的另一层具身智能。
+
+<!-- CHAPTER-SOURCE-MAP:START -->
+## Source anchors / 原始来源
+
+本章的 canonical primary-source 入口见：
+[`references/CHAPTER_SOURCE_ANCHORS.md — Part 36`](../../references/CHAPTER_SOURCE_ANCHORS.md#part-36)。
+
+该 source map 给出 foundation book、primary paper 或官方项目/源码入口；涉及具体数值、版本或能力 claim 时，正文仍应就地标注来源。
+<!-- CHAPTER-SOURCE-MAP:END -->

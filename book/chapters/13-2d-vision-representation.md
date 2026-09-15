@@ -302,3 +302,12 @@ Global camera 提供 scene context；wrist camera 提供近距离精细 geometry
 1. 机器人视觉最重要的 pretraining objective 是否应该从 semantic invariance 转向 action-conditioned predictive structure？
 2. 是否需要为 contact region 分配动态更高视觉分辨率？
 3. 一个统一 VLA visual encoder，能否同时兼顾 web semantics 与毫米级 geometry，还是应该双视觉分支？
+
+<!-- CHAPTER-SOURCE-MAP:START -->
+## Source anchors / 原始来源
+
+本章的 canonical primary-source 入口见：
+[`references/CHAPTER_SOURCE_ANCHORS.md — Part 13`](../../references/CHAPTER_SOURCE_ANCHORS.md#part-13)。
+
+该 source map 给出 foundation book、primary paper 或官方项目/源码入口；涉及具体数值、版本或能力 claim 时，正文仍应就地标注来源。
+<!-- CHAPTER-SOURCE-MAP:END -->

@@ -309,3 +309,12 @@ Safety=f(Capability,Constraints,Monitoring,Human\ Oversight).
 ## 本章结论
 
 物理 AI 的 Safety 不是语言模型安全的简单延伸。它必须同时处理 **动力学约束、实时控制、模型不确定性、人类接管、系统故障和网络攻击**。可靠部署的目标不是“从不出错”，而是让错误可检测、可约束、可恢复、不会演化成灾难。
+
+<!-- CHAPTER-SOURCE-MAP:START -->
+## Source anchors / 原始来源
+
+本章的 canonical primary-source 入口见：
+[`references/CHAPTER_SOURCE_ANCHORS.md — Part 45`](../../references/CHAPTER_SOURCE_ANCHORS.md#part-45)。
+
+该 source map 给出 foundation book、primary paper 或官方项目/源码入口；涉及具体数值、版本或能力 claim 时，正文仍应就地标注来源。
+<!-- CHAPTER-SOURCE-MAP:END -->

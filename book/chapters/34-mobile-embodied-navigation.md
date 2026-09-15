@@ -257,3 +257,12 @@ Embodied AI 不应狭义等于桌面机械臂。
 ## 本章结论
 
 导航展示了一个重要事实：智能必须维护跨时间的空间状态。没有 localization、memory、map 或等价内部机制，长距离具身任务很容易退化成短视的 reactive behavior。
+
+<!-- CHAPTER-SOURCE-MAP:START -->
+## Source anchors / 原始来源
+
+本章的 canonical primary-source 入口见：
+[`references/CHAPTER_SOURCE_ANCHORS.md — Part 34`](../../references/CHAPTER_SOURCE_ANCHORS.md#part-34)。
+
+该 source map 给出 foundation book、primary paper 或官方项目/源码入口；涉及具体数值、版本或能力 claim 时，正文仍应就地标注来源。
+<!-- CHAPTER-SOURCE-MAP:END -->

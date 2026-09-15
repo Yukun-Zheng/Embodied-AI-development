@@ -397,3 +397,12 @@ Representation 是否好，最终应看 \(F\) 是否容易、准确、可组合�
 1. 通用具身模型是否应该有显式 persistent 3D/4D world state，而不是每次从图像重新推断？
 2. Object-centric representation 对 deformable world 的“对象”边界如何定义？
 3. 未来 world representation 最基本 primitive 会是 token、object、Gaussian、field，还是 learned mechanism？
+
+<!-- CHAPTER-SOURCE-MAP:START -->
+## Source anchors / 原始来源
+
+本章的 canonical primary-source 入口见：
+[`references/CHAPTER_SOURCE_ANCHORS.md — Part 14`](../../references/CHAPTER_SOURCE_ANCHORS.md#part-14)。
+
+该 source map 给出 foundation book、primary paper 或官方项目/源码入口；涉及具体数值、版本或能力 claim 时，正文仍应就地标注来源。
+<!-- CHAPTER-SOURCE-MAP:END -->

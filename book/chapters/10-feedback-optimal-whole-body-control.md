@@ -353,3 +353,12 @@ A 最端到端但最 embodiment-specific、最难保证安全；D 利用最多�
 1. 未来 VLA 应直接输出 torque，还是输出让 WBC 可验证的任务空间目标？
 2. 能否把 CBF / passivity / stability guarantee 与 foundation policy joint training，而不是部署后再加 patch？
 3. 当 learned policy 和 model-based controller disagree 时，谁拥有最终 authority？
+
+<!-- CHAPTER-SOURCE-MAP:START -->
+## Source anchors / 原始来源
+
+本章的 canonical primary-source 入口见：
+[`references/CHAPTER_SOURCE_ANCHORS.md — Part 10`](../../references/CHAPTER_SOURCE_ANCHORS.md#part-10)。
+
+该 source map 给出 foundation book、primary paper 或官方项目/源码入口；涉及具体数值、版本或能力 claim 时，正文仍应就地标注来源。
+<!-- CHAPTER-SOURCE-MAP:END -->

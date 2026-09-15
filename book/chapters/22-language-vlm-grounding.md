@@ -377,3 +377,12 @@ I(a;l)\gg I(a;I\mid l).
 1. Web-scale language prior 最适合迁移到 physical system 的层级到底在哪里？
 2. Physical grounding 是否需要独立 persistent world state，而不是每次让 VLM 重读图像？
 3. 语言是否应该成为长期 robot memory 的压缩层，还是会丢失过多几何/接触细节？
+
+<!-- CHAPTER-SOURCE-MAP:START -->
+## Source anchors / 原始来源
+
+本章的 canonical primary-source 入口见：
+[`references/CHAPTER_SOURCE_ANCHORS.md — Part 22`](../../references/CHAPTER_SOURCE_ANCHORS.md#part-22)。
+
+该 source map 给出 foundation book、primary paper 或官方项目/源码入口；涉及具体数值、版本或能力 claim 时，正文仍应就地标注来源。
+<!-- CHAPTER-SOURCE-MAP:END -->

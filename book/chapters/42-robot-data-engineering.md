@@ -286,3 +286,12 @@ deploy
 ## 本章结论
 
 机器人数据工程决定 foundation model 的上限。Timestamp、schema、action convention、failure label 和 versioning 看似琐碎，却会直接决定模型是否学到真实因果关系，还是只学到错位的数据相关性。
+
+<!-- CHAPTER-SOURCE-MAP:START -->
+## Source anchors / 原始来源
+
+本章的 canonical primary-source 入口见：
+[`references/CHAPTER_SOURCE_ANCHORS.md — Part 42`](../../references/CHAPTER_SOURCE_ANCHORS.md#part-42)。
+
+该 source map 给出 foundation book、primary paper 或官方项目/源码入口；涉及具体数值、版本或能力 claim 时，正文仍应就地标注来源。
+<!-- CHAPTER-SOURCE-MAP:END -->

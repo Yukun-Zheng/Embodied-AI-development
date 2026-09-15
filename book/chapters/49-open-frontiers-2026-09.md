@@ -338,3 +338,12 @@ Understanding\Rightarrow Predict+Intervene+Transfer+Revise.
 ## 本章结论
 
 截至 2026-09，具身智能的主要矛盾正在从“能不能生成机器人动作”转向：**动作是否可靠、是否理解物理、是否能长期记忆和继续学习、是否跨身体迁移，以及能否在真实世界安全地持续存在。** 这些才是下一阶段值得长期追的问题。
+
+<!-- CHAPTER-SOURCE-MAP:START -->
+## Source anchors / 原始来源
+
+本章的 canonical primary-source 入口见：
+[`references/CHAPTER_SOURCE_ANCHORS.md — Part 49`](../../references/CHAPTER_SOURCE_ANCHORS.md#part-49)。
+
+该 source map 给出 foundation book、primary paper 或官方项目/源码入口；涉及具体数值、版本或能力 claim 时，正文仍应就地标注来源。
+<!-- CHAPTER-SOURCE-MAP:END -->

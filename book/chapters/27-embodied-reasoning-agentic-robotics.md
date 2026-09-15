@@ -436,3 +436,12 @@ Steerability 指执行中可被用户、视觉 subgoal、metadata 或其他控�
 ## 本章结论
 
 Embodied reasoning 的核心不是“机器人会说自己在想什么”，而是它能否在**多步、部分可观测、可失败的物理任务中维护目标、监控进度、选择技能、发现错误并闭环重规划**。这是一套系统能力，不是一个 prompt 技巧。
+
+<!-- CHAPTER-SOURCE-MAP:START -->
+## Source anchors / 原始来源
+
+本章的 canonical primary-source 入口见：
+[`references/CHAPTER_SOURCE_ANCHORS.md — Part 27`](../../references/CHAPTER_SOURCE_ANCHORS.md#part-27)。
+
+该 source map 给出 foundation book、primary paper 或官方项目/源码入口；涉及具体数值、版本或能力 claim 时，正文仍应就地标注来源。
+<!-- CHAPTER-SOURCE-MAP:END -->

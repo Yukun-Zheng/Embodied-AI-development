@@ -159,3 +159,12 @@ Flow matching 学习
 ## 最小实验
 
 用 double integrator \(x=[p,v]\) 比较：手工 PD、LQR、MPC。加入 control bound 与 obstacle 后观察：为什么 LQR 解析最优性失效，而 constrained MPC 仍能显式处理约束。
+
+<!-- CHAPTER-SOURCE-MAP:START -->
+## Source anchors / 原始来源
+
+本章的 canonical primary-source 入口见：
+[`references/CHAPTER_SOURCE_ANCHORS.md — Part 04`](../../references/CHAPTER_SOURCE_ANCHORS.md#part-04)。
+
+该 source map 给出 foundation book、primary paper 或官方项目/源码入口；涉及具体数值、版本或能力 claim 时，正文仍应就地标注来源。
+<!-- CHAPTER-SOURCE-MAP:END -->

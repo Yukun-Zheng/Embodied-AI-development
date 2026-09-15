@@ -530,3 +530,12 @@ L=L_{BC}+\lambda L_{RL}+\beta L_{reg}.
 1. Foundation policy 的下一次能力增长更应该来自 RL、更多 demonstration、world-model planning，还是三者组合？
 2. 如何让 online RL 在真实机器人上只探索“有信息且可恢复”的 state？
 3. Reward verifier 本身若由 VLM 给出，它的误差会怎样被 RL 放大？
+
+<!-- CHAPTER-SOURCE-MAP:START -->
+## Source anchors / 原始来源
+
+本章的 canonical primary-source 入口见：
+[`references/CHAPTER_SOURCE_ANCHORS.md — Part 20`](../../references/CHAPTER_SOURCE_ANCHORS.md#part-20)。
+
+该 source map 给出 foundation book、primary paper 或官方项目/源码入口；涉及具体数值、版本或能力 claim 时，正文仍应就地标注来源。
+<!-- CHAPTER-SOURCE-MAP:END -->

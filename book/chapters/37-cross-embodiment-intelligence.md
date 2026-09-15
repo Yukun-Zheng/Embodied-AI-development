@@ -291,3 +291,12 @@ robot description
 ## 本章结论
 
 Cross-embodiment 的核心不是“支持很多机器人型号”，而是学习**任务中与身体无关的规律**，再利用具体 morphology、sensor 和 dynamics 把这些规律实例化为可执行行为。真正的跨本体能力必须在 unseen body 上被检验。
+
+<!-- CHAPTER-SOURCE-MAP:START -->
+## Source anchors / 原始来源
+
+本章的 canonical primary-source 入口见：
+[`references/CHAPTER_SOURCE_ANCHORS.md — Part 37`](../../references/CHAPTER_SOURCE_ANCHORS.md#part-37)。
+
+该 source map 给出 foundation book、primary paper 或官方项目/源码入口；涉及具体数值、版本或能力 claim 时，正文仍应就地标注来源。
+<!-- CHAPTER-SOURCE-MAP:END -->

@@ -420,3 +420,12 @@ BC 往往比复杂 RL 更稳定、更样本高效。
 1. Foundation policy 的数据瓶颈究竟是成功 demo 数量，还是 failure/recovery coverage？
 2. 人类视频可以提供哪一层最稳定的 embodiment-independent supervision？
 3. 是否可以让机器人自动判断“我现在缺哪类示范”，从而主动请求最有价值的人类 correction？
+
+<!-- CHAPTER-SOURCE-MAP:START -->
+## Source anchors / 原始来源
+
+本章的 canonical primary-source 入口见：
+[`references/CHAPTER_SOURCE_ANCHORS.md — Part 19`](../../references/CHAPTER_SOURCE_ANCHORS.md#part-19)。
+
+该 source map 给出 foundation book、primary paper 或官方项目/源码入口；涉及具体数值、版本或能力 claim 时，正文仍应就地标注来源。
+<!-- CHAPTER-SOURCE-MAP:END -->

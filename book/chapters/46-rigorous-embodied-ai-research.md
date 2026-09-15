@@ -400,3 +400,12 @@ Scale-up condition:
 ## 本章结论
 
 严谨具身研究的核心不是模型复杂，而是**控制变量、可证伪假说、机制中间量、负对照和真实 failure analysis**。大规模算力应该放在已经通过最小实验的问题上，而不是替代思考。
+
+<!-- CHAPTER-SOURCE-MAP:START -->
+## Source anchors / 原始来源
+
+本章的 canonical primary-source 入口见：
+[`references/CHAPTER_SOURCE_ANCHORS.md — Part 46`](../../references/CHAPTER_SOURCE_ANCHORS.md#part-46)。
+
+该 source map 给出 foundation book、primary paper 或官方项目/源码入口；涉及具体数值、版本或能力 claim 时，正文仍应就地标注来源。
+<!-- CHAPTER-SOURCE-MAP:END -->

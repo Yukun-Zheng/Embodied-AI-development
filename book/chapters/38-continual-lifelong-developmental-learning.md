@@ -329,3 +329,12 @@ developing agent：
 ## 本章结论
 
 Continual learning 的目标不是“永远更新权重”，而是在有限资源下保持旧能力、利用旧知识加速新学习，并让 memory、parameters 和 architecture 在不同时间尺度上协调变化。
+
+<!-- CHAPTER-SOURCE-MAP:START -->
+## Source anchors / 原始来源
+
+本章的 canonical primary-source 入口见：
+[`references/CHAPTER_SOURCE_ANCHORS.md — Part 38`](../../references/CHAPTER_SOURCE_ANCHORS.md#part-38)。
+
+该 source map 给出 foundation book、primary paper 或官方项目/源码入口；涉及具体数值、版本或能力 claim 时，正文仍应就地标注来源。
+<!-- CHAPTER-SOURCE-MAP:END -->

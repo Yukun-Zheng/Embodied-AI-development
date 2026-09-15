@@ -148,3 +148,12 @@ URDF/MJCF/USD 至少描述：link、joint、axis、visual/collision geometry、m
 
 - 一个 universal policy 应看到完整 motor/gear parameter，还是只看抽象 embodiment token？
 - 能否让 morphology 自动吸收一部分控制复杂度，从而减少 data requirement？
+
+<!-- CHAPTER-SOURCE-MAP:START -->
+## Source anchors / 原始来源
+
+本章的 canonical primary-source 入口见：
+[`references/CHAPTER_SOURCE_ANCHORS.md — Part 06`](../../references/CHAPTER_SOURCE_ANCHORS.md#part-06)。
+
+该 source map 给出 foundation book、primary paper 或官方项目/源码入口；涉及具体数值、版本或能力 claim 时，正文仍应就地标注来源。
+<!-- CHAPTER-SOURCE-MAP:END -->

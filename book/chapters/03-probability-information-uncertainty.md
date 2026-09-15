@@ -149,3 +149,12 @@ critical          → safe stop
 ## 最小实验
 
 构造两个重叠 Gaussian class。训练一个分类器后制造 OOD 区域，分别比较 softmax confidence、ensemble uncertainty、distance-based OOD score。画 risk–coverage curve，并让高 uncertainty 触发“拒绝执行”。
+
+<!-- CHAPTER-SOURCE-MAP:START -->
+## Source anchors / 原始来源
+
+本章的 canonical primary-source 入口见：
+[`references/CHAPTER_SOURCE_ANCHORS.md — Part 03`](../../references/CHAPTER_SOURCE_ANCHORS.md#part-03)。
+
+该 source map 给出 foundation book、primary paper 或官方项目/源码入口；涉及具体数值、版本或能力 claim 时，正文仍应就地标注来源。
+<!-- CHAPTER-SOURCE-MAP:END -->

@@ -360,3 +360,12 @@ State estimator 不只输出 mean：
 1. Foundation robot model 是否需要显式 belief，还是大 Transformer hidden state 足够？
 2. 怎样让 learned state estimator 输出可用于安全决策的 calibrated uncertainty？
 3. Persistent object/world state 是否应该从 VLA 中独立出来，成为长期 robot operating system 的公共服务？
+
+<!-- CHAPTER-SOURCE-MAP:START -->
+## Source anchors / 原始来源
+
+本章的 canonical primary-source 入口见：
+[`references/CHAPTER_SOURCE_ANCHORS.md — Part 15`](../../references/CHAPTER_SOURCE_ANCHORS.md#part-15)。
+
+该 source map 给出 foundation book、primary paper 或官方项目/源码入口；涉及具体数值、版本或能力 claim 时，正文仍应就地标注来源。
+<!-- CHAPTER-SOURCE-MAP:END -->

@@ -318,3 +318,12 @@ unseen appearance + unseen physics
 ## 本章结论
 
 数学介入具身智能的真正价值，不是让论文公式更多，而是把 **symmetry、geometry、constraint、dynamics、causality、mechanism 和 compositionality** 变成模型的结构，使系统从经验相关性逐步走向可迁移的物理规律。
+
+<!-- CHAPTER-SOURCE-MAP:START -->
+## Source anchors / 原始来源
+
+本章的 canonical primary-source 入口见：
+[`references/CHAPTER_SOURCE_ANCHORS.md — Part 48`](../../references/CHAPTER_SOURCE_ANCHORS.md#part-48)。
+
+该 source map 给出 foundation book、primary paper 或官方项目/源码入口；涉及具体数值、版本或能力 claim 时，正文仍应就地标注来源。
+<!-- CHAPTER-SOURCE-MAP:END -->

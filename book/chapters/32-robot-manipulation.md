@@ -360,3 +360,12 @@ q=[q_{base},q_{arm}].
 ## 本章结论
 
 Manipulation 是具身智能最集中的试验场：语义、几何、接触、动力学、控制、长期记忆都必须在真实时间里共同工作。越复杂的操作任务，越不可能被简化为“看图输出动作”。
+
+<!-- CHAPTER-SOURCE-MAP:START -->
+## Source anchors / 原始来源
+
+本章的 canonical primary-source 入口见：
+[`references/CHAPTER_SOURCE_ANCHORS.md — Part 32`](../../references/CHAPTER_SOURCE_ANCHORS.md#part-32)。
+
+该 source map 给出 foundation book、primary paper 或官方项目/源码入口；涉及具体数值、版本或能力 claim 时，正文仍应就地标注来源。
+<!-- CHAPTER-SOURCE-MAP:END -->

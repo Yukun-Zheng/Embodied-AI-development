@@ -152,3 +152,12 @@ G=G_{object}\times G_{scene}\times G_{task}\times G_{embodiment}\times G_{time}.
 - 如果一个系统没有身体，但可以远程调用机器人 API，它算不算具身？边界取决于什么？
 - 为什么“动作输出正确率”很少是机器人最重要的 offline metric？
 - 一个模型能跨 10 台训练过的机器人工作，与能 zero-shot 控制第 11 台机器人有什么本质差别？
+
+<!-- CHAPTER-SOURCE-MAP:START -->
+## Source anchors / 原始来源
+
+本章的 canonical primary-source 入口见：
+[`references/CHAPTER_SOURCE_ANCHORS.md — Part 00`](../../references/CHAPTER_SOURCE_ANCHORS.md#part-00)。
+
+该 source map 给出 foundation book、primary paper 或官方项目/源码入口；涉及具体数值、版本或能力 claim 时，正文仍应就地标注来源。
+<!-- CHAPTER-SOURCE-MAP:END -->

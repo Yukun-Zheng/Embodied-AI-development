@@ -447,3 +447,12 @@ I(D_{new};Y_{OOD}\mid D_{old}).
 ## 本章结论
 
 机器人 foundation model 的核心竞争力不只是参数量，而是能否把**异构真实数据、人类视频、synthetic data、失败经验和不同身体**压入一个可迁移的学习系统。Cross-embodiment 的真正突破点，很可能来自共享的 physical effect，而不是强行把所有机器人关节塞进同一个向量。
+
+<!-- CHAPTER-SOURCE-MAP:START -->
+## Source anchors / 原始来源
+
+本章的 canonical primary-source 入口见：
+[`references/CHAPTER_SOURCE_ANCHORS.md — Part 26`](../../references/CHAPTER_SOURCE_ANCHORS.md#part-26)。
+
+该 source map 给出 foundation book、primary paper 或官方项目/源码入口；涉及具体数值、版本或能力 claim 时，正文仍应就地标注来源。
+<!-- CHAPTER-SOURCE-MAP:END -->

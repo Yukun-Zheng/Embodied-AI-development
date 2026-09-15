@@ -452,3 +452,12 @@ T_m \gg T_c,
 ## 本章结论
 
 VLA 不是一个黑盒函数。它是由 **视觉先验、语言先验、本体状态、融合机制、动作生成器、数据混合、后训练、执行器和低层控制器**共同组成的系统。研究它“学到了什么”，必须沿整条数据流做干预，而不是只看最终成功率。
+
+<!-- CHAPTER-SOURCE-MAP:START -->
+## Source anchors / 原始来源
+
+本章的 canonical primary-source 入口见：
+[`references/CHAPTER_SOURCE_ANCHORS.md — Part 25`](../../references/CHAPTER_SOURCE_ANCHORS.md#part-25)。
+
+该 source map 给出 foundation book、primary paper 或官方项目/源码入口；涉及具体数值、版本或能力 claim 时，正文仍应就地标注来源。
+<!-- CHAPTER-SOURCE-MAP:END -->

@@ -395,3 +395,12 @@ T_{loop}=t_9-t_0.
 ## 本章结论
 
 机器人算法只有进入真实时间、真实驱动器和真实故障模式之后才成为机器人系统。系统工程不是“部署细节”，而是决定 observation 和 action 是否仍对应正确物理时刻的核心科学变量。
+
+<!-- CHAPTER-SOURCE-MAP:START -->
+## Source anchors / 原始来源
+
+本章的 canonical primary-source 入口见：
+[`references/CHAPTER_SOURCE_ANCHORS.md — Part 43`](../../references/CHAPTER_SOURCE_ANCHORS.md#part-43)。
+
+该 source map 给出 foundation book、primary paper 或官方项目/源码入口；涉及具体数值、版本或能力 claim 时，正文仍应就地标注来源。
+<!-- CHAPTER-SOURCE-MAP:END -->
