@@ -5,8 +5,8 @@ This is a diagnostic, not yet a hard gate. It makes manuscript imbalance visible
 without pretending that raw word count alone measures quality.
 
 Equation coverage counts both Markdown/MathJax display styles used by this book:
-`$$...$$` and `\[...\]`. Source coverage distinguishes an explicit source section
-from any direct URL evidence so historical/frontier chapters are not mislabeled.
+`$$...$$` and `\[...\]`. Source coverage distinguishes direct/authored chapter
+sources from the generated canonical source-map fallback.
 """
 
 from __future__ import annotations
@@ -17,6 +17,17 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CHAPTER_DIR = ROOT / "book" / "chapters"
+SOURCE_START = "<!-- CHAPTER-SOURCE-MAP:START -->"
+SOURCE_END = "<!-- CHAPTER-SOURCE-MAP:END -->"
+SOURCE_MARKERS = [
+    "source anchor",
+    "source anchors",
+    "延伸阅读",
+    "references",
+    "参考文献",
+    "原始来源",
+    "primary sources",
+]
 
 
 @dataclass
@@ -31,11 +42,12 @@ class Row:
     has_failure: bool
     has_experiment: bool
     has_research: bool
-    has_source_section: bool
+    has_authored_sources: bool
+    has_generated_source_map: bool
 
     @property
     def has_source_evidence(self) -> bool:
-        return self.has_source_section or self.urls > 0
+        return self.has_authored_sources or self.has_generated_source_map or self.urls > 0
 
     @property
     def structure_score(self) -> int:
@@ -52,13 +64,23 @@ class Row:
 
 
 def count_display_equations(text: str) -> int:
-    """Count complete display-math blocks in the two canonical book styles."""
+    """Count complete display-math blocks in the canonical book styles."""
     dollar_blocks = text.count("$$") // 2
     bracket_open = text.count(r"\[")
     bracket_close = text.count(r"\]")
     bracket_blocks = min(bracket_open, bracket_close)
     begin_equation = len(re.findall(r"\\begin\{(?:equation\*?|align\*?|aligned|gather\*?)\}", text))
     return dollar_blocks + bracket_blocks + begin_equation
+
+
+def source_headings(text: str) -> list[str]:
+    authored = re.sub(
+        rf"{re.escape(SOURCE_START)}.*?{re.escape(SOURCE_END)}",
+        "",
+        text,
+        flags=re.DOTALL,
+    )
+    return [m.group(1).strip().lower() for m in re.finditer(r"(?m)^#{1,6}\s+(.+?)\s*$", authored)]
 
 
 def inspect(path: Path) -> Row:
@@ -74,18 +96,9 @@ def inspect(path: Path) -> Row:
     has_failure = any(key in lower for key in ["常见失败", "failure", "失败模式"])
     has_experiment = any(key in lower for key in ["最小实验", "minimal experiment", "实验：", "实验设计"])
     has_research = any(key in lower for key in ["研究问题", "research question", "开放问题"])
-    has_source_section = any(
-        key in lower
-        for key in [
-            "source anchor",
-            "source anchors",
-            "延伸阅读",
-            "references",
-            "参考文献",
-            "原始来源",
-            "primary sources",
-        ]
-    )
+    headings = source_headings(text)
+    has_authored_sources = any(marker in heading for heading in headings for marker in SOURCE_MARKERS)
+    has_generated_source_map = SOURCE_START in text and SOURCE_END in text
     return Row(
         part,
         h1,
@@ -97,7 +110,8 @@ def inspect(path: Path) -> Row:
         has_failure,
         has_experiment,
         has_research,
-        has_source_section,
+        has_authored_sources,
+        has_generated_source_map,
     )
 
 
@@ -111,12 +125,12 @@ def main() -> None:
     assert [r.part for r in rows] == list(range(51)), "Part 0–50 must be continuous"
 
     print("CHAPTER DEPTH AUDIT")
-    print("part chars h2 eq code url F E R S Src score title")
+    print("part chars h2 eq code url F E R Auth Gen Src score title")
     for r in rows:
         print(
             f"{r.part:02d} {r.chars:5d} {r.h2:2d} {r.equations:2d} {r.code_blocks:2d} {r.urls:2d} "
             f"{flag(r.has_failure)} {flag(r.has_experiment)} {flag(r.has_research)} "
-            f"{flag(r.has_source_section)} {flag(r.has_source_evidence)} "
+            f"{flag(r.has_authored_sources)} {flag(r.has_generated_source_map)} {flag(r.has_source_evidence)} "
             f"{r.structure_score}/6 {r.name}"
         )
 
@@ -145,7 +159,8 @@ def main() -> None:
     print(f"chapters={len(rows)}")
     print(f"median_chars={int(sorted(r.chars for r in rows)[len(rows)//2])}")
     print(f"with_equations={sum(r.equations > 0 for r in rows)}/51")
-    print(f"with_source_section={sum(r.has_source_section for r in rows)}/51")
+    print(f"with_authored_sources={sum(r.has_authored_sources for r in rows)}/51")
+    print(f"with_generated_source_map={sum(r.has_generated_source_map for r in rows)}/51")
     print(f"with_source_evidence={sum(r.has_source_evidence for r in rows)}/51")
     print(f"with_failure={sum(r.has_failure for r in rows)}/51")
     print(f"with_experiment={sum(r.has_experiment for r in rows)}/51")
