@@ -164,8 +164,10 @@ def build_nav() -> list[tuple[str, str | list]]:
                     "Runnable Labs",
                     [
                         ("总入口", "labs/runnable/README.md"),
+                        ("Lab 13 · Active Perception", "labs/runnable/lab13_active_perception/README.md"),
                         ("Lab 22 · Async Execution", "labs/runnable/lab22_async_execution/README.md"),
                         ("Lab 29 · World Model MPC", "labs/runnable/lab29_world_model_mpc/README.md"),
+                        ("Lab 29 · Reference Results", "labs/runnable/lab29_world_model_mpc/REFERENCE_RESULTS.md"),
                     ],
                 ),
                 ("统一实验协议", "labs/EXPERIMENT_PROTOCOL.md"),
