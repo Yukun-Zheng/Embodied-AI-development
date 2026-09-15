@@ -1,0 +1,23 @@
+{
+  "seed": 7,
+  "dt": 0.02,
+  "duration_s": 8.0,
+  "policy_period_s": 0.1,
+  "chunk_horizon": 30,
+  "latencies_s": [0.0, 0.05, 0.1, 0.25, 0.5],
+  "modes": ["sync_hold", "async_queue", "async_rebase"],
+  "controller": {
+    "kp": 10.0,
+    "kd": 4.0,
+    "u_limit": 8.0,
+    "plant_damping": 0.12
+  },
+  "target": {
+    "amplitude": 0.8,
+    "frequency_hz": 0.18,
+    "step_time_s": 4.0,
+    "step_offset": 0.65
+  },
+  "failure_threshold": 0.75,
+  "success_tolerance": 0.2
+}
