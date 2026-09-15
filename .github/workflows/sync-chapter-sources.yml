@@ -1,0 +1,43 @@
+name: Sync Chapter Source Anchors
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "references/CHAPTER_SOURCE_ANCHORS.md"
+      - "scripts/sync_chapter_sources.py"
+      - ".github/workflows/sync-chapter-sources.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Synchronize chapter source entry points
+        run: python scripts/sync_chapter_sources.py
+
+      - name: Commit generated source blocks when needed
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- book/chapters; then
+            echo "Chapter source blocks are already synchronized."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add book/chapters
+          git commit -m "Synchronize chapter primary-source entry points"
+          git pull --rebase origin main
+          git push origin HEAD:main
