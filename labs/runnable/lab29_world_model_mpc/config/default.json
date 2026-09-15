@@ -18,5 +18,12 @@
     "terminal_position_weight": 6.0,
     "terminal_velocity_weight": 0.3,
     "action_weight": 0.005
+  },
+  "horizon_probe": {
+    "action_gain_scale": 0.5,
+    "horizons": [1, 4, 8, 16, 32],
+    "rollout_sequences": 256,
+    "control_steps": 40,
+    "candidates": 1024
   }
 }
