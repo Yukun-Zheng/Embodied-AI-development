@@ -1,0 +1,17 @@
+{
+  "seed": 32,
+  "rounds": 4,
+  "new_task_contexts": 12,
+  "old_task_contexts": 8,
+  "base_new_task_correct_contexts": 4,
+  "correction_budget_per_round": 2,
+  "rollouts_per_context": 2,
+  "conditions": [
+    "no_update",
+    "targeted_failure_mining",
+    "random_new_data",
+    "success_only_data",
+    "shuffled_corrections",
+    "targeted_reset_no_replay"
+  ]
+}
