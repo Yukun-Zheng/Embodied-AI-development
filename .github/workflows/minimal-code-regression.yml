@@ -38,5 +38,6 @@ jobs:
       - name: Run executable lab smoke tests
         run: |
           python labs/runnable/run_smoke.py
+          python labs/runnable/lab26_cross_embodiment/smoke.py
           python labs/runnable/lab31_reasoning_negative_control/smoke.py
           python labs/runnable/lab33_continual_learning/smoke.py
