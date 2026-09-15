@@ -250,6 +250,23 @@ CI-verified quick reference results 见 [`REFERENCE_RESULTS.md`](lab31_reasoning
 
 CI-verified quick reference results 见 [`REFERENCE_RESULTS.md`](lab33_continual_learning/REFERENCE_RESULTS.md)。
 
+### [`Lab 34 — Self-Generated Curriculum`](lab34_self_generated_curriculum/README.md)
+
+把 curriculum generation 拆成“测量进步”和“把进步绑定到正确任务”两层：
+
+```text
+current competence
+→ per-task measured learning progress
+→ practice-goal selection
+→ learning gain
+→ moving competence frontier
+→ final capability under fixed budget
+```
+
+比较 `learning_progress / uniform / fixed_curriculum / hardest_first / shuffled_progress`。其中 `uniform` 与 `fixed_curriculum` 使用相同每任务 practice counts，只改变顺序；`shuffled_progress` 保留 progress magnitudes 却打乱 task identity。关键机制问题是：**学习进度是否真的定位当前可学习 frontier，以及正确 progress-to-task binding 是否因果必要。**
+
+CI-verified quick reference results 见 [`REFERENCE_RESULTS.md`](lab34_self_generated_curriculum/REFERENCE_RESULTS.md)。
+
 ### [`Lab 37 — Bimanual Coordination`](lab37_bimanual_coordination/README.md)
 
 把双臂共享物体控制拆成 common mode 与 differential mode：
