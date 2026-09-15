@@ -66,13 +66,16 @@ jobs:
           test -f .site-build/labs/index.html
           test -f .site-build/labs/EXECUTION_MATRIX/index.html
           test -f .site-build/labs/runnable/index.html
+          test -f .site-build/labs/runnable/lab13_active_perception/index.html
           test -f .site-build/labs/runnable/lab22_async_execution/index.html
           test -f .site-build/labs/runnable/lab29_world_model_mpc/index.html
+          test -f .site-build/labs/runnable/lab29_world_model_mpc/REFERENCE_RESULTS/index.html
           grep -q 'Part 24' .site-mkdocs.yml
           grep -q 'Research Crosswalk' .site-mkdocs.yml
           grep -q '51-Part Primary Sources' .site-mkdocs.yml
           grep -q 'GR00T N1.7' .site-mkdocs.yml
           grep -q 'Execution Matrix' .site-mkdocs.yml
+          grep -q 'Lab 13 · Active Perception' .site-mkdocs.yml
           grep -q 'Lab 22 · Async Execution' .site-mkdocs.yml
           grep -q 'Lab 29 · World Model MPC' .site-mkdocs.yml
           echo "Website build, research/evidence entry points and executable lab pages smoke test passed."
