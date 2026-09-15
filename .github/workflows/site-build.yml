@@ -79,6 +79,8 @@ jobs:
           test -f .site-build/labs/runnable/lab31_reasoning_negative_control/REFERENCE_RESULTS/index.html
           test -f .site-build/labs/runnable/lab33_continual_learning/index.html
           test -f .site-build/labs/runnable/lab33_continual_learning/REFERENCE_RESULTS/index.html
+          test -f .site-build/labs/runnable/lab40_safety_shield/index.html
+          test -f .site-build/labs/runnable/lab40_safety_shield/REFERENCE_RESULTS/index.html
           grep -q 'Part 24' .site-mkdocs.yml
           grep -q 'Research Crosswalk' .site-mkdocs.yml
           grep -q '51-Part Primary Sources' .site-mkdocs.yml
@@ -91,6 +93,8 @@ jobs:
           grep -q 'Lab 29 · World Model MPC' .site-mkdocs.yml
           grep -q 'Lab 31 · Reasoning Negative Control' .site-mkdocs.yml
           grep -q 'Lab 33 · Continual Learning' .site-mkdocs.yml
+          grep -q 'Lab 40 · Safety Shield' .site-mkdocs.yml
+          grep -q 'Lab 40 · Reference Results' .site-mkdocs.yml
           echo "Website build, research/evidence entry points and executable lab pages smoke test passed."
 
       - uses: actions/upload-artifact@v4
