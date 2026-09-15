@@ -20,6 +20,9 @@ ROOT = Path(__file__).resolve().parents[2]
 LAB13_DIR = ROOT / "labs" / "runnable" / "lab13_active_perception"
 LAB13 = LAB13_DIR / "run.py"
 LAB13_ANALYZE = LAB13_DIR / "analyze.py"
+LAB14_DIR = ROOT / "labs" / "runnable" / "lab14_tactile_reflex"
+LAB14 = LAB14_DIR / "run.py"
+LAB14_ANALYZE = LAB14_DIR / "analyze.py"
 LAB22_DIR = ROOT / "labs" / "runnable" / "lab22_async_execution"
 LAB22 = LAB22_DIR / "run.py"
 LAB22_ANALYZE = LAB22_DIR / "analyze.py"
@@ -81,20 +84,12 @@ def test_lab13(tmp: Path) -> None:
     active = keyed["info_gain"]
     shuffled = keyed["info_gain_shuffled_geometry"]
 
-    # The active mechanism must change an intermediate information variable.
     assert as_float(active, "mean_final_entropy") < 0.75 * as_float(random, "mean_final_entropy")
     assert as_float(active, "mean_final_entropy") < 0.50 * as_float(fixed, "mean_final_entropy")
-
-    # Information reduction must survive to the task decision.
     assert as_float(active, "accuracy") > as_float(random, "accuracy") + 0.05
     assert as_float(active, "accuracy") > as_float(fixed, "accuracy") + 0.20
-
-    # Active sensing should not obtain its gain by moving more than the random policy.
     assert as_float(active, "mean_movement_distance") < 0.60 * as_float(random, "mean_movement_distance")
     assert as_float(active, "mean_task_utility") > as_float(random, "mean_task_utility") + 0.10
-
-    # Negative control: corrupt only the view model used to choose where to look;
-    # the observation and Bayesian update remain correct.
     assert as_float(active, "accuracy") > as_float(shuffled, "accuracy") + 0.10
     assert as_float(shuffled, "mean_final_entropy") > 2.0 * as_float(active, "mean_final_entropy")
 
@@ -117,6 +112,88 @@ def test_lab13(tmp: Path) -> None:
     print(
         "PASS lab13_active_perception: uncertainty reduction, task success, sensing motion "
         "and shuffled-geometry negative control were jointly verified"
+    )
+
+
+def test_lab14(tmp: Path) -> None:
+    output = tmp / "lab14"
+    subprocess.run(
+        [sys.executable, str(LAB14), "--quick", "--output", str(output)],
+        cwd=ROOT,
+        check=True,
+    )
+
+    metrics_path = output / "mode_metrics.csv"
+    manifest_path = output / "experiment_manifest.json"
+    assert metrics_path.is_file(), "Lab 14 did not write mode_metrics.csv"
+    assert manifest_path.is_file(), "Lab 14 did not write experiment_manifest.json"
+
+    rows = read_rows(metrics_path)
+    assert len(rows) == 3, f"Expected 3 tactile timing conditions, got {len(rows)}"
+    keyed = {row["mode"]: row for row in rows}
+    assert set(keyed) == {
+        "slow_policy_only",
+        "fast_tactile_reflex",
+        "delayed_tactile_reflex",
+    }
+
+    for row in rows:
+        for metric in [
+            "drop_rate",
+            "object_retention_rate",
+            "p95_max_slip_displacement_m",
+            "reaction_detection_rate",
+            "mean_reaction_latency_s",
+            "mean_peak_grip_force_n",
+            "mean_extra_grip_energy_n2s",
+            "slow_event_miss_rate",
+        ]:
+            as_float(row, metric)
+        run_dir = output / row["run_dir"]
+        for required in ["manifest.json", "steps.csv", "failures.jsonl", "summary.json"]:
+            assert (run_dir / required).is_file(), f"Lab 14 missing {required} for {row['mode']}"
+
+    slow = keyed["slow_policy_only"]
+    fast = keyed["fast_tactile_reflex"]
+    delayed = keyed["delayed_tactile_reflex"]
+
+    # A transient 140 ms event is shorter than the 200 ms high-level period, so
+    # the slow loop should miss a substantial fraction of event phases.
+    assert as_float(slow, "slow_event_miss_rate") > 0.20
+    assert as_float(slow, "reaction_detection_rate") < 0.90
+
+    # The fast residual must change both timing and the physical slip outcome.
+    assert as_float(fast, "mean_reaction_latency_s") < 0.20 * as_float(slow, "mean_reaction_latency_s")
+    assert as_float(fast, "p95_max_slip_displacement_m") < 0.25 * as_float(slow, "p95_max_slip_displacement_m")
+    assert as_float(fast, "drop_rate") < 0.05
+    assert as_float(slow, "drop_rate") > as_float(fast, "drop_rate") + 0.25
+
+    # Negative control: a 200 Hz correction loop fed 120 ms stale tactile data
+    # should lose most of the fast-feedback benefit.
+    assert as_float(delayed, "mean_reaction_latency_s") > 0.08
+    assert as_float(delayed, "drop_rate") > as_float(fast, "drop_rate") + 0.70
+    assert as_float(delayed, "p95_max_slip_displacement_m") > 4.0 * as_float(fast, "p95_max_slip_displacement_m")
+
+    subprocess.run(
+        [sys.executable, str(LAB14_ANALYZE), str(metrics_path), "--output-dir", str(output)],
+        cwd=ROOT,
+        check=True,
+    )
+    analysis_json = output / "analysis.json"
+    analysis_md = output / "ANALYSIS.md"
+    assert analysis_json.is_file(), "Lab 14 analyzer did not write analysis.json"
+    assert analysis_md.is_file(), "Lab 14 analyzer did not write ANALYSIS.md"
+    with analysis_json.open("r", encoding="utf-8") as handle:
+        analysis = json.load(handle)
+    assert analysis["fast_reflex_prevents_drops"] is True
+    assert analysis["fast_reflex_reduces_slip"] is True
+    assert analysis["fast_reflex_reacts_before_slow_loop"] is True
+    assert analysis["slow_loop_misses_short_events"] is True
+    assert analysis["delayed_tactile_breaks_fast_reflex"] is True
+
+    print(
+        "PASS lab14_tactile_reflex: short-event misses, reaction latency, physical slip "
+        "and stale-tactile negative control were jointly verified"
     )
 
 
@@ -295,6 +372,7 @@ def main() -> None:
     with tempfile.TemporaryDirectory(prefix="embodied-ai-runnable-labs-") as tmpdir:
         tmp = Path(tmpdir)
         test_lab13(tmp)
+        test_lab14(tmp)
         test_lab22(tmp)
         test_lab29(tmp)
     print("RUNNABLE LAB SMOKE PASSED")
