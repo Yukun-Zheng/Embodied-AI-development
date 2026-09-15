@@ -15,6 +15,7 @@ on:
       - "code/**"
       - "scripts/generate_toc.py"
       - "scripts/validate_book.py"
+      - "scripts/audit_chapters.py"
       - ".github/workflows/book-qa.yml"
   pull_request:
   workflow_dispatch:
@@ -34,3 +35,6 @@ jobs:
 
       - name: Validate manuscript structure, links and generated TOC
         run: python scripts/validate_book.py
+
+      - name: Report chapter depth and source coverage
+        run: python scripts/audit_chapters.py
