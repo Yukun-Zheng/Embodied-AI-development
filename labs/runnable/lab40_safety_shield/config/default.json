@@ -1,0 +1,62 @@
+{
+  "seed": 89,
+  "episodes_per_scenario": 160,
+  "quick_episodes_per_scenario": 60,
+  "dt": 0.02,
+  "steps": 150,
+  "fault_time_s": 0.30,
+  "plant": {
+    "damping": 0.35,
+    "max_policy_acceleration": 4.0,
+    "max_brake_acceleration": 5.0,
+    "joint_hard_limit": 1.25,
+    "joint_reactive_trigger": 1.12
+  },
+  "policy": {
+    "kp": 8.0,
+    "kd": 3.5
+  },
+  "watchdog": {
+    "max_model_age_s": 0.12,
+    "max_camera_age_s": 0.12,
+    "reaction_time_s": 0.06,
+    "human_hard_min_distance": 0.16,
+    "human_reactive_trigger": 0.26,
+    "predictive_human_margin": 0.20,
+    "predictive_joint_margin": 0.04,
+    "allowed_goal_abs": 1.10,
+    "conservative_allowed_goal_abs": 0.90,
+    "stopped_velocity_tolerance": 0.03
+  },
+  "trial": {
+    "initial_position_min": -0.10,
+    "initial_position_max": 0.10,
+    "initial_velocity_min": -0.05,
+    "initial_velocity_max": 0.05,
+    "normal_goal_min": 0.78,
+    "normal_goal_max": 1.02,
+    "completion_position_tolerance": 0.08,
+    "completion_velocity_tolerance": 0.12,
+    "unsafe_joint_target": 1.65,
+    "stale_camera_human_initial_position": 1.45,
+    "stale_camera_human_velocity": -0.65,
+    "stale_camera_human_stop_position": 0.78,
+    "proximity_human_initial_position": 1.25,
+    "proximity_human_velocity": -0.30,
+    "proximity_human_stop_position": 0.86
+  },
+  "scenarios": [
+    "normal",
+    "model_timeout",
+    "stale_camera",
+    "unsafe_joint_target",
+    "human_proximity"
+  ],
+  "conditions": [
+    "no_shield",
+    "static_rules",
+    "predictive_no_freshness",
+    "predictive_shield",
+    "overconservative_shield"
+  ]
+}
