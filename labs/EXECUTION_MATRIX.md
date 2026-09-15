@@ -112,7 +112,9 @@ Lab 33 已进入 permanent executable CI：固定参数容量下比较 naive fin
 | 37 Bimanual Coordination | ✓ | ✓ | ✓ | toy relative frame → RoboTwin | independent vs relative/coordinated policy |
 | 38 Multi-Robot Collaboration | ✓ | ✓ | ○ | toy network → multi-robot sim | delay/dropout/failure intervention |
 | 39 ROS 2 Multi-Rate Deployment | ○ | ✓ | ✓ | ROS 2 + fake hardware → real | P50/P95/P99 latency + action age |
-| 40 Watchdog / Safety Shield | ✓ | ✓ | ✓ | fake system → simulator/real | timeout/stale/unsafe/human-proximity gates |
+| **40 Watchdog / Safety Shield** | **✓** | ✓ | ✓ | closed-loop fake system → simulator/real | timeout/stale/unsafe/human-proximity gates + braking outcome |
+
+Lab 40 已进入 permanent executable CI：在同一闭环 plant 中注入 model timeout、stale camera、unsafe joint target 与 human proximity，比较 no shield、static rules、freshness-blind predictive stop、complete predictive shield 与 overconservative shield。CI 不把“规则触发”当安全，而是在有限 braking dynamics 后检查 physical violation、normal availability、ask-human routing 与 audit reason；该 M 层结果**不是 functional-safety certification**。
 
 ---
 
@@ -143,7 +145,7 @@ config
 → reproducible output directory
 ```
 
-首个 reference implementation 是 **Lab 22 Asynchronous Policy Execution**；当前 CI-verified reference set 已扩展为 **Lab 13 / 14 / 22 / 26 / 29 / 31 / 33**。
+首个 reference implementation 是 **Lab 22 Asynchronous Policy Execution**；当前 CI-verified reference set 已扩展为 **Lab 13 / 14 / 22 / 26 / 29 / 31 / 33 / 40**。
 
 ### Phase 2 — Physics adapters
 
