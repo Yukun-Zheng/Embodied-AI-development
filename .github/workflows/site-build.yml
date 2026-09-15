@@ -83,6 +83,8 @@ jobs:
           test -f .site-build/labs/runnable/lab31_reasoning_negative_control/REFERENCE_RESULTS/index.html
           test -f .site-build/labs/runnable/lab33_continual_learning/index.html
           test -f .site-build/labs/runnable/lab33_continual_learning/REFERENCE_RESULTS/index.html
+          test -f .site-build/labs/runnable/lab34_self_generated_curriculum/index.html
+          test -f .site-build/labs/runnable/lab34_self_generated_curriculum/REFERENCE_RESULTS/index.html
           test -f .site-build/labs/runnable/lab37_bimanual_coordination/index.html
           test -f .site-build/labs/runnable/lab37_bimanual_coordination/REFERENCE_RESULTS/index.html
           test -f .site-build/labs/runnable/lab38_multi_robot_collaboration/index.html
@@ -105,6 +107,8 @@ jobs:
           grep -q 'Lab 29 · World Model MPC' .site-mkdocs.yml
           grep -q 'Lab 31 · Reasoning Negative Control' .site-mkdocs.yml
           grep -q 'Lab 33 · Continual Learning' .site-mkdocs.yml
+          grep -q 'Lab 34 · Self-Generated Curriculum' .site-mkdocs.yml
+          grep -q 'Lab 34 · Reference Results' .site-mkdocs.yml
           grep -q 'Lab 37 · Bimanual Coordination' .site-mkdocs.yml
           grep -q 'Lab 37 · Reference Results' .site-mkdocs.yml
           grep -q 'Lab 38 · Multi-Robot Collaboration' .site-mkdocs.yml
