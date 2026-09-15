@@ -48,8 +48,12 @@
 ## 1.14 GR00T / Gemini Robotics / Helix
 ## 1.15 World Model 的回归
 ## 1.16 历史中的循环
-## 1.17 读历史的正确方法
-## 小练习
+## 1.17 版本演进不等于科学问题演进
+## 1.18 证据等级随历史阶段变化
+## 1.19 读历史的常见失败
+## 最小实验：做一次机制谱系审计
+## 研究问题
+## Source anchors / 原始来源
 
 
 ---
@@ -1171,6 +1175,7 @@
 
 # [Part 44　Datasets、Benchmarks 与 Evaluation Science](./chapters/44-benchmarks-evaluation-science.md)
 
+## 学习目标
 ## 44.1 Benchmark 为什么会塑造研究方向
 ## 44.2 Training Dataset vs Evaluation Benchmark
 ## 44.3 MetaWorld / robosuite / RLBench
@@ -1182,19 +1187,26 @@
 ## 44.9 Humanoid Benchmarks
 ## 44.10 Real-World Evaluation
 ## 44.11 Task Success Rate
-## 44.12 Partial Credit / Progress Metric
-## 44.13 Robustness
-## 44.14 Generalization Matrix
-## 44.15 Object / Scene / Task / Embodiment OOD
-## 44.16 Perturbation Test
-## 44.17 Long-Horizon Evaluation
-## 44.18 Intervention Rate
-## 44.19 Recovery Rate
-## 44.20 Latency / Throughput / Energy
-## 44.21 Calibration / Uncertainty
-## 44.22 Benchmark Leakage
-## 44.23 Statistical Significance
-## 44.24 “成功视频”为什么不是科学证据
+## 44.12 Bernoulli Uncertainty 与 Confidence Interval
+## 44.13 Partial Credit / Progress Metric
+## 44.14 Robustness
+## 44.15 Generalization Matrix
+## 44.16 Object / Scene / Task / Embodiment OOD
+## 44.17 Perturbation Test
+## 44.18 Long-Horizon Evaluation
+## 44.19 Intervention Rate
+## 44.20 Recovery Rate
+## 44.21 Latency / Throughput / Energy
+## 44.22 Calibration / Uncertainty
+## 44.23 Benchmark Leakage
+## 44.24 Paired Evaluation 与 Seed Control
+## 44.25 多 Seed 不等于大量独立样本
+## 44.26 Model × Data × System × Protocol
+## 44.27 “成功视频”为什么不是科学证据
+## 44.28 Evaluation Dataflow
+## 常见失败
+## 研究问题
+## Source anchors / 原始来源
 ## 一个推荐的统一评测向量
 
 # [Part 45　可靠性、Safety 与 Human Intervention](./chapters/45-reliability-safety-human-intervention.md)
