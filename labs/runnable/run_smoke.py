@@ -16,7 +16,9 @@ import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-LAB22 = ROOT / "labs" / "runnable" / "lab22_async_execution" / "run.py"
+LAB22_DIR = ROOT / "labs" / "runnable" / "lab22_async_execution"
+LAB22 = LAB22_DIR / "run.py"
+LAB22_ANALYZE = LAB22_DIR / "analyze.py"
 
 
 def read_rows(path: Path) -> list[dict[str, str]]:
@@ -81,7 +83,30 @@ def test_lab22(tmp: Path) -> None:
         f"Zero-latency negative control failed: queue={queue_zero}, rebase={rebase_zero}"
     )
 
-    print("PASS lab22_async_execution: raw logs, manifests and latency intervention verified")
+    # Turn raw metrics into a derived, machine-readable scientific interpretation.
+    subprocess.run(
+        [sys.executable, str(LAB22_ANALYZE), str(results), "--output-dir", str(output)],
+        cwd=ROOT,
+        check=True,
+    )
+    analysis_json = output / "analysis.json"
+    analysis_md = output / "ANALYSIS.md"
+    assert analysis_json.is_file(), "Lab 22 analyzer did not write analysis.json"
+    assert analysis_md.is_file(), "Lab 22 analyzer did not write ANALYSIS.md"
+
+    with analysis_json.open("r", encoding="utf-8") as handle:
+        analysis = json.load(handle)
+    assert analysis["zero_latency_negative_control"] is True
+    assert analysis["action_age_mechanism_verified"] is True
+    # This is not a required universal outcome, but for the current reference
+    # configuration it is an intentional teaching result: lowering action age
+    # alone does not guarantee better task performance.
+    assert analysis["task_performance_improvement_not_guaranteed"] is True
+
+    print(
+        "PASS lab22_async_execution: raw logs, manifests, latency intervention "
+        "and derived mechanism analysis verified"
+    )
 
 
 def main() -> None:
