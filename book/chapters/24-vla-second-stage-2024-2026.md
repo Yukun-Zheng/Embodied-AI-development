@@ -111,6 +111,8 @@ G=(G_o,G_s,G_l,G_t,G_c,G_e,G_p),
 
 ## 24.4 π*0.6：从 Demonstration 走向 Experience / RL
 
+**Primary evidence:** Physical Intelligence, *π*0.6: A VLA That Learns From Experience* — https://www.pi.website/blog/pistar06
+
 π*0.6 的意义在于明确把 **autonomous experience + reinforcement learning** 放到 generalist VLA 的后训练流程里。
 
 典型流程可以写成：
@@ -144,6 +146,8 @@ RL post-training
 ---
 
 ## 24.5 π0.7：Steerability 与 Emergent Capability
+
+**Primary evidence:** Physical Intelligence, π0.7 — https://www.pi.website/blog/pi07
 
 π0.7 把“prompt”从单一语言命令扩展为更广泛的控制条件：
 
@@ -234,6 +238,8 @@ N1.5 进一步把“同一个 foundation model 怎样适配不同机器人”推
 
 ## 24.8 GR00T N1.6：VLM、DiT 与 Loco-Manipulation 扩展
 
+**Primary evidence:** NVIDIA Research, GR00T N1.6 — https://research.nvidia.com/labs/gear/gr00t-n1_6/
+
 N1.6 在公开研究材料中进一步扩展：
 
 - VLM / visual-language representation；
@@ -251,6 +257,8 @@ N1.6 在公开研究材料中进一步扩展：
 ---
 
 ## 24.9 GR00T N1.7：新 VLM Backbone、Embodiment Tags 与部署栈
+
+**Primary evidence:** NVIDIA Isaac-GR00T N1.7 release — https://github.com/NVIDIA/Isaac-GR00T/releases/tag/n1.7-release  ·  official source tree / current N1.7 documentation — https://github.com/NVIDIA/Isaac-GR00T
 
 **GR00T N1.7 必须包含在本书 2026-09-14 的快照中。** NVIDIA 的 GitHub Release `n1.7-release` 发布于 **2026-04-18**；当前官方仓库把 N1.7 标记为 GR00T N1 的 latest / General Availability 版本。
 
@@ -373,6 +381,8 @@ data
 
 ## 24.10 Gemini Robotics：VLA 与 Embodied Reasoning 分层
 
+**Primary evidence:** Google DeepMind, Gemini Robotics model family — https://deepmind.google/models/gemini-robotics/
+
 Gemini Robotics 路线体现了一个重要趋势：高层 reasoning 与低层 action 不一定应该塞进同一个同步循环。
 
 抽象为：
@@ -397,6 +407,8 @@ low-level control / hardware
 
 ## 24.11 Gemini Robotics 1.5：Motion Transfer 与 Embodiment Adaptation
 
+**Primary evidence:** Google DeepMind, *Gemini Robotics 1.5 brings AI agents into the physical world* — https://deepmind.google/blog/gemini-robotics-15-brings-ai-agents-into-the-physical-world/
+
 Gemini Robotics 1.5 一类中间版本所代表的问题是：
 
 > foundation model 如何把已有能力迁移到新的 robot morphology 与 action interface？
@@ -415,6 +427,8 @@ Gemini Robotics 1.5 一类中间版本所代表的问题是：
 ---
 
 ## 24.12 Gemini Robotics 2：Whole-Body VLA
+
+**Primary evidence:** Google DeepMind, *Gemini Robotics 2 brings whole body intelligence to robots* — https://deepmind.google/blog/gemini-robotics-2-brings-whole-body-intelligence-to-robots/
 
 2026 年公开版本把控制范围推进到：
 
@@ -436,6 +450,8 @@ Gemini Robotics 1.5 一类中间版本所代表的问题是：
 ---
 
 ## 24.13 Gemini Robotics On-Device 2：端侧推理与快速适配
+
+**Primary evidence:** Google DeepMind, Gemini Robotics On-Device 2 — https://deepmind.google/models/gemini-robotics/on-device/
 
 On-device 路线把另一个长期问题推到前台：
 
@@ -459,6 +475,8 @@ On-device 路线把另一个长期问题推到前台：
 ---
 
 ## 24.14 Helix：On-Board、Multi-Rate 与 Whole-Body
+
+**Primary evidence:** Figure, Helix — https://www.figure.ai/news/helix  ·  Helix 02 — https://www.figure.ai/news/helix-02
 
 Figure 的 Helix 路线特别适合用来理解 **多时间尺度**。
 
