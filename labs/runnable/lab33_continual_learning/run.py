@@ -1,20 +1,21 @@
 #!/usr/bin/env python3
-"""Lab 33 — sequential continual learning under a shared representation bottleneck.
+"""Lab 33 — sequential continual learning under a fixed capacity bottleneck.
 
-Three binary tasks A→B→C share a 2-D input and a tiny shared representation,
-while each task has its own classification head. Sequential learning therefore
-changes a representation that old heads depend on, making representational
-forgetting observable without changing the meaning of old labels.
+Three binary tasks A→B→C depend on three independent input directions, but the
+learner must compress the 3-D input into a 2-D shared representation. Each task
+has its own head, so old label semantics do not change; interference comes from
+the shared representation and its finite capacity.
 
 Methods:
 - naive_finetune: current-task data only;
 - replay: current-task data + correctly labelled old samples;
 - quadratic_anchor: penalize drift of the shared trunk from the previous phase;
-- replay_shuffled_labels: replay the same old samples with deliberately wrong
+- replay_shuffled_labels: replay the same old samples with deliberately corrupted
   labels, a mechanism negative control for replay.
 
-The experiment records the full performance matrix R[i,j] after each learning
-phase and a separate frozen-representation probe matrix for forward transfer.
+The experiment records the full performance matrix R[i,j] after every phase, a
+frozen-representation probe matrix, optimizer-step traces, memory cost and trunk
+drift. The intended result is a stability–plasticity diagnostic, not a leaderboard.
 """
 
 from __future__ import annotations
@@ -51,33 +52,42 @@ def set_deterministic(seed: int) -> None:
 def make_task_dataset(
     *,
     task_index: int,
-    angle_deg: float,
+    direction: list[float],
+    input_dim: int,
     samples: int,
     seed: int,
     label_noise_std: float,
 ) -> tuple[torch.Tensor, torch.Tensor]:
     generator = torch.Generator().manual_seed(seed + 1009 * task_index)
-    x = torch.randn(samples, 2, generator=generator)
-    angle = math.radians(angle_deg)
-    direction = torch.tensor([math.cos(angle), math.sin(angle)], dtype=torch.float32)
+    x = torch.randn(samples, input_dim, generator=generator)
+    vector = torch.tensor(direction, dtype=torch.float32)
+    if vector.shape != (input_dim,):
+        raise ValueError(
+            f"Task {task_index} direction has shape {tuple(vector.shape)}, expected {(input_dim,)}"
+        )
+    norm = torch.linalg.vector_norm(vector)
+    if float(norm) <= 0.0:
+        raise ValueError(f"Task {task_index} direction must be nonzero")
+    vector = vector / norm
     noise = label_noise_std * torch.randn(samples, generator=generator)
-    y = ((x @ direction + noise) > 0.0).long()
+    y = ((x @ vector + noise) > 0.0).long()
     return x, y
 
 
 class ContinualNet(torch.nn.Module):
-    def __init__(self, *, hidden_dim: int, task_count: int) -> None:
+    def __init__(self, *, input_dim: int, hidden_dim: int, task_count: int) -> None:
         super().__init__()
-        # A deliberately small shared bottleneck. The task-specific heads prevent
-        # label-semantic conflict; forgetting comes from trunk drift.
-        self.trunk = torch.nn.Linear(2, hidden_dim, bias=False)
+        if hidden_dim >= input_dim:
+            raise ValueError(
+                "Reference Lab 33 requires hidden_dim < input_dim so shared capacity is constrained"
+            )
+        self.trunk = torch.nn.Linear(input_dim, hidden_dim, bias=False)
         self.heads = torch.nn.ModuleList(
             [torch.nn.Linear(hidden_dim, 2) for _ in range(task_count)]
         )
 
     def forward(self, x: torch.Tensor, task_index: int) -> torch.Tensor:
-        z = self.trunk(x)
-        return self.heads[task_index](z)
+        return self.heads[task_index](self.trunk(x))
 
 
 def accuracy(model: ContinualNet, dataset: tuple[torch.Tensor, torch.Tensor], task: int) -> float:
@@ -131,9 +141,7 @@ def sample_replay_memory(
     replay_y = y[permutation].clone()
     if shuffle_labels:
         label_generator = torch.Generator().manual_seed(seed + 9001 * task_index + 17)
-        replay_y = replay_y[
-            torch.randperm(len(replay_y), generator=label_generator)
-        ]
+        replay_y = replay_y[torch.randperm(len(replay_y), generator=label_generator)]
     return replay_x, replay_y
 
 
@@ -147,10 +155,11 @@ def fit_linear_probe(
     learning_rate: float,
     seed: int,
 ) -> float:
-    """Measure representation transfer with a fresh task head on a frozen trunk."""
+    """Measure transfer in the frozen shared representation with a fresh head."""
     model.eval()
     train_x, train_y = train_dataset
     test_x, test_y = test_dataset
+    train_samples = min(train_samples, len(train_x))
     with torch.no_grad():
         train_z = model.trunk(train_x[:train_samples]).detach()
         test_z = model.trunk(test_x).detach()
@@ -225,7 +234,7 @@ def train_phase(
         regularization_loss = torch.tensor(0.0)
 
         if method in {"replay", "replay_shuffled_labels"} and replay_memory:
-            losses: list[torch.Tensor] = []
+            replay_losses: list[torch.Tensor] = []
             per_task_batch = max(1, batch_size // len(replay_memory))
             for old_task, (replay_x, replay_y) in replay_memory.items():
                 replay_indices = torch.randint(
@@ -233,13 +242,13 @@ def train_phase(
                     (per_task_batch,),
                     generator=generator,
                 )
-                losses.append(
+                replay_losses.append(
                     F.cross_entropy(
                         model(replay_x[replay_indices], old_task),
                         replay_y[replay_indices],
                     )
                 )
-            replay_loss = torch.stack(losses).mean()
+            replay_loss = torch.stack(replay_losses).mean()
 
         if method == "quadratic_anchor" and anchor is not None:
             penalty = torch.tensor(0.0)
@@ -274,12 +283,8 @@ def train_phase(
     return global_step
 
 
-def compute_metrics(
-    *,
-    performance: np.ndarray,
-    probes: np.ndarray,
-) -> dict[str, float]:
-    # performance rows: initial, after A, after B, after C.
+def compute_metrics(*, performance: np.ndarray, probes: np.ndarray) -> dict[str, float]:
+    # Rows: initial, after A, after B, after C. Columns: tasks A/B/C.
     task_count = performance.shape[1]
     final = performance[-1]
     diagonal = np.array([performance[task + 1, task] for task in range(task_count)])
@@ -291,11 +296,10 @@ def compute_metrics(
         old_task_forgetting.append(max(0.0, best_after_learning - float(final[task])))
         backward_transfer.append(float(final[task] - performance[task + 1, task]))
 
-    # Probe-based FWT avoids conflating representation transfer with random,
-    # untrained task-specific heads.
+    # Probe-based FWT avoids treating random, untrained task heads as transfer.
     forward_transfer: list[float] = []
     for task in range(1, task_count):
-        before_learning = probes[task, task]  # after previous phase; row task
+        before_learning = probes[task, task]
         initial = probes[0, task]
         forward_transfer.append(float(before_learning - initial))
 
@@ -324,7 +328,11 @@ def run_method(
     seed = int(cfg["seed"])
     set_deterministic(seed)
     task_count = len(train_sets)
-    model = ContinualNet(hidden_dim=int(cfg["hidden_dim"]), task_count=task_count)
+    model = ContinualNet(
+        input_dim=int(cfg["input_dim"]),
+        hidden_dim=int(cfg["hidden_dim"]),
+        task_count=task_count,
+    )
     initial_trunk = trunk_snapshot(model)
     initial_parameter_count = sum(parameter.numel() for parameter in model.parameters())
 
@@ -465,10 +473,15 @@ def run_method(
 
 def run_experiment(cfg: dict[str, Any], *, output_root: Path, command: list[str]) -> list[dict[str, Any]]:
     tasks = cfg["tasks"]
+    input_dim = int(cfg["input_dim"])
+    if int(cfg["hidden_dim"]) >= input_dim:
+        raise ValueError("Lab 33 needs hidden_dim < input_dim to enforce a shared capacity bottleneck")
+
     train_sets = [
         make_task_dataset(
             task_index=index,
-            angle_deg=float(task["angle_deg"]),
+            direction=[float(x) for x in task["direction"]],
+            input_dim=input_dim,
             samples=int(cfg["train_samples_per_task"]),
             seed=int(cfg["seed"]) + 10_000,
             label_noise_std=float(cfg["label_noise_std"]),
@@ -478,7 +491,8 @@ def run_experiment(cfg: dict[str, Any], *, output_root: Path, command: list[str]
     test_sets = [
         make_task_dataset(
             task_index=index,
-            angle_deg=float(task["angle_deg"]),
+            direction=[float(x) for x in task["direction"]],
+            input_dim=input_dim,
             samples=int(cfg["test_samples_per_task"]),
             seed=int(cfg["seed"]) + 20_000,
             label_noise_std=float(cfg["label_noise_std"]),
@@ -504,11 +518,13 @@ def run_experiment(cfg: dict[str, Any], *, output_root: Path, command: list[str]
             "lab_id": LAB_ID,
             "seed": int(cfg["seed"]),
             "task_order": [str(task["name"]) for task in tasks],
+            "task_directions": [task["direction"] for task in tasks],
             "methods": [str(method) for method in cfg["methods"]],
             "shared_capacity": {
-                "input_dim": 2,
+                "input_dim": input_dim,
                 "hidden_dim": int(cfg["hidden_dim"]),
                 "task_specific_heads": len(tasks),
+                "capacity_constraint": "three independent task directions compressed into a two-dimensional shared trunk",
             },
             "results_file": "method_metrics.csv",
         },
