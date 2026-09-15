@@ -1,0 +1,28 @@
+<mujoco model="lab04_planar3">
+  <compiler angle="radian"/>
+  <option timestep="0.002" gravity="0 0 0" integrator="RK4"/>
+
+  <worldbody>
+    <body name="link1" pos="0 0 0">
+      <joint name="shoulder" type="hinge" axis="0 0 1" damping="0.12" limited="true" range="-3.0 3.0"/>
+      <geom type="capsule" fromto="0 0 0 0.5 0 0" size="0.025" mass="0.8" rgba="0.35 0.45 0.75 1"/>
+
+      <body name="link2" pos="0.5 0 0">
+        <joint name="elbow" type="hinge" axis="0 0 1" damping="0.10" limited="true" range="-2.8 2.8"/>
+        <geom type="capsule" fromto="0 0 0 0.4 0 0" size="0.022" mass="0.6" rgba="0.45 0.65 0.45 1"/>
+
+        <body name="link3" pos="0.4 0 0">
+          <joint name="wrist" type="hinge" axis="0 0 1" damping="0.08" limited="true" range="-2.8 2.8"/>
+          <geom type="capsule" fromto="0 0 0 0.3 0 0" size="0.020" mass="0.4" rgba="0.75 0.45 0.35 1"/>
+          <site name="ee" pos="0.3 0 0" size="0.025" rgba="1 0.2 0.2 1"/>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+  <actuator>
+    <motor name="shoulder_motor" joint="shoulder" gear="1" ctrllimited="true" ctrlrange="-10 10"/>
+    <motor name="elbow_motor" joint="elbow" gear="1" ctrllimited="true" ctrlrange="-8 8"/>
+    <motor name="wrist_motor" joint="wrist" gear="1" ctrllimited="true" ctrlrange="-6 6"/>
+  </actuator>
+</mujoco>
