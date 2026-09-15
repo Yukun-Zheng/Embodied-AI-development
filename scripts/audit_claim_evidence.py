@@ -8,7 +8,8 @@ A) high-confidence historical/frontier factual claims — releases, dated public
 B) quantitative engineering statements — rates, delays, experiment sweep values,
    toy assumptions. These are review hints, not automatic citation obligations.
 
-The canonical chapter source-map fallback does NOT count as local attribution.
+Evidence is local when it appears either within ±3 lines OR elsewhere in the same
+H2 subsection. A chapter-end source-map fallback does not support unrelated H2s.
 """
 
 from __future__ import annotations
@@ -63,7 +64,6 @@ class Finding:
 
 
 def classification(text: str) -> str | None:
-    """Return A, B, or None with precision prioritized over recall."""
     stripped = text.strip()
     if stripped.startswith(QUESTION_PREFIXES):
         return None
@@ -74,22 +74,12 @@ def classification(text: str) -> str | None:
     has_frontier_verb = bool(FRONTIER_VERBS.search(stripped))
     has_numeric = bool(NUMERIC_SYSTEM.search(stripped))
 
-    # Class A: a dated/versioned factual statement tied to a named public system
-    # or release/capability verb. These are the strongest candidates for nearby
-    # primary evidence.
     if (has_year or has_version) and (has_frontier_name or has_frontier_verb):
         return "A"
-
-    # Some scale claims omit a year but name a public system and a concrete
-    # numeric scale (e.g. 7B checkpoint).
     if has_frontier_name and has_numeric and not EXPERIMENT_CONTEXT.search(stripped):
         return "A"
-
-    # Class B: system-rate / timing / scale statement. If clearly introduced as
-    # an experiment or hypothetical setting, keep it out of the report.
     if has_numeric and not EXPERIMENT_CONTEXT.search(stripped):
         return "B"
-
     return None
 
 
@@ -97,6 +87,25 @@ def nearby_evidence(lines: list[str], idx: int, radius: int = 3) -> bool:
     lo = max(0, idx - radius)
     hi = min(len(lines), idx + radius + 1)
     return any(DIRECT_EVIDENCE.search(lines[j]) for j in range(lo, hi))
+
+
+def h2_section_evidence(lines: list[str], idx: int) -> bool:
+    """Evidence anywhere in the current H2 section counts as local attribution."""
+    start = 0
+    for j in range(idx, -1, -1):
+        if lines[j].startswith("## ") and not lines[j].startswith("### "):
+            start = j
+            break
+    end = len(lines)
+    for j in range(idx + 1, len(lines)):
+        if lines[j].startswith("## ") and not lines[j].startswith("### "):
+            end = j
+            break
+    return any(DIRECT_EVIDENCE.search(lines[j]) for j in range(start, end))
+
+
+def has_local_evidence(lines: list[str], idx: int) -> bool:
+    return nearby_evidence(lines, idx) or h2_section_evidence(lines, idx)
 
 
 def main() -> None:
@@ -128,7 +137,7 @@ def main() -> None:
                     path=path.relative_to(ROOT).as_posix(),
                     line=idx + 1,
                     text=stripped[:240],
-                    supported=nearby_evidence(lines, idx),
+                    supported=has_local_evidence(lines, idx),
                 )
             )
 
