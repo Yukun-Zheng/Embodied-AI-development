@@ -37,8 +37,8 @@ jobs:
       - name: Validate manuscript structure, links and generated TOC
         run: python scripts/validate_book.py
 
-      - name: Enforce chapter publication baseline
+      - name: Enforce 51-chapter publication baseline
         run: python scripts/audit_chapters.py
 
-      - name: Report checkable claim attribution
+      - name: Enforce Class-A local primary evidence
         run: python scripts/audit_claim_evidence.py
