@@ -1,0 +1,78 @@
+{
+  "seed": 73,
+  "episodes": 400,
+  "quick_episodes": 120,
+  "dt": 0.02,
+  "steps": 120,
+  "policy": {
+    "kp": 10.0,
+    "kd": 6.0,
+    "nominal_mass": 1.0,
+    "nominal_damping": 0.2
+  },
+  "trial": {
+    "initial_position_min": -1.0,
+    "initial_position_max": 1.0,
+    "initial_velocity_min": -0.25,
+    "initial_velocity_max": 0.25,
+    "goal_min": -1.5,
+    "goal_max": 1.5,
+    "minimum_goal_distance": 0.6,
+    "success_position_tolerance": 0.06,
+    "success_velocity_tolerance": 0.12
+  },
+  "embodiments": [
+    {
+      "name": "A",
+      "split": "seen",
+      "mass": 1.0,
+      "damping": 0.2,
+      "position_sensor_scale": 1.0,
+      "velocity_sensor_scale": 1.0,
+      "action_scale": 1.0,
+      "action_sign": 1.0,
+      "hardware_command_limit": 20.0
+    },
+    {
+      "name": "B",
+      "split": "seen",
+      "mass": 2.2,
+      "damping": 0.7,
+      "position_sensor_scale": 1.5,
+      "velocity_sensor_scale": 0.7,
+      "action_scale": 0.6,
+      "action_sign": -1.0,
+      "hardware_command_limit": 20.0
+    },
+    {
+      "name": "C",
+      "split": "unseen_interpolation",
+      "mass": 1.55,
+      "damping": 0.45,
+      "position_sensor_scale": 0.8,
+      "velocity_sensor_scale": 1.3,
+      "action_scale": 0.8,
+      "action_sign": 1.0,
+      "hardware_command_limit": 20.0
+    },
+    {
+      "name": "D",
+      "split": "unseen_extrapolation",
+      "mass": 3.2,
+      "damping": 1.1,
+      "position_sensor_scale": 1.8,
+      "velocity_sensor_scale": 0.6,
+      "action_scale": 0.5,
+      "action_sign": -1.0,
+      "hardware_command_limit": 20.0
+    }
+  ],
+  "conditions": [
+    "raw_shared",
+    "canonical_interface_only",
+    "seen_robot_lookup",
+    "morphology_conditioned",
+    "wrong_morphology_tag",
+    "wrong_action_semantics"
+  ]
+}
