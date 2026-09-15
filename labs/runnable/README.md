@@ -234,6 +234,23 @@ CI-verified quick reference results 见 [`REFERENCE_RESULTS.md`](lab31_reasoning
 
 CI-verified quick reference results 见 [`REFERENCE_RESULTS.md`](lab33_continual_learning/REFERENCE_RESULTS.md)。
 
+### [`Lab 37 — Bimanual Coordination`](lab37_bimanual_coordination/README.md)
+
+把双臂共享物体控制拆成 common mode 与 differential mode：
+
+```text
+left / right endpoint state
+→ object midpoint + relative separation
+→ common / differential effort
+→ actuator heterogeneity + unilateral disturbance
+→ shared-object strain / internal force
+→ physical bimanual success
+```
+
+比较 `independent_world / midpoint_only / relative_coordinated / wrong_relative_sign`。关键机制问题是：**两个 endpoint 最终都能到位是否足以证明双臂协调；显式 relative-coordinate feedback 是否真正减少 shared-object deformation / internal load；只看 midpoint tracking 是否会把物理更差的 controller 排得更高。**
+
+CI-verified quick reference results 见 [`REFERENCE_RESULTS.md`](lab37_bimanual_coordination/REFERENCE_RESULTS.md)。
+
 ### [`Lab 38 — Multi-Robot Collaboration`](lab38_multi_robot_collaboration/README.md)
 
 把“多机器人协作”拆成异构能力、通信 freshness 与故障恢复三条可独立攻击的机制链：
