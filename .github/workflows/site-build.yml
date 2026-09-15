@@ -51,16 +51,22 @@ jobs:
           test -f .site-mkdocs.yml
           test -f .site-build/index.html
           test -f .site-build/book/TOC/index.html
+          test -f .site-build/book/RESEARCH_CROSSWALK/index.html
           test -f .site-build/book/chapters/00-what-is-embodied-intelligence/index.html
           test -f .site-build/book/chapters/24-vla-second-stage-2024-2026/index.html
           test -f .site-build/book/chapters/50-from-learner-to-independent-researcher/index.html
           test -f .site-build/case-studies/ACT_SOURCE_WALKTHROUGH/index.html
+          test -f .site-build/case-studies/OPENVLA_SOURCE_WALKTHROUGH/index.html
           test -f .site-build/case-studies/GR00T_N17_SOURCE_WALKTHROUGH/index.html
+          test -f .site-build/case-studies/VJEPA2_1_SOURCE_WALKTHROUGH/index.html
           test -f .site-build/case-studies/WORLD_MODEL_CONTROL/index.html
+          test -f .site-build/references/CHAPTER_SOURCE_ANCHORS/index.html
           test -f .site-build/references/SOURCE_CODE_ATLAS/index.html
           grep -q 'Part 24' .site-mkdocs.yml
+          grep -q 'Research Crosswalk' .site-mkdocs.yml
+          grep -q '51-Part Primary Sources' .site-mkdocs.yml
           grep -q 'GR00T N1.7' .site-mkdocs.yml
-          echo "Website build and chapter-driven navigation smoke test passed."
+          echo "Website build, research crosswalk, primary-source map and chapter navigation smoke test passed."
 
       - uses: actions/upload-artifact@v4
         with:
