@@ -169,6 +169,8 @@ def build_nav() -> list[tuple[str, str | list]]:
                         ("Lab 14 · Tactile Reflex", "labs/runnable/lab14_tactile_reflex/README.md"),
                         ("Lab 14 · Reference Results", "labs/runnable/lab14_tactile_reflex/REFERENCE_RESULTS.md"),
                         ("Lab 22 · Async Execution", "labs/runnable/lab22_async_execution/README.md"),
+                        ("Lab 25 · Visual Intervention", "labs/runnable/lab25_visual_intervention/README.md"),
+                        ("Lab 25 · Reference Results", "labs/runnable/lab25_visual_intervention/REFERENCE_RESULTS.md"),
                         ("Lab 26 · Cross-Embodiment", "labs/runnable/lab26_cross_embodiment/README.md"),
                         ("Lab 26 · Reference Results", "labs/runnable/lab26_cross_embodiment/REFERENCE_RESULTS.md"),
                         ("Lab 27 · Long-Horizon Memory", "labs/runnable/lab27_long_horizon_memory/README.md"),
