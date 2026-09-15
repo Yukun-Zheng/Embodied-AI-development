@@ -89,7 +89,7 @@
 |---|---|---|---|
 | **37 Cross-Embodiment Intelligence** | [Runnable Lab 26](../labs/runnable/lab26_cross_embodiment/README.md)；`embodiment_interfaces.py` | [Lab 26 CI Reference](../labs/runnable/lab26_cross_embodiment/REFERENCE_RESULTS.md)、GR00T case、Hardware Atlas | 已见 robot mixture 与 unseen morphology transfer 是否分开？C interpolation 与 D extrapolation 是否分别报告？新本体的 metadata 与 task adaptation 是否被混为一谈？ |
 | **38 Continual / Lifelong / Developmental Learning** | [Runnable Lab 33](../labs/runnable/lab33_continual_learning/README.md)；`continual_metrics.py` | [Lab 33 CI Reference](../labs/runnable/lab33_continual_learning/REFERENCE_RESULTS.md)、Experiment Protocol | plasticity、retention、transfer、memory 是否同时报告？正确 replay 信息是否因果必要？新能力是否靠不可控参数扩张换来？ |
-| **39 Self-Evolving Physical Intelligence** | [Runnable Lab 33](../labs/runnable/lab33_continual_learning/README.md)；Lab 32–34；Capstone 2 | [Lab 33 CI Reference](../labs/runnable/lab33_continual_learning/REFERENCE_RESULTS.md)、Failure Atlas、Timeline | 系统“自我进化”具体改变参数、结构、记忆还是数据分布？它能否在持续更新时跨越 stability–plasticity，而不是只会覆盖旧能力？怎样证伪？ |
+| **39 Self-Evolving Physical Intelligence** | [Runnable Lab 33](../labs/runnable/lab33_continual_learning/README.md) / [Runnable Lab 34](../labs/runnable/lab34_self_generated_curriculum/README.md)；Lab 32；Capstone 2 | [Lab 33 CI Reference](../labs/runnable/lab33_continual_learning/REFERENCE_RESULTS.md)、[Lab 34 CI Reference](../labs/runnable/lab34_self_generated_curriculum/REFERENCE_RESULTS.md)、Failure Atlas、Timeline | 系统若声称“自我进化”，不仅要能保留旧能力，还要解释**下一步学什么**：learning-progress curriculum 是否在固定 practice budget 下真实提高 sample efficiency？uniform 与 fixed 相同 task counts 时顺序有何作用？progress magnitude 保留但 task identity 打乱后是否崩溃？ |
 
 ## Volume IX　Simulation、Data 与 Deployment
 
