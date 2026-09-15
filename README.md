@@ -3,12 +3,14 @@
 # 《具身智能：从物理世界到通用机器人》
 ### *Embodied Intelligence: From Physical Principles to General-Purpose Robots*
 
-> **v1.0 Complete First-Edition Manuscript**  
+> **v1.0 complete first-edition manuscript**  
 > **Part 0–50 · 51 independent chapters · 12 volumes · frontier snapshot: 2026-09-14**
 
 [![Minimal textbook code regression](https://github.com/Yukun-Zheng/Embodied-AI-development/actions/workflows/minimal-code-regression.yml/badge.svg)](https://github.com/Yukun-Zheng/Embodied-AI-development/actions/workflows/minimal-code-regression.yml)
+[![Textbook QA](https://github.com/Yukun-Zheng/Embodied-AI-development/actions/workflows/book-qa.yml/badge.svg)](https://github.com/Yukun-Zheng/Embodied-AI-development/actions/workflows/book-qa.yml)
+[![Website Build](https://github.com/Yukun-Zheng/Embodied-AI-development/actions/workflows/site-build.yml/badge.svg)](https://github.com/Yukun-Zheng/Embodied-AI-development/actions/workflows/site-build.yml)
 
-这是一个从第一性原理系统学习具身智能的开放教材工程。它不把具身智能等同于 `Transformer + Robot`，也不按热门模型排行榜组织知识，而是把**数学、物理、机器人学、控制、感知、状态估计、规划、模仿学习、强化学习、生成式策略、VLA、World Model、主动感知、触觉、双臂、人形、跨本体、持续学习、仿真、数据工程、系统部署、评测、安全与研究方法**放进同一个物理闭环。
+这是一个从第一性原理系统学习具身智能的开放教材工程。它不把具身智能等同于 `Transformer + Robot`，也不按热门模型排行榜组织知识，而是把**数学、物理、经典机器人学、控制、感知、状态估计、规划、模仿学习、强化学习、生成式策略、VLA、World Model、主动感知、触觉、双臂、人形、跨本体、持续学习、仿真、数据工程、系统部署、评测、安全与研究方法**放进同一个物理闭环。
 
 核心问题只有一个：
 
@@ -18,44 +20,64 @@
 
 ## Start Here
 
-### 正文与学习路线
+### 正文
 
-- **[51 章正式主稿索引](book/chapters/README.md)** — Part 0–50，推荐从这里进入完整教材
-- **[教材总入口](book/README.md)** — 阅读路线、12 卷结构与版本说明
-- **[冻结版完整目录](book/TOC.md)** — 细粒度知识树 + Appendix A–Z
+- **[51 章正式主稿索引](book/chapters/README.md)** — Part 0–50，完整教材的唯一正文真源
+- **[教材总入口](book/README.md)** — 阅读方式、12 卷结构与版本说明
+- **[自动生成完整目录](book/TOC.md)** — 从 51 个 Chapter 的真实标题生成，避免目录漂移
+- **[12 卷连续通读版](book/volumes/)** — 先建立全局框架，再进入逐 Part 深章
 - **[36 周系统学习路线](book/SYLLABUS_36_WEEKS.md)** — 从基础到独立研究的一年课程
-- **[概念索引](book/CONCEPT_INDEX.md)** — 按术语查 Part
-- **[知识依赖图](book/DEPENDENCY_GRAPH.md)** — prerequisite graph 与不同背景的跳读路线
-- **[12 卷连续通读版](book/volumes/)** — 先看森林，再进入逐章主稿
+- **[知识依赖图](book/DEPENDENCY_GRAPH.md)** / **[概念索引](book/CONCEPT_INDEX.md)** — 支持跳读与按概念查找
 
-### 推导、图、习题与代码
+### 数学、图、习题与实验
 
 - **[30 组核心长推导](book/DERIVATIONS.md)** — shape → 公式 → 物理意义 → 代码变量
 - **[204 道章末题](book/EXERCISES.md)** — 每个 Part: Concept / Math / Implementation / Research
 - **[解题要点与验收标准](book/SOLUTION_SKETCHES.md)**
-- **[全书核心机制图](figures/CORE_DIAGRAMS.md)** — Mermaid 可直接在 GitHub 渲染
+- **[18 张 canonical 核心机制图](figures/CORE_DIAGRAMS.md)** — 统一物理对象、数据流与时间尺度的视觉语言
 - **[最小可执行代码](code/minimal/README.md)** — SE(3)、IK、控制、Kalman、DAgger、Diffusion/Flow、World Model+MPC 等
 - **[40 Labs + 3 Capstones](labs/LABS.md)**
-- **[统一实验协议](labs/EXPERIMENT_PROTOCOL.md)** — hypotheses、controls、CI、failure taxonomy、real-robot protocol
+- **[统一实验协议](labs/EXPERIMENT_PROTOCOL.md)** — hypothesis、controls、seeds、raw logs、failure taxonomy、real-robot protocol
 
-### 研究查阅层
+### 源码级学习
 
-- **[A–Z 附录](book/APPENDICES.md)**
-- **[中英术语表](book/GLOSSARY.md)**
-- **[符号、坐标系与 Action Convention](book/NOTATION_AND_CONVENTIONS.md)**
-- **[源码级 Case Studies](case-studies/README.md)** — ACT / Diffusion Policy / Modern VLA / World Model+MPC
-- **[Source-Code Atlas](references/SOURCE_CODE_ATLAS.md)** — ACT / Diffusion Policy / OpenVLA / LeRobot / GR00T N1.7 / V-JEPA 2/2.1 的真实源码阅读路径
-- **[统一参考文献与 Source Map](references/REFERENCES.md)**
-- **[逐 Part 原始阅读地图](references/READING_MAP.md)**
-- **[BibTeX](references/BIBLIOGRAPHY.bib)**
-- **[1948–2026 技术时间线](references/TIMELINE.md)**
+- **[7 篇 canonical Source-Level Case Studies](case-studies/README.md)**：
+  - ACT / ALOHA
+  - Diffusion Policy
+  - OpenVLA
+  - SmolVLA + LeRobot
+  - GR00T N1.7
+  - V-JEPA 2 / 2.1
+  - World Model + Control
+- **[Action Path Comparison](case-studies/ACTION_PATH_COMPARISON.md)** — discrete token / diffusion / flow / predictive latent 同轴比较
+- **[Source-Code Atlas](references/SOURCE_CODE_ATLAS.md)** — 真实官方仓库、commit、训练入口、processor、loss、inference、deployment 的阅读地图
+
+源码案例不做 paper summary，而是强制追踪：
+
+```text
+dataset
+→ processor
+→ tensor / shape
+→ representation
+→ loss
+→ sampling / decoding
+→ temporal executor
+→ controller boundary
+→ physical robot
+```
+
+### Research Atlas
+
 - **[Model Atlas](references/MODEL_ATLAS.md)**
 - **[Dataset Atlas](references/DATASET_ATLAS.md)**
 - **[Robot / Hardware Atlas](references/HARDWARE_ATLAS.md)**
 - **[Benchmark / Platform Atlas](references/BENCHMARK_ATLAS.md)**
 - **[Failure Atlas](references/FAILURE_ATLAS.md)**
-- **[写作与证据规范](AUTHORING_GUIDE.md)**
-- **[全书工程设计](BOOK_PLAN.md)**
+- **[Model × Data × Hardware × Benchmark Matrix](references/MODEL_DATA_HARDWARE_BENCHMARK_MATRIX.md)**
+- **[1948–2026 技术时间线](references/TIMELINE.md)**
+- **[逐 Part Reading Map](references/READING_MAP.md)**
+- **[统一 References](references/REFERENCES.md)** / **[BibTeX](references/BIBLIOGRAPHY.bib)**
+- **[A–Z 附录](book/APPENDICES.md)** / **[中英术语表](book/GLOSSARY.md)** / **[符号与约定](book/NOTATION_AND_CONVENTIONS.md)**
 
 ---
 
@@ -72,11 +94,9 @@
 | VI | VLA 之后 | Reasoning、Memory、Experience Learning、World Models |
 | VII | 能力层 | Manipulation、Bimanual、Dexterity、Navigation、Humanoid、Multi-Robot |
 | VIII | 长期发展 | Cross-Embodiment、Continual、Developmental、Self-Evolving Intelligence |
-| IX | 基础设施与部署 | Simulation、Sim2Real、Robot Data、ROS/Real-Time System |
-| X | Evaluation & Safety | Benchmark、Reliability、Physical/Agentic Safety |
+| IX | 基础设施与部署 | Simulation、Sim2Real、Robot Data、ROS / Real-Time System |
+| X | Evaluation & Safety | Benchmark、Reliability、Physical / Agentic Safety |
 | XI | 研究方法与下一代架构 | Mechanism Research、Post-Transformer、数学化具身智能、Open Problems |
-
-卷级快速稿位于 [`book/volumes/`](book/volumes/)，逐 Part 深章位于 [`book/chapters/`](book/chapters/)。
 
 ---
 
@@ -104,13 +124,13 @@ Physical World → Sensors → Observation → State / Belief / Representation
                                              ↺
 ```
 
-本书所有技术都必须能回答自己在这张图中的位置。模型名字会变化，但闭环中的信息、物理和时间关系不会因为热点改变。
+本书所有技术都必须能回答自己在这张图中的位置。模型名字会变化，但闭环中的**物理量、坐标系、信息流、时间关系、控制接口与失败机制**不会因为热点改变。
 
 ---
 
 # 为什么从经典机器人学开始
 
-如果只学 VLA，读者可能知道 π、GR00T、Gemini Robotics，却不知道：
+如果只学 VLA，读者可能知道 π、GR00T、Gemini Robotics，却不知道
 
 \[
 q,\ \dot q,\ \tau,\ SE(3),\ J(q),\ M(q),\ \text{impedance},\ \text{contact},\ \text{latency}
@@ -147,7 +167,7 @@ LLM → VLM → VLA → “懂机器人”
 截至 **2026-09-14**，主稿已经把以下问题纳入统一知识链：
 
 - Diffusion / Flow Matching / autoregressive action / action tokenization；
-- action chunking、Real-Time Action Chunking、asynchronous inference 与 latency；
+- action chunking、Real-Time Chunking、asynchronous inference 与 latency；
 - RT-1 / RT-2 / Open X-Embodiment / Octo / OpenVLA；
 - π0 / FAST / π0.5 / π*0.6 / embodied memory / π0.7；
 - **GR00T N1 / N1.5 / N1.6 / N1.7**；
@@ -161,9 +181,9 @@ LLM → VLM → VLA → “懂机器人”
 - autonomous experience learning、self-evolving architecture；
 - uncertainty、human intervention 与 reliable deployment。
 
-其中 GR00T N1.6 / N1.7 的日期已经按官方 GitHub release 纠正为 **2026-04-15 / 2026-04-18**。N1.7 的开放源码还被用于 Source-Code Atlas，追踪 processor、embodiment tags、action head、action horizon、async inference / RTC 与 deployment runtime。
+GR00T N1.6 / N1.7 的日期按官方 GitHub release 校正为 **2026-04-15 / 2026-04-18**。N1.7 还进入了源码层：教材直接追踪 processor、embodiment tags、state/action projector、DiT、flow integration、RTC 与 deployment runtime。
 
-这些模型作为**历史节点、案例和可检验机制**进入教材，而不是反过来用品牌名组织整本书。
+这些系统作为**历史节点、案例和可检验机制**进入教材，而不是反过来用品牌名组织整本书。
 
 ---
 
@@ -176,22 +196,20 @@ LLM → VLM → VLA → “懂机器人”
 3. **Implementation** — 能在最小环境中从头实现；
 4. **Research** — 能设计 negative control、发现 failure、质疑 claim。
 
-博士级掌握的目标是 L4。
-
-读任何方法都应强制回答：
+博士级掌握的目标是 L4。读任何方法都应强制回答：
 
 1. observation 是什么？单位、frame、shape 是什么？
 2. action 最终控制什么物理量？
 3. 中间 state / representation / memory 是什么？
-4. policy、planner、controller 如何分工？
-5. frequency / latency 是多少？
+4. policy、planner、executor、controller 如何分工？
+5. frequency / latency / horizon 是多少？
 6. 训练数据来自哪里？
 7. failure mode 是什么？
 8. 什么负对照能推翻其机制解释？
 
 ---
 
-# 实验体系
+# 实验与证据标准
 
 [`labs/LABS.md`](labs/LABS.md) 给出 **40 个渐进实验 + 3 个 Capstone**：
 
@@ -209,7 +227,39 @@ Jacobian / SE(3)
 → Falsifiable New Architecture
 ```
 
-统一要求 raw logs、config、seed、failure cases、negative controls 和 reproducible figures。最小代码层已由 GitHub Actions 自动回归；首轮 regression 已通过。
+统一要求 raw logs、config、seed、failure cases、negative controls、confidence interval 和 reproducible figures。模型结果必须展开成：
+
+\[
+\text{Model}\times\text{Data}\times\text{Embodiment}\times\text{Executor/Controller}\times\text{Benchmark}\times\text{Protocol}.
+\]
+
+否则不把一个 success rate 当成可迁移的科学结论。
+
+---
+
+# 出版与工程质量
+
+教材源文件仍按科研工作流组织；正式 Web build 使用 **MkDocs Material + MathJax + Mermaid** 生成 disposable publication view：
+
+```text
+canonical manuscript
+      ↓
+scripts/prepare_site.py
+      ↓
+.site-src/ + chapter-driven .site-mkdocs.yml
+      ↓
+MkDocs / Material
+      ↓
+MathJax formulas + Mermaid diagrams + searchable navigation
+```
+
+网站左侧导航与 `book/TOC.md` 都从 51 个 Chapter 的真实标题派生，避免平行目录长期漂移。
+
+当前自动回归覆盖三层：
+
+- **Minimal code regression** — 最小数学/机器人代码；
+- **Textbook QA** — Part 0–50 连续性、TOC、关键资产与本地 Markdown 链接；
+- **Website Build** — publication staging、MathJax/Mermaid 构建、Part 0/24/50 与关键源码案例 smoke test。
 
 ---
 
@@ -237,9 +287,10 @@ Embodied-AI-development/
 ├── README.md
 ├── BOOK_PLAN.md
 ├── AUTHORING_GUIDE.md
+├── mkdocs.yml
 ├── book/
 │   ├── README.md
-│   ├── TOC.md
+│   ├── TOC.md                  # chapter-driven generated TOC
 │   ├── SYLLABUS_36_WEEKS.md
 │   ├── CONCEPT_INDEX.md
 │   ├── DEPENDENCY_GRAPH.md
@@ -249,59 +300,54 @@ Embodied-AI-development/
 │   ├── SOLUTION_SKETCHES.md
 │   ├── APPENDICES.md
 │   ├── GLOSSARY.md
-│   ├── chapters/        # Part 0–50 独立主稿
-│   └── volumes/         # 12 卷连续通读版
+│   ├── chapters/               # Part 0–50 canonical manuscripts
+│   └── volumes/                # 12 volume continuous reading views
 ├── figures/
 │   └── CORE_DIAGRAMS.md
 ├── code/
-│   └── minimal/         # 20–200 行公式镜像 + run_all.py
-├── case-studies/        # ACT / Diffusion / VLA / World Model
+│   └── minimal/
+├── case-studies/               # 7 canonical source/mechanism deep dives
 ├── labs/
 │   ├── LABS.md
 │   └── EXPERIMENT_PROTOCOL.md
-└── references/
-    ├── REFERENCES.md
-    ├── READING_MAP.md
-    ├── SOURCE_CODE_ATLAS.md
-    ├── BIBLIOGRAPHY.bib
-    ├── TIMELINE.md
-    ├── MODEL_ATLAS.md
-    ├── DATASET_ATLAS.md
-    ├── HARDWARE_ATLAS.md
-    ├── BENCHMARK_ATLAS.md
-    └── FAILURE_ATLAS.md
+├── references/
+│   ├── SOURCE_CODE_ATLAS.md
+│   ├── MODEL_ATLAS.md
+│   ├── DATASET_ATLAS.md
+│   ├── HARDWARE_ATLAS.md
+│   ├── BENCHMARK_ATLAS.md
+│   ├── FAILURE_ATLAS.md
+│   ├── MODEL_DATA_HARDWARE_BENCHMARK_MATRIX.md
+│   ├── TIMELINE.md
+│   ├── READING_MAP.md
+│   ├── REFERENCES.md
+│   └── BIBLIOGRAPHY.bib
+├── scripts/                     # TOC / QA / publication generators
+└── .github/workflows/           # code / book / website regressions
 ```
 
 ---
 
-# 版本状态
+# 当前版本状态
 
-**v1.0 已完成全书第一版完整 manuscript，并开始进入出版级增厚与验证阶段。**
-
-当前已经具备：
-
-- Part 0–50 共 **51 个独立 Chapter**；
-- 12 个 Volume 连续通读版；
-- 204 道章末题 + solution sketches；
-- 30 组核心长推导；
-- 17 张核心机制图；
-- 10 个最小可执行脚本 + 自动回归 CI；
-- 4 个源码级端到端 Case Study；
-- **Source-Code Atlas：6 个代表性开源栈的真实代码入口与阅读链**；
-- 40 Labs + 3 Capstones + 统一实验协议；
-- 36 周系统课程；
+- Part 0–50：**51 个独立 Chapter**；
+- **12** 个 Volume 连续通读版；
+- **204** 道章末题 + solution sketches；
+- **30** 组核心长推导；
+- **18** 张 canonical 核心机制图；
+- **10** 个最小可执行脚本；
+- **7** 篇 canonical 深度 Case Study + **1** 份 Action Path Comparison；
+- Source-Code Atlas：ACT / Diffusion Policy / OpenVLA / LeRobot / GR00T N1.7 / V-JEPA 2/2.1；
+- **40 Labs + 3 Capstones** + 统一实验协议；
+- **36 周**系统课程；
 - Notation / Concept Index / Dependency Graph；
-- Model / Dataset / Hardware / Benchmark / Failure Atlas；
+- Model / Dataset / Hardware / Benchmark / Failure Atlas + cross-matrix；
 - References / Reading Map / BibTeX / 1948–2026 Timeline；
+- chapter-driven TOC + chapter-driven website navigation；
+- minimal-code / textbook-QA / website-build 三层 CI；
 - 统一前沿时间截面：**2026-09-14**。
 
-接下来的 v1.x 主要继续做：
-
-- 更多逐章 citation 与原始来源；
-- simulator-level 可执行 Labs；
-- 真机/仿真实验结果回填；
-- 更多源码级模型解剖；
-- 出版排版、交叉引用、图表编号和最终编辑。
+v1.x 将继续重点推进：**逐章 primary-source citations、simulator-level executable labs、真实/仿真实验结果回填、更多源码级解剖、跨章交叉引用与出版编辑**。
 
 ---
 
