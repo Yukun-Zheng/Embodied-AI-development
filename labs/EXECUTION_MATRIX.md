@@ -90,10 +90,12 @@ Legend: `✓` = recommended execution layer, `○` = useful extension, `—` = n
 | 28 Latent World Model | ✓ | ✓ | ○ | synthetic dynamics → robot sim | multi-step error vs control utility |
 | **29 World Model MPC** | **✓** | ✓ | ○ | toy dynamics → Push-T | planning horizon × model bias |
 | 30 Video WM Executability | ○ | ✓ | ○ | robot video / simulator | visual quality vs executable success |
-| 31 Reasoning Negative Control | ✓ | ✓ | ○ | symbolic/toy → VLA benchmark | correct/random/fluent-wrong/no-plan |
+| **31 Reasoning Negative Control** | **✓** | ✓ | ○ | symbolic causal world → VLA benchmark | correct/no-plan/random/fluent-wrong/binding controls |
 | 32 Experience Learning Flywheel | ✓ | ✓ | ✓ | toy → simulator/real | failure mining → correction → regression audit |
 | **33 Continual Learning** | **✓** | ✓ | ○ | 3-D tasks → 2-D shared bottleneck → robot tasks | A→B→C retention/plasticity/replay matrix |
 | 34 Self-Generated Curriculum | ✓ | ✓ | ○ | task-pool toy → simulator | learning-progress vs fixed curricula |
+
+Lab 31 已进入 permanent executable CI：同一批 episode 上比较 correct plan、no-plan、random-order、coherent-but-wrong causal model 与 shuffled entity binding；同时分别测 plan 在内部模型与真实世界中的 success、action validity、prerequisite failure 和 plan-budget matching。
 
 Lab 33 已进入 permanent executable CI：固定参数容量下比较 naive fine-tune、correct replay、quadratic anchor 与 shuffled-label replay，并显式记录 performance matrix、probe matrix、forgetting、BWT、plasticity 和 method-specific memory cost。
 
@@ -139,7 +141,7 @@ config
 → reproducible output directory
 ```
 
-首个 reference implementation 是 **Lab 22 Asynchronous Policy Execution**；当前 CI-verified reference set 已扩展为 **Lab 13 / 14 / 22 / 29 / 33**。
+首个 reference implementation 是 **Lab 22 Asynchronous Policy Execution**；当前 CI-verified reference set 已扩展为 **Lab 13 / 14 / 22 / 29 / 31 / 33**。
 
 ### Phase 2 — Physics adapters
 
