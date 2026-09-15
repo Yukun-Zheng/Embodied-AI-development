@@ -38,22 +38,29 @@ jobs:
       - name: Install documentation toolchain
         run: pip install -r requirements-docs.txt
 
-      - name: Prepare publication source tree
+      - name: Prepare publication source tree and chapter-driven navigation
         run: python scripts/prepare_site.py
 
       - name: Build MkDocs site
-        run: mkdocs build --clean
+        run: mkdocs build -f .site-mkdocs.yml --clean
 
       - name: Check key generated pages
         shell: bash
         run: |
           set -euo pipefail
+          test -f .site-mkdocs.yml
           test -f .site-build/index.html
           test -f .site-build/book/TOC/index.html
+          test -f .site-build/book/chapters/00-what-is-embodied-intelligence/index.html
           test -f .site-build/book/chapters/24-vla-second-stage-2024-2026/index.html
+          test -f .site-build/book/chapters/50-from-learner-to-independent-researcher/index.html
+          test -f .site-build/case-studies/ACT_SOURCE_WALKTHROUGH/index.html
           test -f .site-build/case-studies/GR00T_N17_SOURCE_WALKTHROUGH/index.html
+          test -f .site-build/case-studies/WORLD_MODEL_CONTROL/index.html
           test -f .site-build/references/SOURCE_CODE_ATLAS/index.html
-          echo "Website build smoke test passed."
+          grep -q 'Part 24' .site-mkdocs.yml
+          grep -q 'GR00T N1.7' .site-mkdocs.yml
+          echo "Website build and chapter-driven navigation smoke test passed."
 
       - uses: actions/upload-artifact@v4
         with:
