@@ -78,10 +78,45 @@ Hosted CI 只运行：
 
 这些重实验仍应使用同一 manifest/results/failure schema，从而让本地、服务器和真机结果可以进入同一分析链。
 
-## Phase 1
+## Current runnable reference labs
 
-第一份 reference implementation：
+### [`Lab 22 — Asynchronous Policy Execution`](lab22_async_execution/README.md)
 
-- [`lab22_async_execution/`](lab22_async_execution/) — 在 double-integrator 闭环中显式模拟 policy latency，对比 blocking/synchronous、asynchronous stale-chunk 与 latency-aware rebase executor。
+在 double-integrator 闭环中显式模拟：
 
-它对应教材中 action chunk / RTC / asynchronous inference 的系统层问题，并为后续 RoboTwin 与真实机器人 executor adapter 提供最小可证伪基线。
+```text
+observation timestamp
+→ inference latency
+→ action chunk timestamp
+→ executor
+→ action age
+→ closed-loop tracking
+```
+
+比较 blocking/synchronous、naive async queue 与 latency-aware rebase。它的关键教学结果是：**降低 action age 是可验证的机制干预，但不保证 tracking 一定改善。**
+
+### [`Lab 29 — World Model MPC`](lab29_world_model_mpc/README.md)
+
+把 world model 拆成：
+
+```text
+passive one-step prediction
+→ counterfactual action sensitivity
+→ MPC control utility
+```
+
+比较 `action_aware / action_blind / wrong_action_sign`。核心目标是复现一个反例：**被动分布上的小 prediction error 可以和错误的 intervention model、失败的 closed-loop planning 同时存在。**
+
+## Phase 1 completion criterion
+
+Runnable Lab 不是“有 `run.py`”就算完成。当前 reference labs 必须经过同一长期 CI：
+
+```text
+raw artifacts exist
++ metrics finite
++ negative controls pass
++ claimed mechanism variable actually changes
++ falsification condition behaves as designed
+```
+
+后续加入 simulator adapter 时仍复用这套条件，而不是另起一套“GPU demo”标准。
