@@ -43,18 +43,24 @@ PROBES = [
 
 
 def full_mass_matrix(model: mujoco.MjModel, data: mujoco.MjData) -> np.ndarray:
-    """Expand MuJoCo's packed joint-space inertia across binding versions.
+    """Expand MuJoCo's joint-space inertia across Python binding versions.
 
-    The C/API documentation traditionally calls this packed field `qM`; the
-    current 3.13 Python wheel used by hosted CI exposes it as `M`. Supporting
-    both keeps the textbook adapter compatible across MuJoCo 3.x bindings.
+    Current MuJoCo 3.13 wheels expose ``mj_fullM(model, data, dst)``. Older
+    Python bindings exposed the C-like ``mj_fullM(model, dst, packed_qM)`` and
+    commonly named the packed inertia ``qM``. Keep both paths so the textbook
+    adapter remains usable across MuJoCo 3.x instead of encoding one wheel's
+    binding details into the dynamics lesson.
     """
     M = np.zeros((model.nv, model.nv), dtype=np.float64)
-    packed = getattr(data, "qM", None)
-    if packed is None:
-        packed = data.M
-    mujoco.mj_fullM(model, M, packed)
-    return M
+    try:
+        mujoco.mj_fullM(model, data, M)
+        return M
+    except TypeError:
+        packed = getattr(data, "qM", None)
+        if packed is None:
+            packed = data.M
+        mujoco.mj_fullM(model, M, packed)
+        return M
 
 
 def predict_acceleration(
