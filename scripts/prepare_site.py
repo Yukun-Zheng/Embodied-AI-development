@@ -128,6 +128,7 @@ def build_nav() -> list[tuple[str, str | list]]:
                 ("51 章索引", "book/chapters/README.md"),
                 ("36 周课程", "book/SYLLABUS_36_WEEKS.md"),
                 ("知识依赖图", "book/DEPENDENCY_GRAPH.md"),
+                ("Research Crosswalk", "book/RESEARCH_CROSSWALK.md"),
                 ("概念索引", "book/CONCEPT_INDEX.md"),
                 ("符号、坐标系与 Action Convention", "book/NOTATION_AND_CONVENTIONS.md"),
             ],
