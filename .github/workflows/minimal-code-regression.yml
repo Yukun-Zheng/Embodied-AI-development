@@ -55,4 +55,5 @@ jobs:
       - name: Run lightweight simulator-layer smoke tests
         run: |
           python labs/simulators/mujoco/lab04_smoke.py
+          python labs/simulators/mujoco/lab05_smoke.py
           python labs/simulators/mujoco/smoke.py
