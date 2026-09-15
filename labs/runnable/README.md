@@ -233,6 +233,23 @@ world state + goal
 
 CI-verified quick reference results 见 [`REFERENCE_RESULTS.md`](lab31_reasoning_negative_control/REFERENCE_RESULTS.md)。
 
+### [`Lab 32 — Experience Learning Flywheel`](lab32_experience_learning_flywheel/README.md)
+
+把 autonomous experience learning 拆成三层不能混写的机制：
+
+```text
+rollout failures
+→ experience selection
+→ corrective semantics
+→ policy update
+→ new-task gain
+→ old-task regression audit
+```
+
+比较 `no_update / targeted_failure_mining / random_new_data / success_only_data / shuffled_corrections / targeted_reset_no_replay`。除零更新基线外，所有更新条件都使用同样 **8 条新经验**。关键机制问题是：**失败挖掘的收益是否超过同量随机经验；找到正确失败状态但给错 correction 是否仍失败；新任务学会时旧任务是否发生隐藏回归。**
+
+CI-verified quick reference results 见 [`REFERENCE_RESULTS.md`](lab32_experience_learning_flywheel/REFERENCE_RESULTS.md)。
+
 ### [`Lab 33 — Continual Learning`](lab33_continual_learning/README.md)
 
 把 stability–plasticity dilemma 放进固定容量 sequential learning：
