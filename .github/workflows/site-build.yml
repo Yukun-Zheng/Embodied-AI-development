@@ -52,6 +52,7 @@ jobs:
           test -f .site-build/index.html
           test -f .site-build/book/TOC/index.html
           test -f .site-build/book/RESEARCH_CROSSWALK/index.html
+          test -f .site-build/book/MAINTENANCE/index.html
           test -f .site-build/book/chapters/00-what-is-embodied-intelligence/index.html
           test -f .site-build/book/chapters/24-vla-second-stage-2024-2026/index.html
           test -f .site-build/book/chapters/50-from-learner-to-independent-researcher/index.html
@@ -62,11 +63,17 @@ jobs:
           test -f .site-build/case-studies/WORLD_MODEL_CONTROL/index.html
           test -f .site-build/references/CHAPTER_SOURCE_ANCHORS/index.html
           test -f .site-build/references/SOURCE_CODE_ATLAS/index.html
+          test -f .site-build/labs/index.html
+          test -f .site-build/labs/EXECUTION_MATRIX/index.html
+          test -f .site-build/labs/runnable/index.html
+          test -f .site-build/labs/runnable/lab22_async_execution/index.html
           grep -q 'Part 24' .site-mkdocs.yml
           grep -q 'Research Crosswalk' .site-mkdocs.yml
           grep -q '51-Part Primary Sources' .site-mkdocs.yml
           grep -q 'GR00T N1.7' .site-mkdocs.yml
-          echo "Website build, research crosswalk, primary-source map and chapter navigation smoke test passed."
+          grep -q 'Execution Matrix' .site-mkdocs.yml
+          grep -q 'Runnable Labs' .site-mkdocs.yml
+          echo "Website build, research/evidence entry points and executable lab pages smoke test passed."
 
       - uses: actions/upload-artifact@v4
         with:
