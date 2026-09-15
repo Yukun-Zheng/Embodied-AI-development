@@ -38,7 +38,7 @@
 | Part | 可执行 / Lab | 连接资产 | 研究验收问题 |
 |---|---|---|---|
 | **12 Sensors、Calibration 与 Time** | Lab 08 / 39 / [Runnable Lab 40](../labs/runnable/lab40_safety_shield/README.md) | [Lab 40 CI Reference](../labs/runnable/lab40_safety_shield/REFERENCE_RESULTS.md)、Failure Atlas F-SEN 系列 | timestamp / calibration error 能否解释所谓视觉泛化失败？即使几何预测正确，stale observation 是否仍可导致闭环安全失败？ |
-| **13 2D Vision 与 Representation** | Lab 12 / 25 | Model Atlas、视觉 intervention protocol | feature 里“有信息”与 policy “因果使用信息”如何区分？ |
+| **13 2D Vision 与 Representation** | Lab 12 / [Runnable Lab 25](../labs/runnable/lab25_visual_intervention/README.md) | [Lab 25 CI Reference](../labs/runnable/lab25_visual_intervention/REFERENCE_RESULTS.md)、Model Atlas、视觉 intervention protocol | feature 里“可被 probe 解码的信息”与 policy “因果使用的信息”如何区分？target position、texture、background、camera frame、irrelevant distractor 与 geometry corruption 被分别干预后，action / success 是否只对真正任务变量敏感？ |
 | **14 3D / 4D World Representation** | Lab 09 / 11 | Benchmark Atlas | 几何精度提升是否真的提高 manipulation，而非只提高 probe？ |
 | **15 State Estimation / Localization** | Lab 10 / 11；`kalman_filter.py` | Failure Atlas state/belief 条目 | observation 与 belief 混用会产生什么 failure？ |
 | **16 Tactile / Contact Intelligence** | [Runnable Lab 14](../labs/runnable/lab14_tactile_reflex/README.md) | [Lab 14 CI Reference](../labs/runnable/lab14_tactile_reflex/REFERENCE_RESULTS.md)、Hardware Atlas、Failure Atlas contact/slip | 高频 tactile residual 是否在慢语义策略之外提供独立增益？若 tactile 数据 stale，高更新频率还是否有效？ |
@@ -60,7 +60,7 @@
 | **22 Language / VLM / Physical Grounding** | Lab 23 / 31 | Model Atlas | 语言/VLM 提升的是 task semantics 还是 motor precision？ |
 | **23 VLA 形成：2022–2024** | Lab 23；`action_tokenization.py` | `OPENVLA_SOURCE_WALKTHROUGH.md` | web semantic prior 到 action 的路径在哪里，量化/归一化又丢了什么？ |
 | **24 VLA 第二阶段：2024–2026** | [Runnable Lab 22](../labs/runnable/lab22_async_execution/README.md) / Lab 24 / [Runnable Lab 26](../labs/runnable/lab26_cross_embodiment/README.md)；`chunk_latency.py`、`embodiment_interfaces.py` | [Lab 26 CI Reference](../labs/runnable/lab26_cross_embodiment/REFERENCE_RESULTS.md)、SmolVLA / GR00T N1.7 cases | flow expert、RTC、embodiment conditioning 哪一项对 success 有独立因果贡献？同一 checkpoint 支持已见 robot IDs 是否被误写成 unseen transfer？ |
-| **25 VLA 内部机制** | Lab 23–25 | Action Path Comparison、Source-Code Atlas | 冻结/打乱某一 modality 后行为如何变化？所谓 reasoning/vision 是否被读取？ |
+| **25 VLA 内部机制** | Lab 23–24 / [Runnable Lab 25](../labs/runnable/lab25_visual_intervention/README.md) | [Lab 25 CI Reference](../labs/runnable/lab25_visual_intervention/REFERENCE_RESULTS.md)、Action Path Comparison、Source-Code Atlas | 冻结/打乱某一 modality 还不够：paired intervention 能否证明 visual geometry 真正进入 action path？representation probe 很高但 target-position response gain 为零时，还能否宣称模型“用了视觉”？camera / appearance / distractor shortcut 如何分开？ |
 | **26 Robot Data / Human Video / Cross-Embodiment** | [Runnable Lab 26](../labs/runnable/lab26_cross_embodiment/README.md)；`embodiment_interfaces.py` | [Lab 26 CI Reference](../labs/runnable/lab26_cross_embodiment/REFERENCE_RESULTS.md)、Dataset Atlas、cross-matrix | interface contract、seen robot mixture、held-out interpolation、held-out extrapolation 与 adaptation budget 是否分开报告？padding / shared shape 是否掩盖 action semantics？ |
 
 ## Volume VI　Reasoning、Memory、Experience 与 World Models
