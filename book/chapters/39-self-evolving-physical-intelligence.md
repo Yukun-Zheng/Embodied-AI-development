@@ -321,6 +321,43 @@ E: collaborative human environment
 ## 本章结论
 
 Self-evolving physical intelligence 不应该被定义为“网络会自己改参数”。更严格的目标是：**机器人能自主选择有信息的交互，从失败和成功中形成记忆与机制，组合旧能力产生新能力，并在有限资源与持续安全约束下长期保持和扩张能力集合。** 只要不能被这些实验指标证伪，就还不是科学意义上的“自进化”。
+<!-- CHAPTER-ENRICHMENT-R2-P39:START -->
+## 39.19 最小实验：结构生长必须赢过等预算静态模型
+
+构造持续到来的场景流 \(S_1\to S_2\to\cdots\to S_K\)，比较：
+
+```text
+A. 固定容量模型
+B. 定期全量扩宽网络
+C. replay + 固定结构
+D. 条件模块 / routing
+E. 提出的自生长与遗忘机制
+```
+
+所有方法必须匹配累计：
+
+- 参数预算；
+- FLOPs / wall-clock；
+- replay bytes；
+- interaction count；
+- energy / deployment downtime。
+
+评价不只看 final average success，而要画：
+
+\[
+C(t)=\bigl(\text{capability},\text{retention},\text{plasticity},\text{size},\text{compute}\bigr).
+\]
+
+最关键 negative control：如果把“何时新增模块”改成随机但保持相同参数增长，性能几乎不变，则所谓结构自进化机制没有被证明。
+
+## 39.20 研究问题
+
+1. 什么信号足以触发结构生长：prediction error、intervention surprise、gradient conflict、causal novelty 还是长期 utility？
+2. 新结构应复制旧模块、随机初始化，还是由已有 mechanism composition 生成？
+3. 遗忘应删除参数、连接、memory，还是只降低 routing probability？
+4. 如何证明结构变化学到的是新规律，而不是给每个 scene 单独记忆一个 module？
+5. 能否设计不区分 train/inference 的持续更新系统，同时保持安全、可回滚和长期稳定？
+<!-- CHAPTER-ENRICHMENT-R2-P39:END -->
 
 <!-- CHAPTER-SOURCE-MAP:START -->
 ## Source anchors / 原始来源

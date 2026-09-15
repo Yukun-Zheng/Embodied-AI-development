@@ -266,6 +266,37 @@ controller
 ## 本章结论
 
 Transformer 是极其强大的通用信息路由器和预训练载体，但物理智能还需要**持续状态、几何结构、动力学、接触、实时反馈和多时间尺度**。下一代具身架构的问题不是“推翻 Transformer”，而是找到哪些物理/计算结构不应继续被压扁成 token sequence。
+<!-- CHAPTER-ENRICHMENT-R2-P47:START -->
+## 47.19 Transformer-Induced Failure Taxonomy
+
+### Tokenization destroys geometry
+
+把连续 pose/action 离散成 token 可以复用 LM machinery，但 quantization boundary 与坐标系结构不会因此消失。
+
+### Quadratic context cost 与实时性冲突
+
+长视觉历史、memory、multi-view 让 token 数快速增长；attention FLOPs 与 KV cache 会直接进入 robot latency budget。
+
+### Frequency mismatch
+
+语言 reasoning 可能只需 1–5 Hz，motor correction 却需要几十到上千 Hz。单一同步 Transformer loop 往往在 compute 或控制上不合适。
+
+### Attention ≠ causal use
+
+高 attention weight、可解码 feature 或语言 explanation 都不能证明信息对 action 有因果作用。需要 masking/shuffling/intervention。
+
+### Uniform architecture erases physical modularity
+
+将 perception、memory、world dynamics、action generation 全做成同一种 token mixer，可能牺牲各子问题天然不同的 state/update timescale。
+
+## 47.20 研究问题
+
+1. 哪些具身变量天然适合 token sequence，哪些更适合 continuous field、graph、state-space 或 dynamical system？
+2. Transformer 在 VLA 中真正不可替代的是 multimodal fusion、in-context conditioning，还是 scaling infrastructure？
+3. 若替换 attention 后保持 data/parameter/compute 等预算，哪些 capability 会真正消失？
+4. 多时间尺度机器人中，是否应该让 semantic model、world model、motor system 使用完全不同的 architecture family？
+5. Post-Transformer 研究应以更低 loss 为目标，还是以更好的 physical invariance、online plasticity 与 real-time efficiency 为目标？
+<!-- CHAPTER-ENRICHMENT-R2-P47:END -->
 
 <!-- CHAPTER-SOURCE-MAP:START -->
 ## Source anchors / 原始来源

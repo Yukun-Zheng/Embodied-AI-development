@@ -148,6 +148,46 @@ URDF/MJCF/USD 至少描述：link、joint、axis、visual/collision geometry、m
 
 - 一个 universal policy 应看到完整 motor/gear parameter，还是只看抽象 embodiment token？
 - 能否让 morphology 自动吸收一部分控制复杂度，从而减少 data requirement？
+<!-- CHAPTER-ENRICHMENT-R2-P06:START -->
+## 6.19 机电层 Failure Taxonomy
+
+### Encoder / zero offset 错
+
+视觉和 policy 都正确，但 joint zero、gear ratio 或 direction sign 错会让所有高层动作系统性偏移。应先做低层 joint-space sanity test。
+
+### Command saturation
+
+网络输出可能在归一化空间合理，但经过 gear/motor/driver 后触发 position、velocity、torque 或 current limit。clip 后的真实 action 与训练 action 已不是同一个分布。
+
+### Backlash / compliance
+
+同一 encoder position 不代表 end-effector 真正处于同一 pose。高精度 manipulation 中，传动间隙与结构柔性会形成 hysteresis。
+
+### Communication jitter / packet loss
+
+CAN/EtherCAT/USB/ROS path 的 jitter 会改变有效 control period。平均 1 ms 不代表 P99 也安全。
+
+### Thermal / power derating
+
+长时间运行后 actuator capability 会变化。只在冷机状态测试的 policy 可能产生典型 time-dependent distribution shift。
+
+## 6.20 最小实验：高层 policy 不变，只改变机电链
+
+对同一 joint target trajectory，依次注入：
+
+```text
+encoder zero bias
+gear backlash
+velocity saturation
+20–100 ms command delay
+random packet drop
+motor-strength decay
+```
+
+记录：tracking RMSE、phase lag、overshoot、task success、safety intervention。然后固定这些 corruption，用更强网络替换 policy；若 failure 几乎不变，就证明瓶颈在机电/控制链而不是模型容量。
+
+实验必须同时保存 requested command 与 actually applied command，不能只保存 policy output。
+<!-- CHAPTER-ENRICHMENT-R2-P06:END -->
 
 <!-- CHAPTER-SOURCE-MAP:START -->
 ## Source anchors / 原始来源

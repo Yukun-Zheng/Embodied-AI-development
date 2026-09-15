@@ -395,6 +395,34 @@ T_{loop}=t_9-t_0.
 ## 本章结论
 
 机器人算法只有进入真实时间、真实驱动器和真实故障模式之后才成为机器人系统。系统工程不是“部署细节”，而是决定 observation 和 action 是否仍对应正确物理时刻的核心科学变量。
+<!-- CHAPTER-ENRICHMENT-R2-P43:START -->
+## 43.25 最小部署实验：把 latency 当成可控变量
+
+固定同一个 checkpoint 和 controller，人为注入不同 observation-to-command delay：
+
+```text
+0 ms / 20 ms / 50 ms / 100 ms / 200 ms
+```
+
+再分别加入 jitter 与 burst packet loss。记录：
+
+- task success；
+- tracking / contact error；
+- stale-action ratio；
+- queue depth；
+- P50/P95/P99 cycle time；
+- watchdog / safety intervention。
+
+对 chunk policy 再比较 blocking、async replacement、RTC-like continuity mechanism。只要 model 完全不变而闭环 success 显著变化，就直接证明 deployment runtime 是算法系统的一部分。
+
+## 43.26 研究问题
+
+1. VLA 论文应把 observation-to-command P99 latency 作为标准指标吗？
+2. 当 GPU inference 与 1 kHz servo loop 分离时，哪一层负责 state extrapolation 与 stale-command rejection？
+3. Edge/on-device model 的价值应按参数量、平均 latency，还是 worst-case deadline miss probability 衡量？
+4. 如何把 watchdog、安全 PLC、E-stop 与 learned policy 的 intervention 统一记录进 evaluation protocol？
+5. 多机/多 GPU 系统中，clock synchronization error 在什么量级开始影响 action learning 与真实控制？
+<!-- CHAPTER-ENRICHMENT-R2-P43:END -->
 
 <!-- CHAPTER-SOURCE-MAP:START -->
 ## Source anchors / 原始来源

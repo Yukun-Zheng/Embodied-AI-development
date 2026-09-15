@@ -152,6 +152,49 @@ G=G_{object}\times G_{scene}\times G_{task}\times G_{embodiment}\times G_{time}.
 - 如果一个系统没有身体，但可以远程调用机器人 API，它算不算具身？边界取决于什么？
 - 为什么“动作输出正确率”很少是机器人最重要的 offline metric？
 - 一个模型能跨 10 台训练过的机器人工作，与能 zero-shot 控制第 11 台机器人有什么本质差别？
+<!-- CHAPTER-ENRICHMENT-R2-P00:START -->
+## 0.10 从“智能模型”到物理闭环的数据流
+
+一个最小 embodied system 必须能把信息与物理作用连成闭环：
+
+```text
+physical world
+→ sensor transduction
+→ timestamped observation
+→ state / belief / representation
+→ task context / memory
+→ policy / planner
+→ action representation
+→ IK / controller / safety layer
+→ actuator
+→ changed physical world
+→ new observation
+```
+
+因此一个模型即使在离线 benchmark 上“理解场景”，只要它没有通过 action 改变世界并利用反馈修正，就还没有覆盖 embodied intelligence 的完整对象。
+
+更精确地，闭环可以写为：
+
+\[
+o_t\sim p(o\mid x_t),\qquad
+b_t=U(b_{t-1},o_t,a_{t-1}),
+\]
+
+\[
+a_t\sim\pi(a\mid b_t,g,m_t),\qquad
+x_{t+1}\sim p(x'\mid x_t,a_t).
+\]
+
+身体、传感器、控制频率、delay 与环境 dynamics 都进入这个系统，而不是网络外部的“工程细节”。
+
+## 0.11 研究问题
+
+1. 什么能力必须通过真实 closed-loop interaction 才能验证，离线 video/language benchmark 原理上无法证明？
+2. Embodiment 提供的是限制、inductive bias、额外计算，还是三者同时存在？
+3. 当同一 policy 换一个身体性能骤降时，应该把问题归因 representation、action interface 还是 controller？
+4. General-purpose robot 的“通用”应按 object/scene/task/physics/embodiment/time 哪些轴定义？
+5. 一个长期 physical agent 的最小内部状态是什么：belief、world model、memory，还是可在线生长的结构？
+<!-- CHAPTER-ENRICHMENT-R2-P00:END -->
 
 <!-- CHAPTER-SOURCE-MAP:START -->
 ## Source anchors / 原始来源

@@ -278,6 +278,46 @@ Question Bank
 数学给它结构，物理给它约束，身体给它接口，感知给它证据，控制给它稳定闭环，学习给它适应，记忆给它时间连续性，世界模型给它反事实，实验科学告诉我们它是否真的学会了。
 
 这也是本书从第一章到最后一章唯一不变的问题。
+<!-- CHAPTER-ENRICHMENT-R2-P50:START -->
+## 50.18 独立研究的最小闭环
+
+研究成长可以抽象成一个反复收缩 uncertainty 的闭环。设候选机制集合为 \(\mathcal H_t\)，每次实验 \(e_t\) 产生证据 \(D_t\)：
+
+\[
+\mathcal H_{t+1}=\operatorname{Update}(\mathcal H_t,D_t,e_t).
+\]
+
+好的研究不是让 hypothesis 数量无限增加，而是主动选择最有区分力的实验：
+
+\[
+e_t^*=\arg\max_e I(H;D\mid e)-\lambda C(e),
+\]
+
+其中 \(C(e)\) 是时间、算力、真机风险与机会成本。
+
+因此个人科研飞轮也应是：
+
+```text
+read / reproduce
+→ identify unresolved mechanism
+→ write falsifiable hypotheses
+→ choose minimal discriminating experiment
+→ inspect failures, not only averages
+→ update theory
+→ scale only after mechanism survives
+```
+
+这比“连续追最新论文 + 堆更多实验”更接近独立研究者的工作方式。
+
+## 50.19 研究问题
+
+1. 怎样判断一个 idea 已经具体到可以被证伪，而不是一句愿景？
+2. 什么时候应该复现 baseline，什么时候应该直接构造最小机制实验？
+3. 如何把 negative result 变成对 hypothesis space 的有效收缩，而不是“实验没跑通”？
+4. 一篇论文的核心贡献应优先是新指标、新数据、新系统、新机制还是新理论；不同类型需要什么证据？
+5. 如何建立自己的 Architecture Research Program，使连续多篇工作共享可累积的问题树，而不是每篇追一个热点？
+6. 当计算资源足够大时，如何防止“能跑很多实验”反而降低实验设计质量？
+<!-- CHAPTER-ENRICHMENT-R2-P50:END -->
 
 <!-- CHAPTER-SOURCE-MAP:START -->
 ## Source anchors / 原始来源

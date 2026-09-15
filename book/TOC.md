@@ -28,6 +28,8 @@
 ## 0.8 什么叫 General-Purpose Robot
 ## 0.9 一套统一分析框架
 ## 思考题
+## 0.10 从“智能模型”到物理闭环的数据流
+## 0.11 研究问题
 ## Source anchors / 原始来源
 
 # [Part 1　思想史与技术史：从控制论到机器人基础模型](./chapters/01-history-and-lineage.md)
@@ -174,6 +176,8 @@
 ## 6.14 身体是算法的一部分
 ## 实验
 ## 研究问题
+## 6.19 机电层 Failure Taxonomy
+## 6.20 最小实验：高层 policy 不变，只改变机电链
 ## Source anchors / 原始来源
 
 # [Part 7　空间、旋转与刚体几何](./chapters/07-rigid-body-geometry.md)
@@ -197,6 +201,8 @@
 ## 7.16 Convention Failure Checklist
 ## 实验
 ## 研究问题
+## 7.19 刚体几何在软件栈中的真实数据流
+## 7.20 最小实验：Frame-Convention Fuzz Test
 ## Source anchors / 原始来源
 
 # [Part 8　机器人运动学](./chapters/08-robot-kinematics.md)
@@ -254,6 +260,8 @@
 ## 9.22 Learning Dynamics Residual
 ## 实验
 ## 研究问题
+## 9.24 Contact / Dynamics Failure Taxonomy
+## 9.25 最小实验：同一视觉状态，不同物理参数
 ## Source anchors / 原始来源
 
 # [Part 10　反馈控制、最优控制与 Whole-Body Control](./chapters/10-feedback-optimal-whole-body-control.md)
@@ -867,6 +875,8 @@
 ## 28.14 Memory 对 10+ Minute Task 的意义
 ## 最小实验：记忆的必要性曲线
 ## Source anchor
+## 28.15 Memory Failure Taxonomy
+## 28.16 研究问题
 
 # [Part 29　从 Demonstration 到 Experience：机器人如何继续学习](./chapters/29-learning-from-experience-deployment.md)
 
@@ -980,6 +990,8 @@
 ## 33.17 Tactile Foundation Model
 ## 33.18 Bimanual / Dexterous VLA
 ## 33.19 灵巧操作离人类水平还差什么
+## 33.18 Bimanual / Dexterous Failure Taxonomy
+## 33.19 研究问题
 ## Source anchors / 原始来源
 
 # [Part 34　移动机器人、导航与 Embodied Navigation](./chapters/34-mobile-embodied-navigation.md)
@@ -1072,6 +1084,8 @@
 ## 37.13 新身体的 Calibration / Adaptation
 ## 37.14 “一个 Checkpoint 控不同机器人”意味着什么
 ## 37.15 Cross-Embodiment 的真正上限
+## 37.19 Cross-Embodiment Failure Taxonomy
+## 37.20 研究问题
 ## Source anchors / 原始来源
 
 # [Part 38　Continual、Lifelong 与 Developmental Robot Learning](./chapters/38-continual-lifelong-developmental-learning.md)
@@ -1095,6 +1109,8 @@
 ## 38.17 Network Growth / Pruning 的局限
 ## 38.18 不区分“训练/推理”的持续交互系统
 ## 38.19 从 Fixed Model 到 Developing Agent
+## 38.23 Continual Learning Failure Taxonomy
+## 38.24 研究问题
 ## Source anchors / 原始来源
 
 # [Part 39　Self-Evolving Physical Intelligence](./chapters/39-self-evolving-physical-intelligence.md)
@@ -1115,6 +1131,8 @@
 ## 39.14 如何区分真正能力生长与数据记忆
 ## 一套可量化的“成长”指标
 ## 最小长期实验
+## 39.19 最小实验：结构生长必须赢过等预算静态模型
+## 39.20 研究问题
 ## Source anchors / 原始来源
 
 
@@ -1216,6 +1234,8 @@
 ## 43.20 Distributed Training
 ## 43.21 Model Serving for Robots
 ## 43.22 一次真实 Rollout 到底发生了什么
+## 43.25 最小部署实验：把 latency 当成可控变量
+## 43.26 研究问题
 ## Source anchors / 原始来源
 
 
@@ -1329,6 +1349,8 @@
 ## 47.13 Continuous-Time Architecture
 ## 47.14 Modular / Hierarchical Architecture
 ## 47.15 Transformer 之后真正值得问的问题
+## 47.19 Transformer-Induced Failure Taxonomy
+## 47.20 研究问题
 ## Source anchors / 原始来源
 
 # [Part 48　数学化具身智能：从相关性到结构与规律](./chapters/48-mathematical-embodied-intelligence.md)
@@ -1351,6 +1373,8 @@
 ## 48.16 Physics-Informed / Physics-Constrained Learning
 ## 48.17 从“拟合动作”到“学习规律”
 ## 最小实验：规律还是记忆
+## 48.21 数学化失败：公式多不等于机制清楚
+## 48.22 研究问题
 ## Source anchors / 原始来源
 
 # [Part 49　开放问题：截至 2026-09 的真正前沿](./chapters/49-open-frontiers-2026-09.md)
@@ -1400,6 +1424,8 @@
 ## Stage D：Mechanism Research
 ## Stage E：Independent Program
 ## 全书结束语
+## 50.18 独立研究的最小闭环
+## 50.19 研究问题
 ## Source anchors / 原始来源
 
 ---

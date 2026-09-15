@@ -318,6 +318,41 @@ unseen appearance + unseen physics
 ## 本章结论
 
 数学介入具身智能的真正价值，不是让论文公式更多，而是把 **symmetry、geometry、constraint、dynamics、causality、mechanism 和 compositionality** 变成模型的结构，使系统从经验相关性逐步走向可迁移的物理规律。
+<!-- CHAPTER-ENRICHMENT-R2-P48:START -->
+## 48.21 数学化失败：公式多不等于机制清楚
+
+### 把 notation 当 explanation
+
+给每个模块写一个符号，并没有解释它为什么存在、满足什么 invariant、在什么条件下会失败。
+
+### Optimization objective 与 scientific objective 不同
+
+训练 loss 可下降，但研究真正关心的是 task success、identifiability、stability、transfer 或 causal mechanism。二者必须显式连接。
+
+### 过度连续化
+
+Contact、mode switch、tool change、memory write/delete 等含离散事件。强行用光滑 ODE 描述全部系统可能隐藏关键 hybrid dynamics。
+
+### 不可辨识模型也能拟合数据
+
+\[
+P_{\theta_1}(O)=P_{\theta_2}(O)
+\]
+
+不代表两个模型在 intervention 下相同。纯 prediction loss 无法自动发现“真实规律”。
+
+### 数学保证建立在错误假设上
+
+Lyapunov、convexity、observability 等结论都依赖假设。机器人最危险的情况是 theorem 正确，而真实 deployment 不满足模型假设。
+
+## 48.22 研究问题
+
+1. 下一代具身架构最应该显式编码哪些 invariant：SE(3)、contact、conservation、causal locality、morphology graph 还是 time-scale separation？
+2. 能否从 interaction 中自动发现新的 state variable / constraint，而不是预先固定网络宽度与 latent dimension？
+3. 如何把 identifiability 变成 active exploration objective，让机器人主动做最能区分 competing mechanisms 的实验？
+4. 结构生长/遗忘能否被写成优化之外的离散结构动力学，而不只是在固定网络上更新权重？
+5. 什么数学对象最适合描述“不分训练和推理、持续与世界交互更新”的长期 physical agent？
+<!-- CHAPTER-ENRICHMENT-R2-P48:END -->
 
 <!-- CHAPTER-SOURCE-MAP:START -->
 ## Source anchors / 原始来源

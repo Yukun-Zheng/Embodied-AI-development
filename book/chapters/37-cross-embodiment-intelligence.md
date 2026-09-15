@@ -291,6 +291,37 @@ robot description
 ## 本章结论
 
 Cross-embodiment 的核心不是“支持很多机器人型号”，而是学习**任务中与身体无关的规律**，再利用具体 morphology、sensor 和 dynamics 把这些规律实例化为可执行行为。真正的跨本体能力必须在 unseen body 上被检验。
+<!-- CHAPTER-ENRICHMENT-R2-P37:START -->
+## 37.19 Cross-Embodiment Failure Taxonomy
+
+### Padding illusion
+
+把所有 action/state pad 到相同维度只统一了 tensor shape，没有统一 joint meaning、frame、range 与 controllability。
+
+### Robot-ID shortcut
+
+模型可以先识别 robot ID，再调用彼此隔离的子策略，在已见机器人上表现很好，却没有学到可迁移结构。
+
+### Controller confound
+
+不同 embodiment 配不同低层 controller，最终 success 差异可能来自 controller quality 而非 foundation policy transfer。
+
+### Morphology extrapolation
+
+训练只覆盖 6–7 DOF arms，却宣称“cross-embodiment”，并不能支持腿式、人形或不同 hand topology 的 unseen morphology。
+
+### Shared semantics 不完整
+
+“move end effector +x”在不同 base/frame/tool definition 下含义不同。canonical action 必须带 reference frame 与 embodiment kinematics。
+
+## 37.20 研究问题
+
+1. Cross-embodiment 的最小共享对象是 task-space effect、contact graph、kinematic graph 还是 learned latent operator？
+2. unseen morphology test 应控制哪些因素，才能排除视觉/任务相似性带来的 shortcut？
+3. morphology encoder 是否应该显式输入 URDF/graph/joint axis/limits，而不是只给 robot ID？
+4. 一个 policy 在多机器人数据上提升，怎样测出 transfer 是正迁移还是 capacity-sharing regularization？
+5. 是否存在真正 embodiment-agnostic 的中枢表示，同时允许不同身体通过在线 system identification 生长自己的 interface？
+<!-- CHAPTER-ENRICHMENT-R2-P37:END -->
 
 <!-- CHAPTER-SOURCE-MAP:START -->
 ## Source anchors / 原始来源

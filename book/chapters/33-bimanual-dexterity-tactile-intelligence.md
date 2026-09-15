@@ -336,6 +336,37 @@ a_t=a_t^{base}+\Delta a_t^{tactile}.
 ## 本章结论
 
 双臂与灵巧手把机器人从“轨迹生成”推向真正的**协调接触系统**。未来高水平 dexterity 很可能依赖：结构化双臂关系 + 多接触表示 + 高频触觉闭环，而不是单纯扩大视觉语言模型。
+<!-- CHAPTER-ENRICHMENT-R2-P33:START -->
+## 33.18 Bimanual / Dexterous Failure Taxonomy
+
+### 两臂各自正确但整体失败
+
+独立 arm policy 都能到达目标，却违反 relative pose、object rigidity 或 shared workspace constraint。双臂协调的单位应是**joint interaction**而不是两个 success 的乘积。
+
+### Contact assignment 错
+
+灵巧手多个 fingertip 同时接触时，哪个 finger 承担 normal/tangential force 会随物体姿态变化；固定 contact role 很脆弱。
+
+### Tactile latency / saturation
+
+触觉高频并不自动有用。若 sensor pipeline 降采样到 VLA rate 或发生 saturation，真实 reflex signal 已被抹掉。
+
+### Symmetry / hand identity shortcut
+
+左右臂/手在 geometry 上近似对称，但 camera、joint limit、task role 不对称。简单共享权重可能把真实 asymmetry 错当 nuisance。
+
+### Demonstration synchronization
+
+双臂 teleoperation 的左右时间错位几十毫秒，就可能让模型学到错误 handover/coupling phase。
+
+## 33.19 研究问题
+
+1. 双臂 policy 应在 world frame、object frame 还是 inter-arm relative frame 中生成动作？
+2. 高频 tactile controller 与低频 VLA 的最优分层边界在哪里？
+3. Dexterous hand 的 action dimension 很高时，diffusion/flow 的优势来自 multimodality 还是 temporal smoothness？
+4. 如何设计 benchmark，把“单手能力强”与“真正 coordination 强”分开？
+5. 对 handover/cable/deformable tasks，哪些 failure 必须靠 force/tactile 才能在视觉失败前被检测？
+<!-- CHAPTER-ENRICHMENT-R2-P33:END -->
 
 <!-- CHAPTER-SOURCE-MAP:START -->
 ## Source anchors / 原始来源

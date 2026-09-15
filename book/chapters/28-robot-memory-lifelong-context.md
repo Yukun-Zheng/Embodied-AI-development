@@ -379,3 +379,34 @@ WorldModel: p(s_{t+1:t+H}\mid s_t,a_{t:t+H-1}).
 ## 本章结论
 
 机器人记忆不是“把 context window 做大”。真正的 embodied memory 必须解决 **写什么、存多久、按什么检索、如何压缩、何时遗忘、怎样与空间/任务状态绑定**。当机器人开始执行十分钟乃至跨天任务时，memory 将从附加模块变成核心系统状态。
+<!-- CHAPTER-ENRICHMENT-R2-P28:START -->
+## 28.15 Memory Failure Taxonomy
+
+### Stale memory
+
+环境已经改变，但旧 episodic/spatial memory 仍被检索并覆盖当前 observation。长期记忆必须具有时间、置信度与失效机制。
+
+### Retrieval shortcut
+
+系统看似“会长期任务”，实际只是通过相似场景检索训练 episode。必须用 novel layout / compositional negative control 区分记忆与模板匹配。
+
+### Memory pollution
+
+一次错误识别或失败操作被长期写入，后续 repeatedly retrieved，形成 self-reinforcing error。
+
+### Catastrophic overwrite
+
+新场景经验覆盖旧 task knowledge；或者为了避免遗忘而完全冻结 memory，导致无法适应。
+
+### Context-length illusion
+
+把更多历史 frame 直接塞入 Transformer 并不等于 memory system；需要验证信息在数分钟后是否仍可被选择性写入、检索与更新。
+
+## 28.16 研究问题
+
+1. Robot memory 应存 raw observation、latent state、event、language summary 还是 learned mechanism？
+2. 写入策略怎样权衡 information value、storage cost 与未来 retrieval probability？
+3. 错误 memory 如何被现实 observation 反证、降权或删除？
+4. Episodic memory 与 world-model state 的边界在哪里：一个记录过去，一个预测未来，还是可以共享表示？
+5. Lifelong robot 如何证明“记住了经验”，而不是 checkpoint 参数里静态编码了训练场景？
+<!-- CHAPTER-ENRICHMENT-R2-P28:END -->

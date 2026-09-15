@@ -329,6 +329,37 @@ developing agent：
 ## 本章结论
 
 Continual learning 的目标不是“永远更新权重”，而是在有限资源下保持旧能力、利用旧知识加速新学习，并让 memory、parameters 和 architecture 在不同时间尺度上协调变化。
+<!-- CHAPTER-ENRICHMENT-R2-P38:START -->
+## 38.23 Continual Learning Failure Taxonomy
+
+### Catastrophic forgetting
+
+新任务性能提高，但旧任务快速下降。只报当前 task success 会把 continual learning 退化成 sequential fine-tuning。
+
+### Stability–plasticity collapse
+
+过度保护旧知识导致新任务学不进去；过度 plastic 则旧能力消失。两端都可能让平均指标看起来尚可。
+
+### Hidden replay leakage
+
+若方法保存大量旧 raw data，应把 memory budget 与训练成本计入比较；否则“无遗忘”可能只是无限 replay。
+
+### Capacity growth without accounting
+
+动态增加 module/parameter 可以降低 interference，但必须报告参数、compute、routing 与 retrieval cost 随时间的增长率。
+
+### Task-boundary assumption
+
+现实机器人通常不知道“现在进入 Task B”。依赖显式 task ID / phase boundary 的算法不等于 lifelong agent。
+
+## 38.24 研究问题
+
+1. 不提供 task boundary 时，机器人如何检测 distribution/mechanism change 并决定更新哪些结构？
+2. 参数增长、memory replay、synaptic regularization 与 modular routing 的长期 compute scaling 谁更合理？
+3. 遗忘是否永远应该避免，还是机器人需要主动删除失效规律与危险 shortcut？
+4. Continual learning 的单位应该是 task、scene、skill、mechanism 还是一生连续 interaction stream？
+5. 如何把“持续学习”从 benchmark sequence 扩展成关机/standby 后仍可恢复的长期实体状态？
+<!-- CHAPTER-ENRICHMENT-R2-P38:END -->
 
 <!-- CHAPTER-SOURCE-MAP:START -->
 ## Source anchors / 原始来源

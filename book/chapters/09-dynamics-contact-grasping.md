@@ -235,6 +235,44 @@ Physics engine 必须选择：solver、regularization、substep、friction appro
 ## 研究问题
 
 World model 应显式表示 contact mode，还是让大 latent model 自己隐式学习？如何设计实验区分二者？
+<!-- CHAPTER-ENRICHMENT-R2-P09:START -->
+## 9.24 Contact / Dynamics Failure Taxonomy
+
+### Contact mode 预测错
+
+free-space、sticking、sliding、impact 属于不同 dynamics regime。把它们平均成一个 smooth model 往往在接触切换处产生最大误差。
+
+### Friction / compliance mismatch
+
+几毫米 pose error 可能仍成功，但摩擦锥、接触刚度或物体变形预测错会直接改变 grasp/slip outcome。
+
+### Force closure 与实际可执行性脱节
+
+几何上 force-closure 的 grasp 仍可能因 actuator limit、approach collision、finger thickness 或 calibration error 无法执行。
+
+### Dynamics parameter identifiability
+
+仅从普通 successful trajectories 可能无法辨识 mass/friction。若 action excitation 不充分，多组参数都能解释 observation。
+
+### Simulator contact artifact
+
+solver timestep、contact regularization、mesh/collision geometry 会产生 simulator-specific strategy；高 sim reward 不等于真实接触策略正确。
+
+## 9.25 最小实验：同一视觉状态，不同物理参数
+
+固定 object geometry 与图像，构造不同：
+
+```text
+mass
+friction coefficient
+center of mass
+contact compliance
+```
+
+让 policy / planner 接收相同视觉输入，测试加入 proprioception/tactile/system-ID 后能否区分。记录 grasp success、slip onset、peak force、recovery。
+
+关键 negative control：保持视觉完全相同，只改变不可见 dynamics；若所谓“视觉物理理解”无法适配，说明 semantic/geometry feature 不能替代 physical state estimation。
+<!-- CHAPTER-ENRICHMENT-R2-P09:END -->
 
 <!-- CHAPTER-SOURCE-MAP:START -->
 ## Source anchors / 原始来源

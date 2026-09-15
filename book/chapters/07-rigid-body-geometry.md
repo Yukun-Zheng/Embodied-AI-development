@@ -231,6 +231,54 @@ R(t)=R_0\exp\left(t\log(R_0^TR_1)\right).
 ## 研究问题
 
 对 foundation robot model，pose 是否应该继续被当普通 token/vector，还是应让 architecture 显式满足 SE(3) structure？
+<!-- CHAPTER-ENRICHMENT-R2-P07:START -->
+## 7.19 刚体几何在软件栈中的真实数据流
+
+```text
+camera pixels / depth
+→ point / pose in camera frame
+→ T_base_camera / T_world_base
+→ object pose in world/base frame
+→ desired EE pose
+→ pose error on SE(3)
+→ IK / controller
+```
+
+每一条边都应带：
+
+```text
+from_frame
+to_frame
+timestamp
+rotation convention
+units
+```
+
+一个 4×4 matrix 的 shape 无法告诉你它表示 `world←camera` 还是 `camera←world`。因此 geometry API 最好把 frame semantics 写进类型/变量名，而不是靠注释记忆。
+
+## 7.20 最小实验：Frame-Convention Fuzz Test
+
+随机生成一条变换链：
+
+\[
+{}^WT_B,\quad {}^BT_C,\quad {}^CT_O,
+\]
+
+验证：
+
+\[
+{}^WT_O={}^WT_B{}^BT_C{}^CT_O
+\]
+
+以及所有 inverse / round-trip identity。随后故意注入四类 bug：
+
+1. 乘法顺序反转；
+2. quaternion `xyzw/wxyz` 混淆；
+3. degree/radian 混淆；
+4. 使用旧 timestamp 的 extrinsic/base pose。
+
+要求测试在进入 policy/IK 前就失败。目标不是“会算 SE(3)”，而是让 frame bug 在系统边界被机器检测。
+<!-- CHAPTER-ENRICHMENT-R2-P07:END -->
 
 <!-- CHAPTER-SOURCE-MAP:START -->
 ## Source anchors / 原始来源
