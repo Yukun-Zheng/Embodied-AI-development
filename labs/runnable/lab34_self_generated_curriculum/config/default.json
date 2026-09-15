@@ -1,0 +1,21 @@
+{
+  "seed": 34,
+  "practice_budget": 180,
+  "warmup_rounds_per_task": 2,
+  "progress_window": 6,
+  "initial_skill": 0.05,
+  "max_skill": 1.1,
+  "success_temperature": 0.08,
+  "learning_rate": 0.025,
+  "difficulty_gain_base": 0.7,
+  "difficulty_gain_scale": 0.3,
+  "mastery_threshold": 0.8,
+  "task_difficulties": [0.15, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 0.85, 0.95],
+  "strategies": [
+    "learning_progress",
+    "uniform",
+    "fixed_curriculum",
+    "hardest_first",
+    "shuffled_progress"
+  ]
+}
