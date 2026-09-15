@@ -309,6 +309,47 @@ GPU 可并行：
 ## 本章结论
 
 Simulation 的价值是提供可控、可并行、可干预的物理实验室；风险是把 simulator artifacts 当世界规律。优秀的机器人研究必须同时理解算法和 simulator solver、asset、controller、version 的边界。
+<!-- CHAPTER-ENRICHMENT-R3-P40:START -->
+## 40.22 Platform / Simulation Failure Taxonomy
+
+### Environment version drift
+
+同名 task 在 asset、physics parameter、success detector 或 controller 更新后已不是同一个 benchmark。必须固定 commit 与 asset hash。
+
+### Headless/render mismatch
+
+GPU compute 正常不代表 Vulkan/RTX render path 正常；视觉任务可能悄悄退到 software renderer 或不同 camera pipeline。
+
+### Physics-step / control-step confusion
+
+sim 以 1 kHz physics、20 Hz policy、50 Hz controller 运行时，substep/decimation 配错会改变真实 dynamics。
+
+### Reset leakage
+
+reset 过程留下上一 episode state、cache、random seed 或 object pose pattern，造成异常高 success。
+
+### Simulator-specific observation shortcut
+
+segmentation ID、perfect state、deterministic lighting 等训练时可见信号，真机不存在。
+
+## 40.23 最小实验：Platform Doctor + Cross-Simulator Slice
+
+对同一最小 task 固定 policy/input-output convention，建立 doctor：
+
+```text
+GPU compute
+renderer / camera
+physics dt
+control dt
+asset hash
+seed determinism
+joint/action units
+contact/friction sanity
+trajectory logging
+```
+
+随后在两套 simulator 或两组 physics parameter 上执行相同 action sequence，比较 state/contact divergence。目标不是证明 simulator 一致，而是量化**哪些差异足以改变算法结论**。
+<!-- CHAPTER-ENRICHMENT-R3-P40:END -->
 
 <!-- CHAPTER-SOURCE-MAP:START -->
 ## Source anchors / 原始来源

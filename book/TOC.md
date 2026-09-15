@@ -30,6 +30,7 @@
 ## 思考题
 ## 0.10 从“智能模型”到物理闭环的数据流
 ## 0.11 研究问题
+## 0.12 Failure Taxonomy：什么时候“看起来智能”却不是具身智能
 ## Source anchors / 原始来源
 
 # [Part 1　思想史与技术史：从控制论到机器人基础模型](./chapters/01-history-and-lineage.md)
@@ -106,6 +107,7 @@
 ## 3.14 Monte Carlo
 ## 3.15 Uncertainty 必须改变行为
 ## 3.16 从“不确定”到决策：Uncertainty 的闭环接口
+## 3.17 Uncertainty Failure Taxonomy
 ## Source anchors / 原始来源
 
 # [Part 4　优化、动态系统与最优决策](./chapters/04-optimization-dynamics-decision.md)
@@ -455,6 +457,7 @@
 ## 15.24 Estimation–Control Coupling
 ## 常见失败
 ## 研究问题
+## 15.30 State-Estimation Dataflow：从 Raw Sensor 到 Belief
 ## Source anchors / 原始来源
 
 # [Part 16　触觉、力觉与接触智能](./chapters/16-tactile-contact-intelligence.md)
@@ -781,6 +784,8 @@
 ## 问题 B：语义泛化会自动变成物理泛化吗？
 ## 问题 C：Whole-body 只是 action dimension 变大吗？
 ## 问题 D：所谓 emergent capability 如何证伪？
+## 24.20 Failure Taxonomy：第二阶段 VLA 真正还没解决什么
+## 24.21 研究问题
 
 # [Part 25　VLA 的内部机制：它到底学到了什么](./chapters/25-vla-internal-mechanisms.md)
 
@@ -802,6 +807,7 @@
 ## 25.15 VLA Failure Taxonomy
 ## 25.16 VLA 是否学到了物理规律
 ## 最小实验：逐层冻结
+## 25.17 研究问题
 ## Source anchors / 原始来源
 
 # [Part 26　机器人数据规模化、人类视频与 Cross-Embodiment](./chapters/26-robot-data-human-video-cross-embodiment.md)
@@ -827,6 +833,7 @@
 ## 26.19 Scale 与 Emergence
 ## 26.20 什么数据真正提高 Physical Generalization
 ## 最小实验：数据增量价值曲线
+## 26.21 研究问题
 ## Source anchors / 原始来源
 
 
@@ -855,6 +862,8 @@
 ## 27.17 Chain-of-Thought 的证据问题
 ## 27.18 Agentic Orchestration vs End-to-End
 ## 最小实验：Reasoning 是否有因果作用
+## 27.19 Agentic / Reasoning Failure Taxonomy
+## 27.20 研究问题
 ## Source anchors / 原始来源
 
 # [Part 28　机器人记忆：从 Context Window 到 Lifelong Memory](./chapters/28-robot-memory-lifelong-context.md)
@@ -898,6 +907,7 @@
 ## 29.16 Safety-Constrained Online Learning
 ## 29.17 从“训练好的模型”到“会积累经验的机器人”
 ## 最小实验：Demonstration vs Experience
+## 29.18 研究问题
 
 # [Part 30　World Models 与 Predictive Intelligence](./chapters/30-world-models-predictive-intelligence.md)
 
@@ -924,6 +934,9 @@
 ## 30.21 World Model + Evaluator
 ## 30.22 会生成未来视频 ≠ 理解物理规律
 ## 30.23 如何证明 World Model 真正提高行动能力
+## 30.26 World-Model Failure Taxonomy
+## 30.27 最小实验：World Model 必须通过 Intervention + Control
+## 30.28 研究问题
 
 # [Part 31　生成式世界、视频模型与 Physical Simulation Foundation Models](./chapters/31-generative-worlds-video-physical-ai.md)
 
@@ -941,6 +954,8 @@
 ## 31.12 从“看起来真实”到“控制上有用”
 ## 31.13 World Action Model：World 与 Action 开始融合
 ## 最小实验：视频逼真度与控制效用是否相关
+## 31.17 Generative-World Failure Taxonomy
+## 31.18 研究问题
 
 
 ---
@@ -967,6 +982,7 @@
 ## 32.16 Open-World Household Manipulation
 ## 32.17 Industrial Manipulation
 ## 32.18 Real-World Manipulation Failure Taxonomy
+## 32.22 研究问题
 ## Source anchors / 原始来源
 
 # [Part 33　双臂、灵巧手与触觉智能](./chapters/33-bimanual-dexterity-tactile-intelligence.md)
@@ -1041,6 +1057,8 @@
 ## 35.20 Energy、Speed 与 Reliability
 ## 35.21 从 Tabletop 到 Feet-to-Fingertips
 ## 35.22 General-Purpose Humanoid 的现实瓶颈
+## 35.26 Humanoid / Whole-Body Failure Taxonomy
+## 35.27 研究问题
 
 # [Part 36　Human–Robot Interaction 与 Multi-Robot Intelligence](./chapters/36-human-robot-multi-robot-intelligence.md)
 
@@ -1060,6 +1078,8 @@
 ## 36.14 Embodiment-Aware Role Assignment
 ## 36.15 Foundation Model for Multi-Robot Coordination
 ## 36.16 Agentic Multi-Robot Collaboration
+## 36.20 Human / Multi-Robot Failure Taxonomy
+## 36.21 研究问题
 ## Source anchors / 原始来源
 
 
@@ -1161,6 +1181,8 @@
 ## 40.17 GPU-Accelerated Simulation
 ## 40.18 Determinism 与 Versioning
 ## 40.19 Benchmark Platform 与研究问题错位
+## 40.22 Platform / Simulation Failure Taxonomy
+## 40.23 最小实验：Platform Doctor + Cross-Simulator Slice
 ## Source anchors / 原始来源
 
 # [Part 41　Synthetic Data、Domain Randomization 与 Sim-to-Real](./chapters/41-synthetic-data-sim2real.md)
@@ -1236,6 +1258,7 @@
 ## 43.22 一次真实 Rollout 到底发生了什么
 ## 43.25 最小部署实验：把 latency 当成可控变量
 ## 43.26 研究问题
+## 43.27 Deployment Failure Taxonomy
 ## Source anchors / 原始来源
 
 
@@ -1300,6 +1323,8 @@
 ## 45.17 从 70% Success 到可部署系统
 ## 45.18 Safety 与 Capability 为什么不能分开
 ## Safety Case
+## 45.23 Safety / Reliability Failure Taxonomy
+## 45.24 研究问题
 ## Source anchors / 原始来源
 
 
@@ -1330,6 +1355,7 @@
 ## 46.19 判断视觉表征是否服务物理交互
 ## 46.20 判断 Reasoning 是否只是语言包装
 ## 一页 Research Protocol
+## 46.24 研究问题
 ## Source anchors / 原始来源
 
 # [Part 47　Transformer 在具身智能中的作用与边界](./chapters/47-transformer-role-and-limits.md)
@@ -1404,6 +1430,8 @@
 ## 49.23 是否需要新的计算范式
 ## 49.24 什么才算“理解了物理世界”
 ## 49.25 距离真正通用智能还有什么
+## 49.28 Frontier Failure Taxonomy
+## 49.29 最小实验：Frontier Claim Stress Test
 ## Source anchors / 原始来源
 
 # [Part 50　从学习者到独立研究者](./chapters/50-from-learner-to-independent-researcher.md)
@@ -1426,6 +1454,7 @@
 ## 全书结束语
 ## 50.18 独立研究的最小闭环
 ## 50.19 研究问题
+## 50.20 最小实验：从一条 Failure Note 生成研究项目
 ## Source anchors / 原始来源
 
 ---

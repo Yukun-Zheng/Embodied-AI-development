@@ -448,3 +448,54 @@ a=Planner(W,o).
 ## 本章结论
 
 World model 的价值不在于“内部有个世界的视频生成器”，而在于它能否提供 **action-conditioned、counterfactual、uncertainty-aware、对控制有用的未来预测**。最终检验标准只有一个：加入 world model 后，机器人是否在真实决策中变得更强。
+<!-- CHAPTER-ENRICHMENT-R3-P30:START -->
+## 30.26 World-Model Failure Taxonomy
+
+### One-step accuracy, long-rollout collapse
+
+\(\hat z_{t+1}\) 很准，但 autoregressive rollout 误差快速累积。只报 one-step loss 不能支持 planning claim。
+
+### Action insensitivity
+
+改变候选 action，预测 future 几乎不变；模型学到 environment dynamics prior，而没有学到 intervention effect。
+
+### Visually plausible, physically wrong
+
+future video 很真实，但 object pose、contact onset、friction effect 或 tool geometry 有小误差，足以让 planner 失败。
+
+### Representation predicts nuisance better than task state
+
+latent 容易预测背景/camera motion，却丢失 contact、goal progress、support relation 等低像素占比变量。
+
+### Planner ignores the model
+
+加入 world model 后 success 提升，但用 shuffled/random model 也同样提升，说明收益可能来自额外 compute / proposal search。
+
+## 30.27 最小实验：World Model 必须通过 Intervention + Control
+
+固定当前 state \(s_t\)，选择多个动作 \(a^{(i)}\)，比较真实后果与预测：
+
+\[
+\hat s_{t+1}^{(i)}=F(s_t,a^{(i)}),\qquad
+s_{t+1}^{(i)}=Env(s_t,a^{(i)}).
+\]
+
+至少做三层评测：
+
+1. **Prediction**：one-step 与 H-step error；
+2. **Counterfactual ranking**：是否正确排序不同 action 的 outcome；
+3. **Control**：MPC/search 使用该模型是否比 current-state-only baseline 提高真实 success。
+
+Negative controls：random predictor、shuffled action labels、frozen representation、same planner budget without model。
+
+对应最小实现：[`code/minimal/world_model_mpc.py`](../../code/minimal/world_model_mpc.py)。
+
+## 30.28 研究问题
+
+1. Task-sufficient world state 应保留哪些变量，哪些像素/纹理可以主动丢弃？
+2. Action-conditioned JEPA/latent model 与 generative video model 在 contact-rich control 上谁更有效，为什么？
+3. World model 是否应预测 uncertainty / alternative futures，而不是单一 deterministic future？
+4. Planning horizon 应由 model confidence 自适应缩短吗？
+5. 如何证明 world model 对 policy 的作用不是 auxiliary regularization，而是真正 counterfactual reasoning？
+6. Continual robot 的 world model 怎样在线更新而不破坏已经可靠的 dynamics knowledge？
+<!-- CHAPTER-ENRICHMENT-R3-P30:END -->

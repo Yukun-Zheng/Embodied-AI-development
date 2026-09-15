@@ -309,6 +309,37 @@ Safety=f(Capability,Constraints,Monitoring,Human\ Oversight).
 ## 本章结论
 
 物理 AI 的 Safety 不是语言模型安全的简单延伸。它必须同时处理 **动力学约束、实时控制、模型不确定性、人类接管、系统故障和网络攻击**。可靠部署的目标不是“从不出错”，而是让错误可检测、可约束、可恢复、不会演化成灾难。
+<!-- CHAPTER-ENRICHMENT-R3-P45:START -->
+## 45.23 Safety / Reliability Failure Taxonomy
+
+### High average success, catastrophic tail
+
+99% success 仍可能每 100 次出现一次不可接受碰撞。Safety 需要 tail-risk / severity，而不是只看平均失败率。
+
+### Detector blind spot
+
+系统只会恢复“自己能检测”的 failure。未检测错误不会进入 recovery-rate denominator。
+
+### False-positive safety stop
+
+shield 过度保守导致机器人频繁停止、人工接管，安全但不可用。必须同时报 false stop / intervention burden。
+
+### Distribution-shifted safety model
+
+OOD 时 policy 与 safety detector 同时失准；不能假设外部 shield 永远比 policy 更可靠。
+
+### Recovery creates secondary hazard
+
+一次 grasp failure 后自动 recovery 可能撞到人、其他机器人或已移动物体。Recovery 本身也需要 safety verification。
+
+## 45.24 研究问题
+
+1. General-purpose robot 的 risk metric 应如何同时编码概率与伤害 severity？
+2. Learned safety critic 与 model-independent CBF/WBC constraint 应怎样分工？
+3. Human intervention 何时算失败、何时算系统合理的 uncertainty management？
+4. 如何评价“安全但不可用”和“高效但风险高”之间的 Pareto frontier？
+5. Continual-learning robot 更新 policy 后，哪些 safety property 必须重新验证，哪些可以 compositional reuse？
+<!-- CHAPTER-ENRICHMENT-R3-P45:END -->
 
 <!-- CHAPTER-SOURCE-MAP:START -->
 ## Source anchors / 原始来源

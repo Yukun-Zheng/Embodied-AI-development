@@ -360,6 +360,37 @@ State estimator 不只输出 mean：
 1. Foundation robot model 是否需要显式 belief，还是大 Transformer hidden state 足够？
 2. 怎样让 learned state estimator 输出可用于安全决策的 calibrated uncertainty？
 3. Persistent object/world state 是否应该从 VLA 中独立出来，成为长期 robot operating system 的公共服务？
+<!-- CHAPTER-ENRICHMENT-R3-P15:START -->
+## 15.30 State-Estimation Dataflow：从 Raw Sensor 到 Belief
+
+```text
+camera / IMU / encoder / force sensor
+→ calibration + timestamp synchronization
+→ measurement z_t with covariance R_t
+→ motion/control input u_t
+→ prediction p(x_t | x_{t-1}, u_{t-1})
+→ innovation z_t - h(x_t)
+→ update / optimization / factor graph
+→ belief mean + covariance / particles
+→ planner / policy / safety layer
+→ action
+→ next sensor measurements
+```
+
+实现中至少要显式保存：
+
+```text
+measurement timestamp
+state timestamp
+frame id
+innovation / residual
+covariance or confidence
+rejected measurements
+prediction horizon
+```
+
+否则 downstream policy 看到的“state tensor”会把估计误差、延迟与真实物理变化混成同一个数值变化。
+<!-- CHAPTER-ENRICHMENT-R3-P15:END -->
 
 <!-- CHAPTER-SOURCE-MAP:START -->
 ## Source anchors / 原始来源

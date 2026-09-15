@@ -386,3 +386,13 @@ a_t\in\mathcal A_{safe}(s_t).
 ## 本章结论
 
 机器人 foundation model 若永远冻结，它只能依赖训练分布；真正可部署的长期智能必须形成 **experience → evaluation → memory → policy/world-model update → safer redeployment** 的闭环。未来的重要分界线，不是“有没有 VLA”，而是“模型能不能在真实世界中安全地继续学”。
+<!-- CHAPTER-ENRICHMENT-R3-P29:START -->
+## 29.18 研究问题
+
+1. Autonomous experience 中最有价值的数据来自成功、near-failure、intervention 还是 recovery？
+2. Online RL 的 reward 如何避免把吞吐提升换成更激进、更不安全的行为？
+3. Foundation policy 的局部 task adaptation 如何保持 broad generality 与 calibration？
+4. Experience replay 应按 recency、novelty、TD error、failure severity 还是 mechanism novelty 采样？
+5. 真机学习何时应该更新 policy 参数，何时只更新 memory/world model/system ID？
+6. 如何让机器人长期学习同时具备 rollback：新策略出问题时能恢复到已验证的行为版本？
+<!-- CHAPTER-ENRICHMENT-R3-P29:END -->

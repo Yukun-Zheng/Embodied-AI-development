@@ -351,3 +351,34 @@ contact changes whole-body dynamics
 ## 本章结论
 
 Humanoid 不是“机械臂加两条腿”。当视觉、手臂、躯干、腿和接触同时闭环时，局部动作会改变全身可观测性和动力学。Whole-body intelligence 真正要求把 **motion prior、balance、manipulation、perception 与高层任务**连接成多时间尺度系统。
+<!-- CHAPTER-ENRICHMENT-R3-P35:START -->
+## 35.26 Humanoid / Whole-Body Failure Taxonomy
+
+### Task success with hidden balance controller
+
+VLA 给出手部/身体目标，但稳定性来自独立 locomotion/WBC；若不披露接口，会错误归因“VLA 学会了平衡”。
+
+### Motion-tracking success without task robustness
+
+高 tracking reward 不代表面对外力、未知地形、moving camera 与 manipulation contact 时仍稳定。
+
+### Upper-body competence breaks locomotion
+
+手臂大幅动作改变 centroidal dynamics；把 locomotion 与 manipulation 独立训练后简单拼接可能产生耦合失败。
+
+### Simulator contact exploit
+
+脚底/手部接触策略可能利用 solver artifact，真机出现 foot slip、impact 或 self-collision。
+
+### Whole-body action latency
+
+高维 action chunk 推理慢，几十毫秒 stale command 对 balance 比桌面机械臂更危险。
+
+## 35.27 研究问题
+
+1. Humanoid foundation model 应直接输出 joint target、WBC task、motion latent 还是 contact schedule？
+2. Locomotion 与 manipulation 的共享 representation 应在哪里发生，才能兼顾稳定性与语义任务？
+3. Human video 对 whole-body policy 的主要贡献是 motion prior、task semantics 还是 scene coverage？
+4. Moving-head perception 与 body motion 如何共同进入 state estimation，避免视觉 ego-motion 被误认为 object motion？
+5. Whole-body VLA 的实时 deadline 应怎样定义并进入 benchmark？
+<!-- CHAPTER-ENRICHMENT-R3-P35:END -->

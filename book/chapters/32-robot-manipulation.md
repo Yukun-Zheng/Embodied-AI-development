@@ -360,6 +360,16 @@ q=[q_{base},q_{arm}].
 ## 本章结论
 
 Manipulation 是具身智能最集中的试验场：语义、几何、接触、动力学、控制、长期记忆都必须在真实时间里共同工作。越复杂的操作任务，越不可能被简化为“看图输出动作”。
+<!-- CHAPTER-ENRICHMENT-R3-P32:START -->
+## 32.22 研究问题
+
+1. Manipulation generalization 的主要瓶颈是 visual semantics、3D geometry、contact dynamics 还是 recovery data？
+2. Grasp/placement policy 应输出 pose、trajectory、contact mode 还是 object-centric effect？
+3. 对 deformable/articulated objects，object-centric representation 需要怎样表示 hidden state 与 topology change？
+4. Long-horizon manipulation 中，高层 skill composition 与低层 continuous policy 的最佳边界在哪里？
+5. Failure/recovery demonstrations 的 marginal value 是否高于继续收集更多成功 demonstration？
+6. 同一 manipulation task 中，force/tactile 信息应进入 foundation policy 还是独立高速 residual controller？
+<!-- CHAPTER-ENRICHMENT-R3-P32:END -->
 
 <!-- CHAPTER-SOURCE-MAP:START -->
 ## Source anchors / 原始来源

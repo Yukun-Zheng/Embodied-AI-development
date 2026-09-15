@@ -195,6 +195,29 @@ x_{t+1}\sim p(x'\mid x_t,a_t).
 4. General-purpose robot 的“通用”应按 object/scene/task/physics/embodiment/time 哪些轴定义？
 5. 一个长期 physical agent 的最小内部状态是什么：belief、world model、memory，还是可在线生长的结构？
 <!-- CHAPTER-ENRICHMENT-R2-P00:END -->
+<!-- CHAPTER-ENRICHMENT-R3-P00:START -->
+## 0.12 Failure Taxonomy：什么时候“看起来智能”却不是具身智能
+
+### Offline competence without closed-loop competence
+
+模型能回答“下一步该抓杯子”，但在抓偏后不能利用新 observation 修正；这证明 semantic competence 不能替代 feedback competence。
+
+### Body-agnostic claim without body intervention
+
+只在同一机械臂、更换物体测试，不能支持 embodiment generality。必须改变 kinematics、action interface、sensor placement 或 controller 才真正触碰身体变化。
+
+### World-model claim without action sensitivity
+
+若预测未来不随候选 action 改变，模型更接近 video predictor，而不是可用于 control 的 counterfactual model。
+
+### Memory claim without delayed necessity
+
+若去掉历史后任务仍成功，所谓 memory module 可能只是额外容量。必须设计“当前 observation 不足、过去信息必要”的任务。
+
+### Intelligence claim hidden by infrastructure
+
+更强 simulator、controller、teleoperation data、reset protocol 或人工 intervention 都可能提高 success。系统能力必须展开到完整物理栈后再归因。
+<!-- CHAPTER-ENRICHMENT-R3-P00:END -->
 
 <!-- CHAPTER-SOURCE-MAP:START -->
 ## Source anchors / 原始来源

@@ -452,6 +452,16 @@ T_m \gg T_c,
 ## 本章结论
 
 VLA 不是一个黑盒函数。它是由 **视觉先验、语言先验、本体状态、融合机制、动作生成器、数据混合、后训练、执行器和低层控制器**共同组成的系统。研究它“学到了什么”，必须沿整条数据流做干预，而不是只看最终成功率。
+<!-- CHAPTER-ENRICHMENT-R3-P25:START -->
+## 25.17 研究问题
+
+1. VLA 中哪一层 representation 对真实 action success 具有最大 causal effect，而不仅是 probe accuracy？
+2. 冻结 vision/VLM 后性能下降，来自 representation 不够还是 action distribution shift 无法适配？
+3. Dataset mixture weight 能否被视为 architecture hyperparameter；怎样把 data effect 与 model effect 分开？
+4. Proprioception、language、multi-view vision 在不同 task phase 的边际价值是否应该动态变化？
+5. Action head 的 capacity 增加何时真正提高 physical precision，何时只提高 imitation fit？
+6. 是否可以从梯度/activation intervention 中识别“knowledge insulation”并预测哪些 web knowledge 永远不会进入 motor behavior？
+<!-- CHAPTER-ENRICHMENT-R3-P25:END -->
 
 <!-- CHAPTER-SOURCE-MAP:START -->
 ## Source anchors / 原始来源

@@ -318,6 +318,30 @@ read / reproduce
 5. 如何建立自己的 Architecture Research Program，使连续多篇工作共享可累积的问题树，而不是每篇追一个热点？
 6. 当计算资源足够大时，如何防止“能跑很多实验”反而降低实验设计质量？
 <!-- CHAPTER-ENRICHMENT-R2-P50:END -->
+<!-- CHAPTER-ENRICHMENT-R3-P50:START -->
+## 50.20 最小实验：从一条 Failure Note 生成研究项目
+
+任选一次真实/仿真失败，强制只用 1–2 天预算完成：
+
+```text
+1. raw failure replay
+2. root-cause candidate tree
+3. two competing hypotheses H1/H2
+4. one discriminating intervention
+5. minimal implementation
+6. all-trial result + failure slice
+7. update hypothesis tree
+```
+
+例如“VLA 抓取遮挡物失败”不要直接改网络，而先比较：
+
+```text
+H1: representation 看不到目标几何
+H2: representation 足够，但 policy 没有主动换视角
+```
+
+用 oracle view / oracle geometry 与 active-view intervention 就能比“训练一个更大 VLA”更快区分机制。独立研究能力首先体现在**选择正确实验**，而不是把所有可能性都并行 brute-force。
+<!-- CHAPTER-ENRICHMENT-R3-P50:END -->
 
 <!-- CHAPTER-SOURCE-MAP:START -->
 ## Source anchors / 原始来源

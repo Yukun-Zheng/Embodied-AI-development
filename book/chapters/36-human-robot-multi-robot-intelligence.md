@@ -319,6 +319,37 @@ high-level task coordinator
 ## 本章结论
 
 Human–Robot 与 Multi-Robot 的共同核心是：**智能体必须推断其他 agent 的状态和意图，并在共享物理世界中协调控制权、空间、任务和安全**。这是单体 VLA success rate 无法覆盖的另一层具身智能。
+<!-- CHAPTER-ENRICHMENT-R3-P36:START -->
+## 36.20 Human / Multi-Robot Failure Taxonomy
+
+### Human intent misread with high confidence
+
+语言/gesture ambiguity 被 policy 当确定指令执行；系统缺少 clarification / consent state。
+
+### Coordination protocol hidden in training distribution
+
+多机器人看似会协作，实际角色固定、start pose 固定；交换 robot role 后崩溃说明没有学到 general coordination。
+
+### Communication delay / packet loss
+
+集中式 multi-agent policy 在理想网络有效，真实 Wi-Fi/edge network 下 stale teammate state 导致碰撞或重复工作。
+
+### Responsibility ambiguity
+
+失败后无法区分 perception、planner、robot A、robot B 或 human instruction 的责任，导致 recovery strategy错误。
+
+### Safety/social norm outside reward
+
+task success 高，但运动路径让人不适、抢夺物体、侵犯 personal space；interaction metric 必须超出任务完成率。
+
+## 36.21 研究问题
+
+1. Human–robot interaction 中 uncertainty 何时应触发 clarification，而不是自主猜测？
+2. Multi-robot coordination 应共享全局 world model，还是只交换 task-relevant messages？
+3. 通信 bandwidth / latency 如何作为算法变量进入 benchmark，而不是固定理想条件？
+4. heterogeneous robots 的 role assignment 能否根据 morphology/capability 在线重规划？
+5. 如何定义人机协作的 safety / trust metric，使其不被 task success 掩盖？
+<!-- CHAPTER-ENRICHMENT-R3-P36:END -->
 
 <!-- CHAPTER-SOURCE-MAP:START -->
 ## Source anchors / 原始来源

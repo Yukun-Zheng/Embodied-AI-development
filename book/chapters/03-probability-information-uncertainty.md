@@ -180,6 +180,29 @@ a_t^*=\arg\max_a\;\mathbb E[R]-\lambda_r\mathrm{Risk}+\lambda_i I(X;O_{future}\m
 4. 当 perception uncertainty 与 action uncertainty 同时存在时，应该先主动看、慢速执行、还是直接请求人类？
 5. 一个 uncertainty head 若不改变 policy/executor，是否应被视为系统能力的一部分？
 <!-- CHAPTER-ENRICHMENT-P03:END -->
+<!-- CHAPTER-ENRICHMENT-R3-P03:START -->
+## 3.17 Uncertainty Failure Taxonomy
+
+### Overconfidence under distribution shift
+
+训练内 calibration 良好，但换 camera、object material、lighting 或 embodiment 后 \(\hat p\) 仍接近 1。安全系统若直接信任 confidence，会在最需要保守时最冒险。
+
+### Variance without semantics
+
+diffusion sample variance、ensemble disagreement 或 token entropy 不一定对应 task failure；它们可能只反映 action multimodality 或语言不确定性。
+
+### Mean prediction hides multi-modality
+
+用均值和方差描述高度多峰 grasp/action distribution，可能得到一个物理上不可执行的“平均动作”。
+
+### Uncertainty never reaches the executor
+
+模型输出 uncertainty，但 controller、planner、active perception 和 human handoff 都不读取它；这类 uncertainty 不能算系统能力。
+
+### Wrong uncertainty source
+
+把 sensor noise 当 epistemic、把 model ignorance 当 aleatoric，会导致错误的数据采集和 safety 策略。
+<!-- CHAPTER-ENRICHMENT-R3-P03:END -->
 
 <!-- CHAPTER-SOURCE-MAP:START -->
 ## Source anchors / 原始来源

@@ -447,6 +447,16 @@ I(D_{new};Y_{OOD}\mid D_{old}).
 ## 本章结论
 
 机器人 foundation model 的核心竞争力不只是参数量，而是能否把**异构真实数据、人类视频、synthetic data、失败经验和不同身体**压入一个可迁移的学习系统。Cross-embodiment 的真正突破点，很可能来自共享的 physical effect，而不是强行把所有机器人关节塞进同一个向量。
+<!-- CHAPTER-ENRICHMENT-R3-P26:START -->
+## 26.21 研究问题
+
+1. Robot-data scaling 应按 hours/episodes 还是 state-action coverage、physics diversity、embodiment diversity 计量？
+2. Human video 的 transfer gain 来自视觉表示、动作先验、任务分解，还是只是额外 scene diversity？
+3. Synthetic/retargeted data 在哪些 contact-rich failure 上会系统性误导真实 policy？
+4. Universal action space 应表示 joint command、task-space effect、object relation 还是 contact intent？
+5. Dataset mixture 中低质量大数据与高质量小数据的最优权重能否由 downstream marginal value 自动学习？
+6. Unseen-body transfer 需要 morphology graph / URDF / calibration data 到什么程度才能摆脱 robot-ID shortcut？
+<!-- CHAPTER-ENRICHMENT-R3-P26:END -->
 
 <!-- CHAPTER-SOURCE-MAP:START -->
 ## Source anchors / 原始来源

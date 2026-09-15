@@ -436,6 +436,37 @@ Steerability 指执行中可被用户、视觉 subgoal、metadata 或其他控�
 ## 本章结论
 
 Embodied reasoning 的核心不是“机器人会说自己在想什么”，而是它能否在**多步、部分可观测、可失败的物理任务中维护目标、监控进度、选择技能、发现错误并闭环重规划**。这是一套系统能力，不是一个 prompt 技巧。
+<!-- CHAPTER-ENRICHMENT-R3-P27:START -->
+## 27.19 Agentic / Reasoning Failure Taxonomy
+
+### Fluent plan, wrong physical precondition
+
+语言计划逻辑通顺，但忽略 object pose、reachability、contact 或 robot state，导致第一步就不可执行。
+
+### Stale task state
+
+planner 使用旧 progress/memory，重复已完成 subtask 或跳过失败恢复。长时任务需要可更新的 task belief，而不是静态 chain-of-thought。
+
+### Tool/skill hallucination
+
+reasoner 调用不存在、参数不合法或当前 embodiment 不支持的 skill。skill library 必须有 machine-checkable contract。
+
+### Reasoning latency exceeds physical timescale
+
+高层推理耗时数秒，而环境继续变化。需要 async planning、progress monitor 与低层 reactive policy 并行。
+
+### Explanation without causal control
+
+模型能解释“为什么这样做”，但删除 explanation tokens 后行为不变。语言 reasoning 的因果价值必须通过 intervention 验证。
+
+## 27.20 研究问题
+
+1. Embodied reasoning 最小必要 state 是语言 task graph、symbolic predicates、continuous belief，还是多尺度混合？
+2. Reasoner 与 motor policy 的刷新频率应该如何自适应任务 phase 与 uncertainty？
+3. Tool/skill calling 如何在新 embodiment 上验证 precondition/effect，而不依赖手工 skill metadata？
+4. Chain-of-thought 的价值应按解释质量还是行为 intervention gain 评价？
+5. 长时 agent 应如何决定何时重规划、何时继续执行、何时请求人类澄清？
+<!-- CHAPTER-ENRICHMENT-R3-P27:END -->
 
 <!-- CHAPTER-SOURCE-MAP:START -->
 ## Source anchors / 原始来源

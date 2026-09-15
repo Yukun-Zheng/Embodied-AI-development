@@ -400,6 +400,16 @@ Scale-up condition:
 ## 本章结论
 
 严谨具身研究的核心不是模型复杂，而是**控制变量、可证伪假说、机制中间量、负对照和真实 failure analysis**。大规模算力应该放在已经通过最小实验的问题上，而不是替代思考。
+<!-- CHAPTER-ENRICHMENT-R3-P46:START -->
+## 46.24 研究问题
+
+1. 一个 architecture claim 的最小充分实验是什么，如何避免一开始就跑最大 benchmark？
+2. 当 data/model/controller 同时变化时，怎样设计 factorial ablation 或 intervention 才能获得 mechanism attribution？
+3. Negative result 应如何记录，使未来工作能缩小 hypothesis space，而不是重复同一失败？
+4. 机器人论文的 reproduction package 应至少保存哪些 raw logs、assets、firmware、calibration 与 failure videos？
+5. 如何避免 benchmark overfitting：一个 idea 在多少 task family / embodiment / physics slice 上存活，才值得称为 general mechanism？
+6. 何时应该优先发表 measurement / benchmark / dataset contribution，而不是强行包装成新模型？
+<!-- CHAPTER-ENRICHMENT-R3-P46:END -->
 
 <!-- CHAPTER-SOURCE-MAP:START -->
 ## Source anchors / 原始来源

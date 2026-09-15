@@ -343,3 +343,34 @@ p(o_{future},a_{future},text\mid history).
 ## 本章结论
 
 生成式世界模型给机器人研究带来了极大的数据与预测想象空间，但评价标准必须从“画面真实”升级到 **action-conditioned dynamics、counterfactual consistency、planning utility 和 real-policy improvement**。当 world generation、reasoning 与 action generation 开始合并时，机器人领域更需要严格的物理负对照，而不是更漂亮的 demo。
+<!-- CHAPTER-ENRICHMENT-R3-P31:START -->
+## 31.17 Generative-World Failure Taxonomy
+
+### Photorealism–control gap
+
+更高 FID/visual quality 不保证 pose/contact/dynamics 更准确。生成世界必须接受 task-state 与 intervention tests。
+
+### Action conditioning weak or post-hoc
+
+视频模型主要按视觉 prior 生成，robot action 只产生轻微变化，无法支撑 counterfactual planning。
+
+### Temporal smoothness hides conservation violations
+
+画面连续但物体穿透、质量/动量/接触关系不合理；人眼观感不能替代 physical metrics。
+
+### Synthetic-data feedback loop
+
+模型生成的数据训练下一代模型，错误模式可能被不断自我放大。需要真实 anchor data 与 provenance。
+
+### World generation too slow for receding-horizon control
+
+高质量视频生成耗时远高于 control cycle，最终只能用于 offline data augmentation 而非 online planning。
+
+## 31.18 研究问题
+
+1. World foundation model 最应该优化 pixel likelihood、latent predictive sufficiency，还是 downstream control value？
+2. 如何建立 physical consistency metric，捕获 contact、support、occlusion、object permanence 与 action causality？
+3. 生成模型用于 synthetic robot data 时，哪些 error 会被 policy 放大而不是平均掉？
+4. Neural simulator 与 classical physics simulator 应如何 hybrid：哪些变量由物理求解，哪些由生成模型补全？
+5. Online world generation 要进入真实 MPC，需要怎样的 latency/uncertainty interface？
+<!-- CHAPTER-ENRICHMENT-R3-P31:END -->

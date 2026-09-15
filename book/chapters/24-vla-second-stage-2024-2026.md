@@ -728,3 +728,35 @@ Experience / post-training loop
 2024–2026 的 VLA 发展不是“Transformer 越来越大”，而是 robot foundation model 开始正面碰撞经典机器人学长期存在的问题：**连续控制、时延、多频率、接触、跨本体、whole-body、安全、经验学习和部署系统**。
 
 GR00T N1.7 进一步说明：一个现代 foundation robot system 已经不能只用“backbone + action head”描述。processor、embodiment tag、action horizon、async inference、RTC、deployment runtime 与 low-level control 都属于科学对象的一部分。
+<!-- CHAPTER-ENRICHMENT-R3-P24:START -->
+## 24.20 Failure Taxonomy：第二阶段 VLA 真正还没解决什么
+
+### Semantic generalization without geometric precision
+
+能理解 novel instruction / object category，但 grasp pose、contact timing、force profile 仍不准确。语言/VLM scaling 不会自动填补毫米级控制误差。
+
+### Better action generator, same stale execution
+
+flow/diffusion chunk 离线更平滑，但推理 latency 仍让机器人执行旧 chunk。action model 与 temporal executor 必须分开评价。
+
+### Cross-embodiment by mixture, not mechanism
+
+多机器人训练后每台已见机器人都变强，不代表形成 morphology-agnostic representation；robot-ID shortcut 仍可能成立。
+
+### Whole-body claim delegated to hidden controller
+
+高层模型只给 hand/base goal，balance/contact stability 实际由 WBC/locomotion policy 完成。论文必须明确 capability credit。
+
+### Experience learning with silent forgetting
+
+on-robot RL/post-training 提升当前任务，但旧技能、safety calibration 或 generality 下降，不能只报新任务 throughput。
+
+## 24.21 研究问题
+
+1. 2026 VLA 的主要瓶颈已经从 representation 转向 temporal execution / controller interface 了吗？
+2. VLM backbone 与 action expert 的 joint training 何时真正优于冻结语义 backbone？
+3. RTC/async executor 应被视为 model architecture、control algorithm 还是 deployment runtime；怎样公平比较？
+4. Cross-embodiment foundation policy 的核心共享对象究竟是 visual semantics、task relation、action effect 还是 morphology-conditioned dynamics？
+5. Foundation policy + world model + memory 是否应继续融合成单模型，还是应该按时间尺度重新模块化？
+6. 部署后持续 RL 如何同时优化新任务、避免 forgetting，并保持可审计的 safety boundary？
+<!-- CHAPTER-ENRICHMENT-R3-P24:END -->

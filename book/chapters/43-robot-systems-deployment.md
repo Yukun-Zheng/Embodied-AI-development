@@ -423,6 +423,29 @@ T_{loop}=t_9-t_0.
 4. 如何把 watchdog、安全 PLC、E-stop 与 learned policy 的 intervention 统一记录进 evaluation protocol？
 5. 多机/多 GPU 系统中，clock synchronization error 在什么量级开始影响 action learning 与真实控制？
 <!-- CHAPTER-ENRICHMENT-R2-P43:END -->
+<!-- CHAPTER-ENRICHMENT-R3-P43:START -->
+## 43.27 Deployment Failure Taxonomy
+
+### Deadline miss
+
+平均 inference latency 合格，但 P99 超过 control deadline，造成周期性 stale action 与 queue buildup。
+
+### Clock drift / timestamp-domain mismatch
+
+camera、robot controller、GPU host 使用不同 clock，简单减 timestamp 得到错误 latency，进而错误对齐 observation/action。
+
+### Queue backpressure
+
+producer 比 consumer 快，系统不是掉帧而是越来越旧；必须显式定义 drop-oldest / drop-newest / latest-only 策略。
+
+### Silent fallback
+
+TensorRT/CUDA/renderer/driver 出错后系统退回 CPU 或低性能路径，功能仍运行但实时约束已破坏。
+
+### Safety layer masks model regression
+
+policy 变差但 watchdog 不断拦截，最终“无事故”；若不报告 intervention rate，会把 safety shield 的功劳算给模型。
+<!-- CHAPTER-ENRICHMENT-R3-P43:END -->
 
 <!-- CHAPTER-SOURCE-MAP:START -->
 ## Source anchors / 原始来源

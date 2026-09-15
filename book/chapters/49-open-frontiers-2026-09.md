@@ -338,6 +338,45 @@ Understanding\Rightarrow Predict+Intervene+Transfer+Revise.
 ## 本章结论
 
 截至 2026-09，具身智能的主要矛盾正在从“能不能生成机器人动作”转向：**动作是否可靠、是否理解物理、是否能长期记忆和继续学习、是否跨身体迁移，以及能否在真实世界安全地持续存在。** 这些才是下一阶段值得长期追的问题。
+<!-- CHAPTER-ENRICHMENT-R3-P49:START -->
+## 49.28 Frontier Failure Taxonomy
+
+### Demo frontier mistaken for scientific frontier
+
+最新公司 demo 可能代表工程整合能力，但缺少可控 ablation/独立复现；不能自动当作已解决科学问题。
+
+### Version chasing
+
+每次新 checkpoint 发布就新增章节，会让教材结构随品牌漂移。应追踪长期问题轴：memory、experience、world model、whole-body、cross-embodiment、safety、continual development。
+
+### Benchmark saturation illusion
+
+某 benchmark 接近饱和，可能只是 task narrow / reset easy / controller strong，而不代表 open-world physical intelligence 接近解决。
+
+### Scaling substitutes for mechanism understanding
+
+更大数据/模型继续提升，但没有解释 failure boundary；研究可能得到产品能力却失去可累积的机制知识。
+
+### Open-source lag
+
+前沿闭源系统与开放研究能力存在时间差。教材应明确证据等级，避免把不可验证 claim 写成机制事实。
+
+## 49.29 最小实验：Frontier Claim Stress Test
+
+任选一个 2026 新 claim，把品牌名删除后写成可检验句：
+
+```text
+Claim
+→ required hidden capability
+→ observable consequence
+→ strongest alternative explanation
+→ minimal negative control
+→ task / embodiment / physics slice
+→ evidence needed to accept or reject
+```
+
+然后只做最小实验区分“新机制”与“更多 data/compute/system integration”。如果无法提出能推翻 claim 的实验，这个 research question 还不够具体。
+<!-- CHAPTER-ENRICHMENT-R3-P49:END -->
 
 <!-- CHAPTER-SOURCE-MAP:START -->
 ## Source anchors / 原始来源
