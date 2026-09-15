@@ -259,7 +259,7 @@ MathJax formulas + Mermaid diagrams + searchable navigation
 当前自动回归覆盖三层：
 
 - **Minimal code regression** — 最小数学/机器人代码；
-- **Textbook QA** — Part 0–50 连续性、TOC、关键资产、本地链接，以及 51/51 Chapter 的 6/6 publication baseline；
+- **Textbook QA** — Part 0–50 连续性、TOC、关键资产、本地链接、51/51 Chapter 的 6/6 publication baseline，以及 Class-A local primary-evidence gate；
 - **Website Build** — publication staging、MathJax/Mermaid 构建、Part 0/24/50 与关键源码案例 smoke test。
 
 ---
@@ -349,9 +349,10 @@ Embodied-AI-development/
 - chapter-driven TOC + chapter-driven website navigation；
 - minimal-code / textbook-QA / website-build 三层 CI；
 - **51/51 Chapter 结构基线 6/6**：equation + dataflow/code + failure + experiment + research questions + source evidence；
+- **Class-A 前沿/历史事实：100% local primary evidence（CI hard gate）**；Class B 工程量化示例保持 advisory；
 - 统一前沿时间截面：**2026-09-14**。
 
-v1.x 将继续重点推进：**高可核查 claim 的就地 primary-source attribution、simulator-level executable labs、真实/仿真实验结果回填、更多源码级解剖、跨章交叉引用与出版编辑**。
+v1.x 将继续重点推进：**simulator-level executable labs、真实/仿真实验结果回填、更多源码级解剖、跨章交叉引用、citation provenance 与出版编辑**。
 
 ---
 
