@@ -179,6 +179,8 @@ def build_nav() -> list[tuple[str, str | list]]:
                         ("Lab 29 · Reference Results", "labs/runnable/lab29_world_model_mpc/REFERENCE_RESULTS.md"),
                         ("Lab 31 · Reasoning Negative Control", "labs/runnable/lab31_reasoning_negative_control/README.md"),
                         ("Lab 31 · Reference Results", "labs/runnable/lab31_reasoning_negative_control/REFERENCE_RESULTS.md"),
+                        ("Lab 32 · Experience Learning Flywheel", "labs/runnable/lab32_experience_learning_flywheel/README.md"),
+                        ("Lab 32 · Reference Results", "labs/runnable/lab32_experience_learning_flywheel/REFERENCE_RESULTS.md"),
                         ("Lab 33 · Continual Learning", "labs/runnable/lab33_continual_learning/README.md"),
                         ("Lab 33 · Reference Results", "labs/runnable/lab33_continual_learning/REFERENCE_RESULTS.md"),
                         ("Lab 34 · Self-Generated Curriculum", "labs/runnable/lab34_self_generated_curriculum/README.md"),
