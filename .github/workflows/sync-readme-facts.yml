@@ -1,0 +1,45 @@
+name: Sync README Facts
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/sync_readme_facts.py"
+      - ".github/workflows/sync-readme-facts.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Synchronize stable README facts
+        run: python scripts/sync_readme_facts.py
+
+      - name: Validate links after README update
+        run: python scripts/validate_book.py
+
+      - name: Commit README when needed
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- README.md; then
+            echo "README facts are already synchronized."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "Synchronize textbook README facts"
+          git pull --rebase origin main
+          git push origin HEAD:main
