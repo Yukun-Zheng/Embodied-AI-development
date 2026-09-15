@@ -2,7 +2,7 @@
 """Add canonical primary-source entry points to chapters that lack them.
 
 The detailed 51-Part bibliography lives in references/CHAPTER_SOURCE_ANCHORS.md.
-Chapters with their own explicit source/reference section are left untouched.
+Chapters with their own explicit source/reference heading are left untouched.
 For the rest, this script appends a small generated source block. It is
 idempotent and safe to run repeatedly.
 """
@@ -30,16 +30,24 @@ SOURCE_MARKERS = [
 ]
 
 
-def has_authored_source_section(text: str) -> bool:
-    """Return True for a human-authored source section, ignoring generated block."""
+def authored_headings(text: str) -> list[str]:
+    """Return Markdown headings outside the generated fallback block."""
     stripped = re.sub(
         rf"{re.escape(START)}.*?{re.escape(END)}",
         "",
         text,
         flags=re.DOTALL,
     )
-    lower = stripped.lower()
-    return any(marker in lower for marker in SOURCE_MARKERS)
+    return [m.group(1).strip().lower() for m in re.finditer(r"(?m)^#{1,6}\s+(.+?)\s*$", stripped)]
+
+
+def has_authored_source_section(text: str) -> bool:
+    """True only when a real Markdown heading denotes a source/reference section."""
+    return any(
+        marker in heading
+        for heading in authored_headings(text)
+        for marker in SOURCE_MARKERS
+    )
 
 
 def generated_block(part: int) -> str:
