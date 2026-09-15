@@ -57,3 +57,4 @@ jobs:
           python labs/simulators/mujoco/lab04_smoke.py
           python labs/simulators/mujoco/lab05_smoke.py
           python labs/simulators/mujoco/smoke.py
+          python labs/simulators/mujoco/lab05_06_smoke.py
