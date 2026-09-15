@@ -147,6 +147,23 @@ observation timestamp
 
 比较 blocking/synchronous、naive async queue 与 latency-aware rebase。它的关键教学结果是：**降低 action age 是可验证的机制干预，但不保证 tracking 一定改善。**
 
+### [`Lab 26 — Cross-Embodiment Transfer`](lab26_cross_embodiment/README.md)
+
+把 cross-embodiment claim 分解成三个不能混写的层级：
+
+```text
+raw robot interface semantics
+→ canonical state/action contract
+→ multiple seen robot identities
+→ held-out interpolation / extrapolation
+→ continuous morphology conditioning
+→ physical closed-loop success
+```
+
+比较 `raw_shared / canonical_interface_only / seen_robot_lookup / morphology_conditioned / wrong_morphology_tag / wrong_action_semantics`。关键机制问题是：**同一 policy 支持多个已见 robot 是否真的意味着未见 morphology transfer；新身体的 interface metadata、连续 morphology descriptor 与 task adaptation budget 各自贡献什么。**
+
+CI-verified quick reference results 见 [`REFERENCE_RESULTS.md`](lab26_cross_embodiment/REFERENCE_RESULTS.md)。
+
 ### [`Lab 29 — World Model MPC`](lab29_world_model_mpc/README.md)
 
 把 world model 拆成：
