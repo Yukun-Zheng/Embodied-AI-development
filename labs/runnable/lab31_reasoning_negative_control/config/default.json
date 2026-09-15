@@ -1,0 +1,14 @@
+{
+  "seed": 67,
+  "episodes": 600,
+  "quick_episodes": 300,
+  "locked_probability": 0.80,
+  "no_plan_max_steps": 16,
+  "conditions": [
+    "correct_plan",
+    "no_plan",
+    "random_plan",
+    "fluent_wrong_plan",
+    "shuffled_binding"
+  ]
+}
