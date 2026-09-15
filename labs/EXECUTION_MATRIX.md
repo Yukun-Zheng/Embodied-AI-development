@@ -97,11 +97,13 @@ Lab 27 已进入 permanent executable CI：one-shot mission binding 只在 episo
 | **29 World Model MPC** | **✓** | ✓ | ○ | toy dynamics → Push-T | planning horizon × model bias |
 | 30 Video WM Executability | ○ | ✓ | ○ | robot video / simulator | visual quality vs executable success |
 | **31 Reasoning Negative Control** | **✓** | ✓ | ○ | symbolic causal world → VLA benchmark | correct/no-plan/random/fluent-wrong/binding controls |
-| 32 Experience Learning Flywheel | ✓ | ✓ | ✓ | toy → simulator/real | failure mining → correction → regression audit |
+| **32 Experience Learning Flywheel** | **✓** | ✓ | ✓ | context policy → simulator/real | failure mining × matched data volume × correction semantics × regression audit |
 | **33 Continual Learning** | **✓** | ✓ | ○ | 3-D tasks → 2-D shared bottleneck → robot tasks | A→B→C retention/plasticity/replay matrix |
 | **34 Self-Generated Curriculum** | **✓** | ✓ | ○ | competence-frontier task pool → simulator | learning progress × ordering × correct task binding |
 
 Lab 31 已进入 permanent executable CI：同一批 episode 上比较 correct plan、no-plan、random-order、coherent-but-wrong causal model 与 shuffled entity binding；同时分别测 plan 在内部模型与真实世界中的 success、action validity、prerequisite failure 和 plan-budget matching。
+
+Lab 32 已进入 permanent executable CI：除 `no_update` 外，所有更新条件都严格使用 8 条新经验。比较 targeted failure mining、equal-volume random data、success-only data、failure states + shuffled correction labels 与 targeted reset/no-replay；CI 同时检查 new-task gain、learning-curve AUC、failure-selection precision、gain per new example 与 old-task regression，从而把“哪些状态值得写回”“correction 是否语义正确”“新能力是否覆盖旧能力”拆成独立机制。
 
 Lab 33 已进入 permanent executable CI：固定参数容量下比较 naive fine-tune、correct replay、quadratic anchor 与 shuffled-label replay，并显式记录 performance matrix、probe matrix、forgetting、BWT、plasticity 和 method-specific memory cost。
 
@@ -155,7 +157,7 @@ config
 → reproducible output directory
 ```
 
-首个 reference implementation 是 **Lab 22 Asynchronous Policy Execution**；当前 CI-verified reference set 已扩展为 **Lab 13 / 14 / 22 / 25 / 26 / 27 / 29 / 31 / 33 / 34 / 37 / 38 / 40**。
+首个 reference implementation 是 **Lab 22 Asynchronous Policy Execution**；当前 CI-verified reference set 已扩展为 **Lab 13 / 14 / 22 / 25 / 26 / 27 / 29 / 31 / 32 / 33 / 34 / 37 / 38 / 40**。
 
 ### Phase 2 — Physics adapters
 
