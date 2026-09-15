@@ -10,6 +10,9 @@ B) quantitative engineering statements — rates, delays, experiment sweep value
 
 Evidence is local when it appears either within ±3 lines OR elsewhere in the same
 H2 subsection. A chapter-end source-map fallback does not support unrelated H2s.
+Research/experiment sections, block-quoted snapshot notes, and generic methodology
+statements are excluded from Class A so the metric rewards evidence rather than
+link decoration.
 """
 
 from __future__ import annotations
@@ -33,7 +36,7 @@ NUMERIC_SYSTEM = re.compile(
     re.I,
 )
 FRONTIER_VERBS = re.compile(
-    r"发布|公布|公开|推出|发布于|进入|标记为|版本|支持|展示|报告|宣称|"
+    r"发布|公布|推出|发布于|进入|标记为|支持|展示|报告|宣称|"
     r"released|published|announced|official|supports?|reported|demonstrated|latest|general availability",
     re.I,
 )
@@ -48,9 +51,10 @@ DIRECT_EVIDENCE = re.compile(
     re.I,
 )
 
-SKIP_LINE_PREFIXES = ("#", "```", "|", "- [", "<!--")
+SKIP_LINE_PREFIXES = ("#", "```", "|", "- [", "<!--", ">")
 QUESTION_PREFIXES = ("为什么", "如何", "是否", "什么", "何时", "能否", "哪", "1.", "2.", "3.", "4.", "5.", "6.")
 EXPERIMENT_CONTEXT = re.compile(r"假设|设定|模拟|扫描|注入|例如|例：|实验|比较|取值|sweep", re.I)
+NONFACT_SECTION = re.compile(r"实验|练习|研究问题|research questions?|本章结论|结论", re.I)
 
 
 @dataclass
@@ -74,9 +78,12 @@ def classification(text: str) -> str | None:
     has_frontier_verb = bool(FRONTIER_VERBS.search(stripped))
     has_numeric = bool(NUMERIC_SYSTEM.search(stripped))
 
-    if (has_year or has_version) and (has_frontier_name or has_frontier_verb):
+    # Class A deliberately requires a named contemporary system/organization.
+    # This excludes generic methodological statements such as "in 2025–2026 we
+    # should distinguish demos from independent reproduction".
+    if has_frontier_name and (has_year or has_version) and (has_frontier_verb or has_version):
         return "A"
-    if has_frontier_name and has_numeric and not EXPERIMENT_CONTEXT.search(stripped):
+    if has_frontier_name and has_numeric and has_frontier_verb and not EXPERIMENT_CONTEXT.search(stripped):
         return "A"
     if has_numeric and not EXPERIMENT_CONTEXT.search(stripped):
         return "B"
@@ -87,6 +94,13 @@ def nearby_evidence(lines: list[str], idx: int, radius: int = 3) -> bool:
     lo = max(0, idx - radius)
     hi = min(len(lines), idx + radius + 1)
     return any(DIRECT_EVIDENCE.search(lines[j]) for j in range(lo, hi))
+
+
+def current_h2(lines: list[str], idx: int) -> str:
+    for j in range(idx, -1, -1):
+        if lines[j].startswith("## ") and not lines[j].startswith("### "):
+            return lines[j][3:].strip()
+    return ""
 
 
 def h2_section_evidence(lines: list[str], idx: int) -> bool:
@@ -125,6 +139,8 @@ def main() -> None:
             if stripped.startswith(SKIP_LINE_PREFIXES):
                 continue
             if stripped.startswith(("\\[", "\\]", "$$")):
+                continue
+            if NONFACT_SECTION.search(current_h2(lines, idx)):
                 continue
 
             category = classification(stripped)
