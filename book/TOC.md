@@ -28,6 +28,7 @@
 ## 0.8 什么叫 General-Purpose Robot
 ## 0.9 一套统一分析框架
 ## 思考题
+## Source anchors / 原始来源
 
 # [Part 1　思想史与技术史：从控制论到机器人基础模型](./chapters/01-history-and-lineage.md)
 
@@ -102,6 +103,7 @@
 ## 3.13 Calibration
 ## 3.14 Monte Carlo
 ## 3.15 Uncertainty 必须改变行为
+## Source anchors / 原始来源
 
 # [Part 4　优化、动态系统与最优决策](./chapters/04-optimization-dynamics-decision.md)
 
@@ -120,6 +122,7 @@
 ## 4.13 MPC
 ## 4.14 Pontryagin Minimum Principle
 ## 4.15 Optimal Transport / Flow
+## Source anchors / 原始来源
 
 # [Part 5　几何、流形、图与因果](./chapters/05-geometry-graphs-causality.md)
 
@@ -167,6 +170,7 @@
 ## 6.14 身体是算法的一部分
 ## 实验
 ## 研究问题
+## Source anchors / 原始来源
 
 # [Part 7　空间、旋转与刚体几何](./chapters/07-rigid-body-geometry.md)
 
@@ -189,6 +193,7 @@
 ## 7.16 Convention Failure Checklist
 ## 实验
 ## 研究问题
+## Source anchors / 原始来源
 
 # [Part 8　机器人运动学](./chapters/08-robot-kinematics.md)
 
@@ -245,6 +250,7 @@
 ## 9.22 Learning Dynamics Residual
 ## 实验
 ## 研究问题
+## Source anchors / 原始来源
 
 # [Part 10　反馈控制、最优控制与 Whole-Body Control](./chapters/10-feedback-optimal-whole-body-control.md)
 
@@ -271,6 +277,7 @@
 ## 10.20 多时间尺度
 ## 常见失败
 ## 研究问题
+## Source anchors / 原始来源
 
 # [Part 11　运动规划、任务规划与不确定决策](./chapters/11-motion-task-uncertainty-planning.md)
 
@@ -300,6 +307,7 @@
 ## 11.23 Planner–Policy Hybrid
 ## 11.24 常见失败
 ## 研究问题
+## Source anchors / 原始来源
 
 
 ---
@@ -335,6 +343,7 @@
 ## 12.24 Observation Packet
 ## 常见失败
 ## 研究问题
+## Source anchors / 原始来源
 
 # [Part 13　二维视觉与视觉表示学习](./chapters/13-2d-vision-representation.md)
 
@@ -366,6 +375,7 @@
 ## 13.25 Wrist Camera vs Global Camera
 ## 常见失败
 ## 研究问题
+## Source anchors / 原始来源
 
 # [Part 14　三维、四维与对象中心世界表示](./chapters/14-3d-4d-world-representation.md)
 
@@ -402,6 +412,7 @@
 ## 14.30 怎样评价 3D/4D 表示
 ## 常见失败
 ## 研究问题
+## Source anchors / 原始来源
 
 # [Part 15　状态估计、定位与世界状态](./chapters/15-state-estimation-localization.md)
 
@@ -432,6 +443,7 @@
 ## 15.24 Estimation–Control Coupling
 ## 常见失败
 ## 研究问题
+## Source anchors / 原始来源
 
 # [Part 16　触觉、力觉与接触智能](./chapters/16-tactile-contact-intelligence.md)
 
@@ -496,6 +508,7 @@
 ## 17.27 核心指标
 ## 常见失败
 ## 研究问题
+## Source anchors / 原始来源
 
 
 ---
@@ -536,6 +549,7 @@
 ## 18.29 Closed-Loop Learning Science
 ## 常见失败
 ## 研究问题
+## Source anchors / 原始来源
 
 # [Part 19　模仿学习](./chapters/19-imitation-learning.md)
 
@@ -572,6 +586,7 @@
 ## 19.30 BC 什么时候仍然最合理
 ## 常见失败
 ## 研究问题
+## Source anchors / 原始来源
 
 # [Part 20　强化学习、Offline RL 与交互学习](./chapters/20-reinforcement-offline-online.md)
 
@@ -614,6 +629,7 @@
 ## 20.36 RL 与 Imitation 的统一视角
 ## 常见失败
 ## 研究问题
+## Source anchors / 原始来源
 
 # [Part 21　生成式动作模型与实时策略](./chapters/21-generative-action-real-time.md)
 
@@ -691,6 +707,7 @@
 ## 22.25 From VLM to Robot Foundation Model
 ## 常见失败
 ## 研究问题
+## Source anchors / 原始来源
 
 # [Part 23　VLA 的形成：2022–2024 的关键谱系](./chapters/23-vla-formation-2022-2024.md)
 
@@ -720,6 +737,7 @@
 ## 常见误读
 ## 最小研究练习
 ## 延伸来源
+## Source anchors / 原始来源
 
 # [Part 24　VLA 的第二阶段：2024–2026 的架构分化](./chapters/24-vla-second-stage-2024-2026.md)
 
@@ -768,6 +786,7 @@
 ## 25.15 VLA Failure Taxonomy
 ## 25.16 VLA 是否学到了物理规律
 ## 最小实验：逐层冻结
+## Source anchors / 原始来源
 
 # [Part 26　机器人数据规模化、人类视频与 Cross-Embodiment](./chapters/26-robot-data-human-video-cross-embodiment.md)
 
@@ -792,6 +811,7 @@
 ## 26.19 Scale 与 Emergence
 ## 26.20 什么数据真正提高 Physical Generalization
 ## 最小实验：数据增量价值曲线
+## Source anchors / 原始来源
 
 
 ---
@@ -819,6 +839,7 @@
 ## 27.17 Chain-of-Thought 的证据问题
 ## 27.18 Agentic Orchestration vs End-to-End
 ## 最小实验：Reasoning 是否有因果作用
+## Source anchors / 原始来源
 
 # [Part 28　机器人记忆：从 Context Window 到 Lifelong Memory](./chapters/28-robot-memory-lifelong-context.md)
 
@@ -928,6 +949,7 @@
 ## 32.16 Open-World Household Manipulation
 ## 32.17 Industrial Manipulation
 ## 32.18 Real-World Manipulation Failure Taxonomy
+## Source anchors / 原始来源
 
 # [Part 33　双臂、灵巧手与触觉智能](./chapters/33-bimanual-dexterity-tactile-intelligence.md)
 
@@ -950,6 +972,7 @@
 ## 33.17 Tactile Foundation Model
 ## 33.18 Bimanual / Dexterous VLA
 ## 33.19 灵巧操作离人类水平还差什么
+## Source anchors / 原始来源
 
 # [Part 34　移动机器人、导航与 Embodied Navigation](./chapters/34-mobile-embodied-navigation.md)
 
@@ -969,6 +992,7 @@
 ## 34.14 Home / Office / Warehouse
 ## 34.15 Habitat / BEHAVIOR / OmniGibson
 ## 34.16 Drone / Field Robot / Autonomous Vehicle
+## Source anchors / 原始来源
 
 # [Part 35　Legged Locomotion、Humanoid 与 Whole-Body Intelligence](./chapters/35-humanoid-whole-body-intelligence.md)
 
@@ -1013,6 +1037,7 @@
 ## 36.14 Embodiment-Aware Role Assignment
 ## 36.15 Foundation Model for Multi-Robot Coordination
 ## 36.16 Agentic Multi-Robot Collaboration
+## Source anchors / 原始来源
 
 
 ---
@@ -1036,6 +1061,7 @@
 ## 37.13 新身体的 Calibration / Adaptation
 ## 37.14 “一个 Checkpoint 控不同机器人”意味着什么
 ## 37.15 Cross-Embodiment 的真正上限
+## Source anchors / 原始来源
 
 # [Part 38　Continual、Lifelong 与 Developmental Robot Learning](./chapters/38-continual-lifelong-developmental-learning.md)
 
@@ -1058,6 +1084,7 @@
 ## 38.17 Network Growth / Pruning 的局限
 ## 38.18 不区分“训练/推理”的持续交互系统
 ## 38.19 从 Fixed Model 到 Developing Agent
+## Source anchors / 原始来源
 
 # [Part 39　Self-Evolving Physical Intelligence](./chapters/39-self-evolving-physical-intelligence.md)
 
@@ -1077,6 +1104,7 @@
 ## 39.14 如何区分真正能力生长与数据记忆
 ## 一套可量化的“成长”指标
 ## 最小长期实验
+## Source anchors / 原始来源
 
 
 ---
@@ -1104,6 +1132,7 @@
 ## 40.17 GPU-Accelerated Simulation
 ## 40.18 Determinism 与 Versioning
 ## 40.19 Benchmark Platform 与研究问题错位
+## Source anchors / 原始来源
 
 # [Part 41　Synthetic Data、Domain Randomization 与 Sim-to-Real](./chapters/41-synthetic-data-sim2real.md)
 
@@ -1121,6 +1150,7 @@
 ## 41.12 Neural Asset / Generative Scene
 ## 41.13 Reality Gap 分解
 ## 41.14 哪些能力适合在 Simulation 学
+## Source anchors / 原始来源
 
 # [Part 42　机器人数据工程](./chapters/42-robot-data-engineering.md)
 
@@ -1142,6 +1172,7 @@
 ## 42.16 Distributed Storage
 ## 42.17 Governance / Privacy
 ## 42.18 Robotics Data Flywheel
+## Source anchors / 原始来源
 
 # [Part 43　机器人系统工程与真实部署](./chapters/43-robot-systems-deployment.md)
 
@@ -1167,6 +1198,7 @@
 ## 43.20 Distributed Training
 ## 43.21 Model Serving for Robots
 ## 43.22 一次真实 Rollout 到底发生了什么
+## Source anchors / 原始来源
 
 
 ---
@@ -1230,6 +1262,7 @@
 ## 45.17 从 70% Success 到可部署系统
 ## 45.18 Safety 与 Capability 为什么不能分开
 ## Safety Case
+## Source anchors / 原始来源
 
 
 ---
@@ -1259,6 +1292,7 @@
 ## 46.19 判断视觉表征是否服务物理交互
 ## 46.20 判断 Reasoning 是否只是语言包装
 ## 一页 Research Protocol
+## Source anchors / 原始来源
 
 # [Part 47　Transformer 在具身智能中的作用与边界](./chapters/47-transformer-role-and-limits.md)
 
@@ -1277,6 +1311,7 @@
 ## 47.13 Continuous-Time Architecture
 ## 47.14 Modular / Hierarchical Architecture
 ## 47.15 Transformer 之后真正值得问的问题
+## Source anchors / 原始来源
 
 # [Part 48　数学化具身智能：从相关性到结构与规律](./chapters/48-mathematical-embodied-intelligence.md)
 
@@ -1298,6 +1333,7 @@
 ## 48.16 Physics-Informed / Physics-Constrained Learning
 ## 48.17 从“拟合动作”到“学习规律”
 ## 最小实验：规律还是记忆
+## Source anchors / 原始来源
 
 # [Part 49　开放问题：截至 2026-09 的真正前沿](./chapters/49-open-frontiers-2026-09.md)
 
@@ -1326,6 +1362,7 @@
 ## 49.23 是否需要新的计算范式
 ## 49.24 什么才算“理解了物理世界”
 ## 49.25 距离真正通用智能还有什么
+## Source anchors / 原始来源
 
 # [Part 50　从学习者到独立研究者](./chapters/50-from-learner-to-independent-researcher.md)
 
@@ -1345,6 +1382,7 @@
 ## Stage D：Mechanism Research
 ## Stage E：Independent Program
 ## 全书结束语
+## Source anchors / 原始来源
 
 ---
 
