@@ -99,11 +99,13 @@ Lab 27 已进入 permanent executable CI：one-shot mission binding 只在 episo
 | **31 Reasoning Negative Control** | **✓** | ✓ | ○ | symbolic causal world → VLA benchmark | correct/no-plan/random/fluent-wrong/binding controls |
 | 32 Experience Learning Flywheel | ✓ | ✓ | ✓ | toy → simulator/real | failure mining → correction → regression audit |
 | **33 Continual Learning** | **✓** | ✓ | ○ | 3-D tasks → 2-D shared bottleneck → robot tasks | A→B→C retention/plasticity/replay matrix |
-| 34 Self-Generated Curriculum | ✓ | ✓ | ○ | task-pool toy → simulator | learning-progress vs fixed curricula |
+| **34 Self-Generated Curriculum** | **✓** | ✓ | ○ | competence-frontier task pool → simulator | learning progress × ordering × correct task binding |
 
 Lab 31 已进入 permanent executable CI：同一批 episode 上比较 correct plan、no-plan、random-order、coherent-but-wrong causal model 与 shuffled entity binding；同时分别测 plan 在内部模型与真实世界中的 success、action validity、prerequisite failure 和 plan-budget matching。
 
 Lab 33 已进入 permanent executable CI：固定参数容量下比较 naive fine-tune、correct replay、quadratic anchor 与 shuffled-label replay，并显式记录 performance matrix、probe matrix、forgetting、BWT、plasticity 和 method-specific memory cost。
+
+Lab 34 已进入 permanent executable CI：五种 scheduler 共享 180-step practice budget 与相同 warmup。`uniform` 和 `fixed_curriculum` 具有相同每任务总 practice counts，用于隔离顺序效应；`learning_progress` 和 `shuffled_progress` 保留 progress magnitude、只打乱 task identity，用于隔离正确 progress-to-task binding。CI 同时记录 final competence、learning-curve AUC、selected-task learnability、frontier distance、mastered difficulty 与 allocation counts。
 
 ---
 
@@ -153,7 +155,7 @@ config
 → reproducible output directory
 ```
 
-首个 reference implementation 是 **Lab 22 Asynchronous Policy Execution**；当前 CI-verified reference set 已扩展为 **Lab 13 / 14 / 22 / 25 / 26 / 27 / 29 / 31 / 33 / 37 / 38 / 40**。
+首个 reference implementation 是 **Lab 22 Asynchronous Policy Execution**；当前 CI-verified reference set 已扩展为 **Lab 13 / 14 / 22 / 25 / 26 / 27 / 29 / 31 / 33 / 34 / 37 / 38 / 40**。
 
 ### Phase 2 — Physics adapters
 
