@@ -75,6 +75,10 @@
 ## 2.14 ODE 与 State Dynamics
 ## 2.15 Discretization
 ## 2.16 Conditioning
+## 2.17 从公式到机器人代码的数据流
+## 2.18 常见数值失败
+## 研究问题
+## Source anchors / 原始来源
 ## 必须掌握的结论
 
 # [Part 3　概率、统计、信息与不确定性](./chapters/03-probability-information-uncertainty.md)
@@ -115,19 +119,25 @@
 
 # [Part 5　几何、流形、图与因果](./chapters/05-geometry-graphs-causality.md)
 
+## 学习目标
 ## 5.1 为什么欧氏向量不够
 ## 5.2 Manifold
 ## 5.3 Lie Group
-## 5.4 Lie Algebra
+## 5.4 Lie Algebra 与 Exp / Log
 ## 5.5 Equivariance
-## 5.6 Graph
+## 5.6 Graph：身体和世界天然是关系结构
 ## 5.7 Message Passing
 ## 5.8 Factor Graph
 ## 5.9 Causal Graph
 ## 5.10 Confounding
-## 5.11 Counterfactual
-## 5.12 Identifiability
-## 5.13 几何与因果的结合
+## 5.11 Intervention
+## 5.12 Counterfactual
+## 5.13 Identifiability
+## 5.14 几何与因果的结合
+## 5.15 从 scene 到 action 的结构化数据流
+## 5.16 常见失败
+## 研究问题
+## Source anchors / 原始来源
 
 
 ---
@@ -198,8 +208,11 @@
 ## 8.17 Bimanual Kinematics
 ## 8.18 Whole-Body Kinematics
 ## 8.19 Learning Policy 与 IK 的接口
-## 实验
+## 8.20 一条真实 Cartesian-action 数据流
+## 8.21 IK Failure Taxonomy
+## 8.22 Hierarchical Task Priority
 ## 研究问题
+## Source anchors / 原始来源
 
 # [Part 9　动力学、接触与抓取](./chapters/09-dynamics-contact-grasping.md)
 
