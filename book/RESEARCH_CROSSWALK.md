@@ -59,9 +59,9 @@
 |---|---|---|---|
 | **22 Language / VLM / Physical Grounding** | Lab 23 / 31 | Model Atlas | 语言/VLM 提升的是 task semantics 还是 motor precision？ |
 | **23 VLA 形成：2022–2024** | Lab 23；`action_tokenization.py` | `OPENVLA_SOURCE_WALKTHROUGH.md` | web semantic prior 到 action 的路径在哪里，量化/归一化又丢了什么？ |
-| **24 VLA 第二阶段：2024–2026** | [Runnable Lab 22](../labs/runnable/lab22_async_execution/README.md) / Lab 24 / 26；`chunk_latency.py`、`embodiment_interfaces.py` | SmolVLA / GR00T N1.7 cases | flow expert、RTC、embodiment conditioning 哪一项对 success 有独立因果贡献？ |
+| **24 VLA 第二阶段：2024–2026** | [Runnable Lab 22](../labs/runnable/lab22_async_execution/README.md) / Lab 24 / [Runnable Lab 26](../labs/runnable/lab26_cross_embodiment/README.md)；`chunk_latency.py`、`embodiment_interfaces.py` | [Lab 26 CI Reference](../labs/runnable/lab26_cross_embodiment/REFERENCE_RESULTS.md)、SmolVLA / GR00T N1.7 cases | flow expert、RTC、embodiment conditioning 哪一项对 success 有独立因果贡献？同一 checkpoint 支持已见 robot IDs 是否被误写成 unseen transfer？ |
 | **25 VLA 内部机制** | Lab 23–25 | Action Path Comparison、Source-Code Atlas | 冻结/打乱某一 modality 后行为如何变化？所谓 reasoning/vision 是否被读取？ |
-| **26 Robot Data / Human Video / Cross-Embodiment** | Lab 26；`embodiment_interfaces.py` | Dataset Atlas、cross-matrix | 数据量增加与 coverage dimension 增加如何分开？padding 是否掩盖 action semantics？ |
+| **26 Robot Data / Human Video / Cross-Embodiment** | [Runnable Lab 26](../labs/runnable/lab26_cross_embodiment/README.md)；`embodiment_interfaces.py` | [Lab 26 CI Reference](../labs/runnable/lab26_cross_embodiment/REFERENCE_RESULTS.md)、Dataset Atlas、cross-matrix | interface contract、seen robot mixture、held-out interpolation、held-out extrapolation 与 adaptation budget 是否分开报告？padding / shared shape 是否掩盖 action semantics？ |
 
 ## Volume VI　Reasoning、Memory、Experience 与 World Models
 
@@ -87,7 +87,7 @@
 
 | Part | 可执行 / Lab | 连接资产 | 研究验收问题 |
 |---|---|---|---|
-| **37 Cross-Embodiment Intelligence** | Lab 26；`embodiment_interfaces.py` | GR00T case、Hardware Atlas | 已见 robot mixture 与 unseen morphology transfer 必须怎样分开报告？ |
+| **37 Cross-Embodiment Intelligence** | [Runnable Lab 26](../labs/runnable/lab26_cross_embodiment/README.md)；`embodiment_interfaces.py` | [Lab 26 CI Reference](../labs/runnable/lab26_cross_embodiment/REFERENCE_RESULTS.md)、GR00T case、Hardware Atlas | 已见 robot mixture 与 unseen morphology transfer 是否分开？C interpolation 与 D extrapolation 是否分别报告？新本体的 metadata 与 task adaptation 是否被混为一谈？ |
 | **38 Continual / Lifelong / Developmental Learning** | [Runnable Lab 33](../labs/runnable/lab33_continual_learning/README.md)；`continual_metrics.py` | [Lab 33 CI Reference](../labs/runnable/lab33_continual_learning/REFERENCE_RESULTS.md)、Experiment Protocol | plasticity、retention、transfer、memory 是否同时报告？正确 replay 信息是否因果必要？新能力是否靠不可控参数扩张换来？ |
 | **39 Self-Evolving Physical Intelligence** | [Runnable Lab 33](../labs/runnable/lab33_continual_learning/README.md)；Lab 32–34；Capstone 2 | [Lab 33 CI Reference](../labs/runnable/lab33_continual_learning/REFERENCE_RESULTS.md)、Failure Atlas、Timeline | 系统“自我进化”具体改变参数、结构、记忆还是数据分布？它能否在持续更新时跨越 stability–plasticity，而不是只会覆盖旧能力？怎样证伪？ |
 
