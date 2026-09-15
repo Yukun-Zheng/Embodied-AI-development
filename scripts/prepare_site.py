@@ -171,6 +171,8 @@ def build_nav() -> list[tuple[str, str | list]]:
                         ("Lab 22 · Async Execution", "labs/runnable/lab22_async_execution/README.md"),
                         ("Lab 29 · World Model MPC", "labs/runnable/lab29_world_model_mpc/README.md"),
                         ("Lab 29 · Reference Results", "labs/runnable/lab29_world_model_mpc/REFERENCE_RESULTS.md"),
+                        ("Lab 33 · Continual Learning", "labs/runnable/lab33_continual_learning/README.md"),
+                        ("Lab 33 · Reference Results", "labs/runnable/lab33_continual_learning/REFERENCE_RESULTS.md"),
                     ],
                 ),
                 ("统一实验协议", "labs/EXPERIMENT_PROTOCOL.md"),
