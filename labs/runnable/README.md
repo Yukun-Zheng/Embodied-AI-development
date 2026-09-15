@@ -165,6 +165,24 @@ passive one-step prediction
 
 CI-verified quick reference results 见 [`REFERENCE_RESULTS.md`](lab29_world_model_mpc/REFERENCE_RESULTS.md)。
 
+### [`Lab 31 — Reasoning Negative Control`](lab31_reasoning_negative_control/README.md)
+
+把 embodied reasoning 从“解释文本”改写成可执行因果链：
+
+```text
+world state + goal
+→ causal model
+→ high-level plan
+→ executable operators
+→ prerequisites / entity bindings
+→ real state transitions
+→ task success
+```
+
+比较 `correct_plan / no_plan / random_plan / fluent_wrong_plan / shuffled_binding`。其中 `fluent_wrong_plan` 在自己的错误世界模型里完全自洽，但进入真实 transition 后在 locked episodes 上失败。关键机制问题是：**中间 reasoning trace 的因果模型、顺序与实体绑定是否真正被执行并改变行为，而不只是表面流畅。**
+
+CI-verified quick reference results 见 [`REFERENCE_RESULTS.md`](lab31_reasoning_negative_control/REFERENCE_RESULTS.md)。
+
 ### [`Lab 33 — Continual Learning`](lab33_continual_learning/README.md)
 
 把 stability–plasticity dilemma 放进固定容量 sequential learning：
