@@ -33,7 +33,6 @@ COPY_DIRS = [
     "code",
 ]
 
-# (display title, volume overview file, inclusive first Part, inclusive last Part)
 VOLUME_SPECS = [
     ("Volume 0　导论与技术史", "book/volumes/00-introduction.md", 0, 1),
     ("Volume I　数学与计算语言", "book/volumes/01-mathematics.md", 2, 5),
@@ -68,7 +67,6 @@ def copy_dir(rel: str) -> None:
 
 
 def chapter_catalog() -> dict[int, tuple[str, str]]:
-    """Return {part_number: (H1 title, publication-relative path)}."""
     catalog: dict[int, tuple[str, str]] = {}
     chapter_dir = ROOT / "book" / "chapters"
     for path in sorted(chapter_dir.glob("[0-9][0-9]-*.md")):
@@ -92,7 +90,6 @@ def chapter_catalog() -> dict[int, tuple[str, str]]:
 
 
 def q(value: str) -> str:
-    """JSON string quoting is valid YAML quoting and preserves Chinese safely."""
     return json.dumps(value, ensure_ascii=False)
 
 
@@ -168,6 +165,7 @@ def build_nav() -> list[tuple[str, str | list]]:
         (
             "Research Atlas",
             [
+                ("51-Part Primary Sources", "references/CHAPTER_SOURCE_ANCHORS.md"),
                 ("Source-Code Atlas", "references/SOURCE_CODE_ATLAS.md"),
                 ("Model Atlas", "references/MODEL_ATLAS.md"),
                 ("Dataset Atlas", "references/DATASET_ATLAS.md"),
@@ -211,16 +209,12 @@ def main() -> None:
         shutil.rmtree(OUT)
     OUT.mkdir(parents=True)
 
-    # Root README becomes the web homepage while preserving its relative links
-    # because the rest of the repository structure is mirrored below.
     copy_file("README.md", "index.md")
-
     for rel in COPY_FILES:
         copy_file(rel)
     for rel in COPY_DIRS:
         copy_dir(rel)
 
-    # Publication-only assets.
     copy_file("docs-assets/mathjax.js", "javascripts/mathjax.js")
     copy_file("docs-assets/extra.css", "stylesheets/extra.css")
 
