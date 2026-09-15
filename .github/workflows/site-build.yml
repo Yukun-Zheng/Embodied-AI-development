@@ -71,6 +71,8 @@ jobs:
           test -f .site-build/labs/runnable/lab14_tactile_reflex/index.html
           test -f .site-build/labs/runnable/lab14_tactile_reflex/REFERENCE_RESULTS/index.html
           test -f .site-build/labs/runnable/lab22_async_execution/index.html
+          test -f .site-build/labs/runnable/lab26_cross_embodiment/index.html
+          test -f .site-build/labs/runnable/lab26_cross_embodiment/REFERENCE_RESULTS/index.html
           test -f .site-build/labs/runnable/lab29_world_model_mpc/index.html
           test -f .site-build/labs/runnable/lab29_world_model_mpc/REFERENCE_RESULTS/index.html
           test -f .site-build/labs/runnable/lab31_reasoning_negative_control/index.html
@@ -85,6 +87,7 @@ jobs:
           grep -q 'Lab 13 · Active Perception' .site-mkdocs.yml
           grep -q 'Lab 14 · Tactile Reflex' .site-mkdocs.yml
           grep -q 'Lab 22 · Async Execution' .site-mkdocs.yml
+          grep -q 'Lab 26 · Cross-Embodiment' .site-mkdocs.yml
           grep -q 'Lab 29 · World Model MPC' .site-mkdocs.yml
           grep -q 'Lab 31 · Reasoning Negative Control' .site-mkdocs.yml
           grep -q 'Lab 33 · Continual Learning' .site-mkdocs.yml
