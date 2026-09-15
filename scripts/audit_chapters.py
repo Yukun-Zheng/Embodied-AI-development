@@ -5,8 +5,8 @@ This is a diagnostic, not yet a hard gate. It makes manuscript imbalance visible
 without pretending that raw word count alone measures quality.
 
 Equation coverage counts both Markdown/MathJax display styles used by this book:
-`$$...$$` and `\[...\]`. Source coverage distinguishes direct/authored chapter
-sources from the generated canonical source-map fallback.
+`$$...$$` and `\[...\]`. Failure/experiment/research coverage requires an
+explicit Markdown heading, rather than an incidental keyword in prose.
 """
 
 from __future__ import annotations
@@ -73,14 +73,18 @@ def count_display_equations(text: str) -> int:
     return dollar_blocks + bracket_blocks + begin_equation
 
 
-def source_headings(text: str) -> list[str]:
+def all_headings(text: str) -> list[str]:
+    return [m.group(1).strip().lower() for m in re.finditer(r"(?m)^#{1,6}\s+(.+?)\s*$", text)]
+
+
+def authored_headings(text: str) -> list[str]:
     authored = re.sub(
         rf"{re.escape(SOURCE_START)}.*?{re.escape(SOURCE_END)}",
         "",
         text,
         flags=re.DOTALL,
     )
-    return [m.group(1).strip().lower() for m in re.finditer(r"(?m)^#{1,6}\s+(.+?)\s*$", authored)]
+    return all_headings(authored)
 
 
 def inspect(path: Path) -> Row:
@@ -88,16 +92,21 @@ def inspect(path: Path) -> Row:
     part = int(path.name[:2])
     h1 = next((line[2:].strip() for line in text.splitlines() if line.startswith("# Part ")), path.stem)
     nonspace_chars = len(re.sub(r"\s+", "", text))
+    headings = all_headings(text)
     h2 = len(re.findall(r"(?m)^##\s+", text))
     equations = count_display_equations(text)
     code_blocks = text.count("```") // 2
     urls = len(re.findall(r"https?://", text))
-    lower = text.lower()
-    has_failure = any(key in lower for key in ["常见失败", "failure", "失败模式"])
-    has_experiment = any(key in lower for key in ["最小实验", "minimal experiment", "实验：", "实验设计"])
-    has_research = any(key in lower for key in ["研究问题", "research question", "开放问题"])
-    headings = source_headings(text)
-    has_authored_sources = any(marker in heading for heading in headings for marker in SOURCE_MARKERS)
+
+    has_failure = any(("失败" in h) or ("failure" in h) for h in headings)
+    has_experiment = any(("实验" in h) or ("experiment" in h) for h in headings)
+    has_research = any(
+        ("研究问题" in h) or ("research question" in h) or ("开放问题" in h)
+        for h in headings
+    )
+
+    authored = authored_headings(text)
+    has_authored_sources = any(marker in heading for heading in authored for marker in SOURCE_MARKERS)
     has_generated_source_map = SOURCE_START in text and SOURCE_END in text
     return Row(
         part,
@@ -139,18 +148,18 @@ def main() -> None:
         print(f"Part {r.part:02d}: chars={r.chars}, structure={r.structure_score}/6 — {r.name}")
 
     print("\nLOWEST STRUCTURE COVERAGE")
-    for r in sorted(rows, key=lambda x: (x.structure_score, x.chars))[:15]:
+    for r in sorted(rows, key=lambda x: (x.structure_score, x.chars))[:20]:
         missing = []
         if r.equations == 0:
             missing.append("equation")
         if r.code_blocks == 0:
             missing.append("code/dataflow")
         if not r.has_failure:
-            missing.append("failure")
+            missing.append("failure-section")
         if not r.has_experiment:
-            missing.append("experiment")
+            missing.append("experiment-section")
         if not r.has_research:
-            missing.append("research-question")
+            missing.append("research-question-section")
         if not r.has_source_evidence:
             missing.append("source-evidence")
         print(f"Part {r.part:02d}: {r.structure_score}/6 missing={','.join(missing) or 'none'}")
@@ -162,9 +171,9 @@ def main() -> None:
     print(f"with_authored_sources={sum(r.has_authored_sources for r in rows)}/51")
     print(f"with_generated_source_map={sum(r.has_generated_source_map for r in rows)}/51")
     print(f"with_source_evidence={sum(r.has_source_evidence for r in rows)}/51")
-    print(f"with_failure={sum(r.has_failure for r in rows)}/51")
-    print(f"with_experiment={sum(r.has_experiment for r in rows)}/51")
-    print(f"with_research_question={sum(r.has_research for r in rows)}/51")
+    print(f"with_failure_section={sum(r.has_failure for r in rows)}/51")
+    print(f"with_experiment_section={sum(r.has_experiment for r in rows)}/51")
+    print(f"with_research_question_section={sum(r.has_research for r in rows)}/51")
     print("Audit is diagnostic only; publication thresholds will be set after inspecting this distribution.")
 
 
