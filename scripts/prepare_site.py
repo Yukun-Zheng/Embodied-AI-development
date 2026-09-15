@@ -179,6 +179,8 @@ def build_nav() -> list[tuple[str, str | list]]:
                         ("Lab 31 · Reference Results", "labs/runnable/lab31_reasoning_negative_control/REFERENCE_RESULTS.md"),
                         ("Lab 33 · Continual Learning", "labs/runnable/lab33_continual_learning/README.md"),
                         ("Lab 33 · Reference Results", "labs/runnable/lab33_continual_learning/REFERENCE_RESULTS.md"),
+                        ("Lab 38 · Multi-Robot Collaboration", "labs/runnable/lab38_multi_robot_collaboration/README.md"),
+                        ("Lab 38 · Reference Results", "labs/runnable/lab38_multi_robot_collaboration/REFERENCE_RESULTS.md"),
                         ("Lab 40 · Safety Shield", "labs/runnable/lab40_safety_shield/README.md"),
                         ("Lab 40 · Reference Results", "labs/runnable/lab40_safety_shield/REFERENCE_RESULTS.md"),
                     ],
