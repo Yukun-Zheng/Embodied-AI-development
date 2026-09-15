@@ -78,8 +78,10 @@ Legend: `✓` = recommended execution layer, `○` = useful extension, `—` = n
 | 23 Action-Token VLA | ✓ | ✓ | ○ | tiny VLA → OpenVLA | tokenization/decode error + tensor trace |
 | 24 Continuous Action Expert | ✓ | ✓ | ○ | tiny flow expert → SmolVLA | continuous expert vs token action |
 | 25 VLA Visual Intervention | ○ | ✓ | ✓ | RoboTwin / LIBERO / real arm | causal visual intervention matrix |
-| 26 Cross-Embodiment | ✓ | ✓ | ○ | toy morphology → two robot sims | action-interface / morphology conditioning |
+| **26 Cross-Embodiment** | **✓** | ✓ | ○ | 1-D physical mechanism → two+ robot sims | interface semantics × seen lookup × held-out morphology conditioning |
 | 27 Long-Horizon VLA + Memory | ✓ | ✓ | ○ | toy memory env → household sim | correct/shuffled/no-memory controls |
+
+Lab 26 已进入 permanent executable CI：同一 shared canonical policy 在 A/B seen bodies 与 C/D held-out bodies 上执行；分别控制 raw interface、canonical state/action semantics、seen robot-ID lookup、continuous morphology descriptor、wrong morphology tag 与 wrong action semantics，并强制 `adaptation_steps=0` 报告 held-out interpolation / extrapolation。
 
 ---
 
@@ -141,15 +143,15 @@ config
 → reproducible output directory
 ```
 
-首个 reference implementation 是 **Lab 22 Asynchronous Policy Execution**；当前 CI-verified reference set 已扩展为 **Lab 13 / 14 / 22 / 29 / 31 / 33**。
+首个 reference implementation 是 **Lab 22 Asynchronous Policy Execution**；当前 CI-verified reference set 已扩展为 **Lab 13 / 14 / 22 / 26 / 29 / 31 / 33**。
 
 ### Phase 2 — Physics adapters
 
 优先增加：
 
 1. MuJoCo adapter：Lab 04/05/06/18；
-2. RoboTwin adapter：Lab 17/22/25/37 + Capstone 1；
-3. Isaac Lab adapter：Lab 18/35/36 + Capstone 2。
+2. RoboTwin adapter：Lab 17/22/25/26/37 + Capstone 1；
+3. Isaac Lab adapter：Lab 18/26/35/36 + Capstone 2。
 
 Hosted CI 只做 adapter import / config / dry-run，真正 GPU simulator rollout 在研究机器上执行。
 
