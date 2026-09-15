@@ -175,34 +175,51 @@ def simulate_condition(
             index=start_index,
         )
 
+    def request_chunk(request_time: float) -> PendingChunk:
+        return PendingChunk(
+            observation_time=request_time,
+            ready_time=request_time + latency_s,
+            chunk=generate_chunk(q, v, request_time, cfg),
+        )
+
     n_steps = int(round(duration / dt))
     for step in range(n_steps):
         t = step * dt
 
-        # Deliver an asynchronous inference result before selecting this control.
+        # Deliver an inference result before selecting this control.
         if pending is not None and pending.ready_time <= t + 1e-12:
             active = activate_ready_chunk(t, pending)
             pending = None
 
-        # Request policy inference at its own rate. Only one request may be in
-        # flight; skipped requests are a measurable system-level consequence.
-        if t + 1e-12 >= next_request_time:
-            while t + 1e-12 >= next_request_time:
-                request_time = next_request_time
-                next_request_time += policy_period
-                if pending is not None:
-                    missed_requests += 1
-                    continue
-                chunk = generate_chunk(q, v, request_time, cfg)
-                candidate = PendingChunk(
-                    observation_time=request_time,
-                    ready_time=request_time + latency_s,
-                    chunk=chunk,
-                )
+        if mode == "sync_hold":
+            # A synchronous control loop cannot launch a new blocking inference at
+            # the exact instant the previous result arrives and then claim it had
+            # time to execute that result. Its cadence is therefore completion-
+            # relative: infer -> execute for one policy period -> infer again.
+            if pending is None and t + 1e-12 >= next_request_time:
+                request_time = t
+                candidate = request_chunk(request_time)
+                next_request_time = candidate.ready_time + policy_period
                 if candidate.ready_time <= t + 1e-12:
                     active = activate_ready_chunk(t, candidate)
                 else:
                     pending = candidate
+        else:
+            # Asynchronous executors use a fixed wall-clock request cadence. Only
+            # one inference may be in flight; requests arriving while one is
+            # pending are counted as missed deadlines rather than silently merged.
+            if t + 1e-12 >= next_request_time:
+                while t + 1e-12 >= next_request_time:
+                    request_time = next_request_time
+                    next_request_time += policy_period
+                    if pending is not None:
+                        missed_requests += 1
+                        continue
+                    candidate = request_chunk(request_time)
+                    if candidate.ready_time <= t + 1e-12:
+                        active = activate_ready_chunk(t, candidate)
+                    else:
+                        pending = candidate
 
         use_chunk = active is not None and active.index < len(active.chunk)
         if mode == "sync_hold" and pending is not None:
