@@ -41,3 +41,4 @@ jobs:
           python labs/runnable/lab26_cross_embodiment/smoke.py
           python labs/runnable/lab31_reasoning_negative_control/smoke.py
           python labs/runnable/lab33_continual_learning/smoke.py
+          python labs/runnable/lab40_safety_shield/smoke.py
