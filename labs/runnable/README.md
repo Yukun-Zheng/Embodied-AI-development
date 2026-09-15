@@ -164,6 +164,23 @@ raw robot interface semantics
 
 CI-verified quick reference results 见 [`REFERENCE_RESULTS.md`](lab26_cross_embodiment/REFERENCE_RESULTS.md)。
 
+### [`Lab 27 — Long-Horizon Memory`](lab27_long_horizon_memory/README.md)
+
+把“memory”从长 context 和 persistent storage 中拆出来：
+
+```text
+one-shot mission binding
+→ 4 / 10 / 16 distractor subtasks
+→ bounded recent context or persistent state
+→ object / gate / bin memory queries
+→ physical task success
+→ storage / retrieval cost
+```
+
+比较 `no_memory / frame_context / episodic_log / semantic_memory / shuffled_memory / unrelated_memory`。关键机制问题是：**当 task-relevant cue 真正离开 recent context 后，正确 persistent state 是否因果必要；同容量但错误/无关的 memory 是否仍然失败；episodic trace 与 task-sufficient semantic state 的代价如何不同。**
+
+CI-verified quick reference results 见 [`REFERENCE_RESULTS.md`](lab27_long_horizon_memory/REFERENCE_RESULTS.md)。
+
 ### [`Lab 29 — World Model MPC`](lab29_world_model_mpc/README.md)
 
 把 world model 拆成：
