@@ -234,6 +234,25 @@ CI-verified quick reference results 见 [`REFERENCE_RESULTS.md`](lab31_reasoning
 
 CI-verified quick reference results 见 [`REFERENCE_RESULTS.md`](lab33_continual_learning/REFERENCE_RESULTS.md)。
 
+### [`Lab 38 — Multi-Robot Collaboration`](lab38_multi_robot_collaboration/README.md)
+
+把“多机器人协作”拆成异构能力、通信 freshness 与故障恢复三条可独立攻击的机制链：
+
+```text
+heterogeneous capabilities
+→ task ownership / allocation
+→ heartbeat freshness
+→ duplicate / stale / mismatched assignment
+→ real work progress
+→ agent failure
+→ interrupted-work reallocation
+→ system completion
+```
+
+比较 `independent_no_comm / coordinated_fresh / coordinated_delayed / coordinated_dropout / shuffled_capability_map`，并单独比较 `failure_no_reallocation / failure_reallocation`。关键机制问题是：**协作收益是否来自正确 capability-aware allocation；状态消息变 stale/drop 后会先损失时间还是直接损失完成率；检测到机器人故障后是否真的释放并恢复中断工作。**
+
+CI-verified quick reference results 见 [`REFERENCE_RESULTS.md`](lab38_multi_robot_collaboration/REFERENCE_RESULTS.md)。
+
 ### [`Lab 40 — Watchdog / Safety Shield`](lab40_safety_shield/README.md)
 
 把 safety layer 从“规则是否触发”改写成闭环物理机制：
