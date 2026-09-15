@@ -1,9 +1,10 @@
 {
   "seed": 41,
+  "input_dim": 3,
   "tasks": [
-    {"name": "A", "angle_deg": 0.0},
-    {"name": "B", "angle_deg": 60.0},
-    {"name": "C", "angle_deg": 120.0}
+    {"name": "A", "direction": [1.0, 0.0, 0.0]},
+    {"name": "B", "direction": [0.0, 1.0, 0.0]},
+    {"name": "C", "direction": [0.0, 0.0, 1.0]}
   ],
   "train_samples_per_task": 1000,
   "test_samples_per_task": 3000,
