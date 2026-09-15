@@ -1,0 +1,29 @@
+{
+  "seed": 25,
+  "episodes": 160,
+  "instruction": "reach the task target",
+  "target_bin_centers": [-0.8, -0.4, 0.0, 0.4, 0.8],
+  "target_jitter_abs": 0.02,
+  "success_tolerance": 0.06,
+  "target_position_delta": 0.25,
+  "camera_yaw_rad": 0.2,
+  "distractor_offset": 0.3,
+  "distractor_intervention_delta": 0.25,
+  "appearance_swap_bins": 1,
+  "geometry_shuffle_bins": 2,
+  "policies": [
+    "geometry_causal",
+    "appearance_shortcut",
+    "camera_unaware",
+    "distractor_shortcut"
+  ],
+  "interventions": [
+    "base",
+    "target_position",
+    "texture_swap",
+    "background_swap",
+    "camera_angle",
+    "distractor_move",
+    "geometry_shuffle"
+  ]
+}
