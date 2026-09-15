@@ -6,7 +6,7 @@
 > **v1.0 complete first-edition manuscript**  
 > **Part 0–50 · 51 independent chapters · 12 volumes · frontier snapshot: 2026-09-14**
 
-[![Minimal textbook code regression](https://github.com/Yukun-Zheng/Embodied-AI-development/actions/workflows/minimal-code-regression.yml/badge.svg)](https://github.com/Yukun-Zheng/Embodied-AI-development/actions/workflows/minimal-code-regression.yml)
+[![Executable textbook regression](https://github.com/Yukun-Zheng/Embodied-AI-development/actions/workflows/minimal-code-regression.yml/badge.svg)](https://github.com/Yukun-Zheng/Embodied-AI-development/actions/workflows/minimal-code-regression.yml)
 [![Textbook QA](https://github.com/Yukun-Zheng/Embodied-AI-development/actions/workflows/book-qa.yml/badge.svg)](https://github.com/Yukun-Zheng/Embodied-AI-development/actions/workflows/book-qa.yml)
 [![Website Build](https://github.com/Yukun-Zheng/Embodied-AI-development/actions/workflows/site-build.yml/badge.svg)](https://github.com/Yukun-Zheng/Embodied-AI-development/actions/workflows/site-build.yml)
 
@@ -37,6 +37,8 @@
 - **[18 张 canonical 核心机制图](figures/CORE_DIAGRAMS.md)** — 统一物理对象、数据流与时间尺度的视觉语言
 - **[最小可执行代码](code/minimal/README.md)** — SE(3)、IK、控制、Kalman、DAgger、Diffusion/Flow、World Model+MPC 等
 - **[40 Labs + 3 Capstones](labs/LABS.md)**
+- **[Lab Execution Matrix](labs/EXECUTION_MATRIX.md)** — CPU mechanism / simulator / real-robot 三层执行规划
+- **[Runnable Labs](labs/runnable/README.md)** — 已进入永久 CI 的机制实验；当前覆盖 Active Perception、Async Execution、World Model MPC
 - **[统一实验协议](labs/EXPERIMENT_PROTOCOL.md)** — hypothesis、controls、seeds、raw logs、failure taxonomy、real-robot protocol
 
 ### 源码级学习
@@ -228,6 +230,19 @@ Jacobian / SE(3)
 → Falsifiable New Architecture
 ```
 
+其中 [`labs/runnable/`](labs/runnable/) 把选定 Lab 落成统一 executable contract。当前 3 个 reference labs 已进入永久 CI：
+
+```text
+Lab 13 Active Perception
+→ uncertainty → view action → task utility
+
+Lab 22 Asynchronous Policy Execution
+→ latency → action age → closed-loop tracking
+
+Lab 29 World Model MPC
+→ passive prediction → counterfactual → horizon bias → control utility
+```
+
 统一要求 raw logs、config、seed、failure cases、negative controls、confidence interval 和 reproducible figures。模型结果必须展开成：
 
 \[
@@ -258,9 +273,9 @@ MathJax formulas + Mermaid diagrams + searchable navigation
 
 当前自动回归覆盖三层：
 
-- **Minimal code regression** — 最小数学/机器人代码；
+- **Executable textbook regression** — 13 个 minimal examples + runnable Lab 的 deterministic mechanism smoke tests；
 - **Textbook QA** — Part 0–50 连续性、TOC、关键资产、本地链接、51/51 Chapter 的 6/6 publication baseline，以及 Class-A local primary-evidence gate；
-- **Website Build** — publication staging、MathJax/Mermaid 构建、Part 0/24/50 与关键源码案例 smoke test。
+- **Website Build** — publication staging、MathJax/Mermaid 构建、关键正文/源码/Research Atlas/Runnable Labs 页面 smoke test。
 
 ---
 
@@ -296,6 +311,7 @@ Embodied-AI-development/
 │   ├── CONCEPT_INDEX.md
 │   ├── DEPENDENCY_GRAPH.md
 │   ├── RESEARCH_CROSSWALK.md
+│   ├── MAINTENANCE.md
 │   ├── NOTATION_AND_CONVENTIONS.md
 │   ├── DERIVATIONS.md
 │   ├── EXERCISES.md
@@ -307,11 +323,14 @@ Embodied-AI-development/
 ├── figures/
 │   └── CORE_DIAGRAMS.md
 ├── code/
-│   └── minimal/
+│   └── minimal/                # 13 CPU minimal examples
 ├── case-studies/               # 7 canonical source/mechanism deep dives
 ├── labs/
-│   ├── LABS.md
-│   └── EXPERIMENT_PROTOCOL.md
+│   ├── README.md
+│   ├── LABS.md                 # 40 Labs + 3 Capstones
+│   ├── EXECUTION_MATRIX.md     # CPU / simulator / real-robot layering
+│   ├── EXPERIMENT_PROTOCOL.md
+│   └── runnable/               # CI-verified reference mechanism labs
 ├── references/
 │   ├── CHAPTER_SOURCE_ANCHORS.md
 │   ├── SOURCE_CODE_ATLAS.md
@@ -325,8 +344,8 @@ Embodied-AI-development/
 │   ├── READING_MAP.md
 │   ├── REFERENCES.md
 │   └── BIBLIOGRAPHY.bib
-├── scripts/                     # TOC / QA / publication generators
-└── .github/workflows/           # code / book / website regressions
+├── scripts/                     # TOC / QA / publication / audit tools
+└── .github/workflows/           # 5 permanent workflows
 ```
 
 ---
@@ -338,21 +357,21 @@ Embodied-AI-development/
 - **204** 道章末题 + solution sketches；
 - **30** 组核心长推导；
 - **18** 张 canonical 核心机制图；
-- **13** 个最小可执行脚本 + 一键 regression；
+- **13** 个最小可执行脚本 + **3** 个 CI-verified runnable reference labs；
 - **7** 篇 canonical 深度 Case Study + **1** 份 Action Path Comparison；
 - Source-Code Atlas：ACT / Diffusion Policy / OpenVLA / LeRobot / GR00T N1.7 / V-JEPA 2/2.1；
-- **40 Labs + 3 Capstones** + 统一实验协议；
+- **40 Labs + 3 Capstones** + Execution Matrix + 统一实验协议；
 - **36 周**系统课程；
-- Notation / Concept Index / Dependency Graph；
+- Notation / Concept Index / Dependency Graph / Research Crosswalk；
 - Model / Dataset / Hardware / Benchmark / Failure Atlas + cross-matrix；
 - References / Reading Map / BibTeX / 1948–2026 Timeline；
 - chapter-driven TOC + chapter-driven website navigation；
-- minimal-code / textbook-QA / website-build 三层 CI；
+- executable-textbook / textbook-QA / website-build 三层主 CI；
 - **51/51 Chapter 结构基线 6/6**：equation + dataflow/code + failure + experiment + research questions + source evidence；
 - **Class-A 前沿/历史事实：100% local primary evidence（CI hard gate）**；Class B 工程量化示例保持 advisory；
 - 统一前沿时间截面：**2026-09-14**。
 
-v1.x 将继续重点推进：**simulator-level executable labs、真实/仿真实验结果回填、更多源码级解剖、跨章交叉引用、citation provenance 与出版编辑**。
+v1.x 将继续重点推进：**把更多机制 Lab 升级为 runnable / simulator-level experiments、真实/仿真实验结果回填、更多源码级解剖、跨章交叉引用、citation provenance 与出版编辑**。
 
 ---
 
