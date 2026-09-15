@@ -1,0 +1,22 @@
+{
+  "seed": 27027,
+  "conditions": [
+    "no_memory",
+    "frame_context",
+    "episodic_log",
+    "semantic_memory",
+    "shuffled_memory",
+    "unrelated_memory"
+  ],
+  "distractor_horizons": [4, 10, 16],
+  "episodes_per_horizon": 128,
+  "quick_episodes_per_horizon": 64,
+  "frame_context_window": 8,
+  "decision_fields": [
+    "target_object",
+    "access_gate",
+    "destination_bin"
+  ],
+  "distractor_station_count": 12,
+  "distractor_token_count": 32
+}
