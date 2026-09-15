@@ -111,10 +111,12 @@ Lab 33 已进入 permanent executable CI：固定参数容量下比较 naive fin
 |---|:---:|:---:|:---:|---|---|
 | 35 Humanoid Retargeting | ○ | ✓ | ○ | Isaac Lab / MuJoCo | tracking + contact + balance feasibility |
 | 36 Whole-Body Loco-Manipulation | — | ✓ | ○ | Isaac Lab | hierarchical vs unified whole-body |
-| 37 Bimanual Coordination | ✓ | ✓ | ✓ | toy relative frame → RoboTwin | independent vs relative/coordinated policy |
+| **37 Bimanual Coordination** | **✓** | ✓ | ✓ | compliant shared object → RoboTwin | midpoint × relative separation × internal-load controls |
 | **38 Multi-Robot Collaboration** | **✓** | ✓ | ○ | heterogeneous work system → multi-robot sim | capability allocation × heartbeat freshness × failure reallocation |
 | 39 ROS 2 Multi-Rate Deployment | ○ | ✓ | ✓ | ROS 2 + fake hardware → real | P50/P95/P99 latency + action age |
 | **40 Watchdog / Safety Shield** | **✓** | ✓ | ✓ | closed-loop fake system → simulator/real | timeout/stale/unsafe/human-proximity gates + braking outcome |
+
+Lab 37 已进入 permanent executable CI：在同一 paired actuator-gain / unilateral-disturbance episodes 上比较 independent world-frame endpoint control、midpoint-only common mode、midpoint+relative coordinated control 与 wrong-relative-sign negative control。CI 同时检查 object-center tracking、relative separation、transient shared-object strain、internal force、final feasibility 与 effort budget；其中 midpoint-only 明确构造“center RMSE 更好但 bimanual success 更差”的反例。
 
 Lab 38 已进入 permanent executable CI：在同一组异构 precision/haul jobs 上比较 no-communication、fresh coordination、2-step delayed heartbeats、75% heartbeat dropout 与 shuffled capability metadata；另用同一失败时间/同一 interrupted job 比较 detected-failure 后是否 release/reallocate 中断工作。CI 同时记录 completion、makespan、duplicate claims、blocked/stale-idle steps、status age、capability mismatch、communication ratio/bytes 与 recovery latency。
 
@@ -149,7 +151,7 @@ config
 → reproducible output directory
 ```
 
-首个 reference implementation 是 **Lab 22 Asynchronous Policy Execution**；当前 CI-verified reference set 已扩展为 **Lab 13 / 14 / 22 / 26 / 27 / 29 / 31 / 33 / 38 / 40**。
+首个 reference implementation 是 **Lab 22 Asynchronous Policy Execution**；当前 CI-verified reference set 已扩展为 **Lab 13 / 14 / 22 / 26 / 27 / 29 / 31 / 33 / 37 / 38 / 40**。
 
 ### Phase 2 — Physics adapters
 
