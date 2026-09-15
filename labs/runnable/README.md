@@ -112,6 +112,26 @@ occlusion
 
 比较 `fixed_center / random_view / info_gain / info_gain_shuffled_geometry`。关键机制问题是：**主动减少 uncertainty 是否真的提高任务判断，而且正确的 view geometry 是否因果必要。**
 
+CI-verified quick reference results 见 [`REFERENCE_RESULTS.md`](lab13_active_perception/REFERENCE_RESULTS.md)。
+
+### [`Lab 14 — Force / Tactile Reflex`](lab14_tactile_reflex/README.md)
+
+把接触恢复问题显式写成多速率闭环：
+
+```text
+transient friction loss
+→ tactile timestamp / delay
+→ slip detection
+→ fast residual or slow policy
+→ gripper actuator response
+→ slip displacement
+→ object retention
+```
+
+比较 `slow_policy_only / fast_tactile_reflex / delayed_tactile_reflex`。关键机制问题是：**高频 feedback 的收益是否来自及时信息进入闭环，而不只是 correction function 被高频调用。**
+
+CI-verified quick reference results 见 [`REFERENCE_RESULTS.md`](lab14_tactile_reflex/REFERENCE_RESULTS.md)。
+
 ### [`Lab 22 — Asynchronous Policy Execution`](lab22_async_execution/README.md)
 
 在 double-integrator 闭环中显式模拟：
